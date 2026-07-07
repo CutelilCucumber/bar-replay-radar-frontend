@@ -14,6 +14,7 @@ const badgeMeta = {
 };
 
 export default function MatchCard({ m, analysis }) {
+    console.log("MatchCard", m, analysis);
   const players = m.Players ?? [];
   const byAlly = new Map();
   for (const p of players) {
@@ -24,7 +25,7 @@ export default function MatchCard({ m, analysis }) {
   const allyTeams = m.AllyTeams ?? [];
 
   return (
-    <div className="card" key={m.ID}>
+    <div className="card">
       <div className="card-top">
         <div className="score" style={{ "--s": analysis ? analysis.score : 0 }}>
           <span>{analysis ? analysis.score : "—"}</span>

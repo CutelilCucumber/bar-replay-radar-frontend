@@ -11,8 +11,6 @@ import analyzeMatch from "./utils/AnalyzeMatch.jsx";
 const API = "https://gex.honu.pw/api";
 const FRAME_RATE = 30; // BAR/Recoil sim frames per second
 
-
-
 async function getJson(url) {
   const res = await fetch(url);
   if (!res.ok) throw new Error(`${res.status} ${res.statusText}`);
@@ -25,7 +23,7 @@ async function getJson(url) {
 export default function App() {
   const [gamemode, setGamemode] = useState("");
   const [minDuration, setMinDuration] = useState(10);
-  const [minPlayers, setMinPlayers] = useState(2);
+  const [minPlayers, setMinPlayers] = useState(1);
   const [scanDepth, setScanDepth] = useState(60);
   const [running, setRunning] = useState(false);
   const [progress, setProgress] = useState({ done: 0, total: 0 });
@@ -64,7 +62,7 @@ export default function App() {
           const m = matches[i];
           try {
             let analysis = null;
-            const cacheKey = `bar-spectate-score:${m.ID}`;
+            const cacheKey = `bar-spectate-score:${m.id}`;
             let cached = null;
             try {
               const stored = await window.storage.get(cacheKey, true);
@@ -75,7 +73,7 @@ export default function App() {
               analysis = cached;
             } else {
               const events = await getJson(
-                `${API}/game-event/${m.ID}?includeTeamStats=true`
+                `${API}/game-event/${m.id}?includeTeamStats=true`
               );
               analysis = analyzeMatch(m, events.TeamStats ?? []);
               try {
@@ -133,6 +131,7 @@ export default function App() {
         <div className="field">
           <label>Matches to scan</label>
           <select value={scanDepth} onChange={(e) => setScanDepth(+e.target.value)}>
+            <option value={10}>10</option>
             <option value={30}>30</option>
             <option value={60}>60</option>
             <option value={100}>100</option>
@@ -157,7 +156,7 @@ export default function App() {
 
       <div className="grid">
         {results.map(({ m, analysis }) => (
-          <MatchCard key={m.ID} m={m} analysis={analysis} />
+          <MatchCard key={m.id} m={m} analysis={analysis} />
         ))}
       </div>
     </div>

@@ -1,6 +1,7 @@
 import { frameToClock } from "./FmtClock.jsx";
 
 export default function analyzeMatch(match, teamStats) {
+    console.log("Analyzing: ", match, teamStats);
   const teamToAlly = new Map();
   const skillByAlly = new Map();
   for (const p of match.Players ?? []) {

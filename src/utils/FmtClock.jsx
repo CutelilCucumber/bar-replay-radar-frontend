@@ -7,5 +7,3 @@ export function fmtClock(ms) {
  export function frameToClock(frame) {
   return fmtClock((frame / FRAME_RATE) * 1000);
 }
-
-module.exports = { fmtClock, frameToClock };
