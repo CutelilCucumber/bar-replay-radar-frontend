@@ -1,6 +1,7 @@
 import { buildSeries } from "./buildSeries.js";
 import { FRAMES_PER_SECOND, CUMULATIVE } from "./globalVars.js";
 /**
+ * https://gex.honu.pw/api-doc/index.html
  * Token bucket matching gex's stated policy: starts with 300 requests,
  * refills 60/min (1/sec) up to 300.
  */
@@ -110,7 +111,7 @@ function bucketFrameStatsToSeries(teamStats, players, allyTeams, durationMin) {
 }
 
 export async function fetchLiveMatches(baseUrl, filters, setProgress) {
-  const { limit, gamemode, minDurationMinutes, minPlayers } = filters;
+  const { limit, gamemode, minDurationMinutes, minPlayers, minimumAverageOS } = filters;
 
   const params = new URLSearchParams({
     limit: String(limit),
@@ -120,6 +121,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
     processingAction: "true", // TeamStats only exist once the action log is parsed
   });
   if (gamemode) params.set("gamemode", String(gamemode));
+  if (minimumAverageOS) params.set("minimumAverageOS", String(minimumAverageOS));
   if (minDurationMinutes)
     params.set("durationMinimum", String(minDurationMinutes * 60 * 1000));
   if (minPlayers) params.set("playerCountMinimum", String(minPlayers));

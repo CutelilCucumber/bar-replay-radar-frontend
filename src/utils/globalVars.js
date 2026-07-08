@@ -35,6 +35,9 @@ export const FONT_IMPORT =
 
 export const CUMULATIVE = true;
 export const FRAMES_PER_SECOND = 30;
+export const GAMEMODES = {
+  0: "Unknown", 1: "Duel", 2: "Small Team", 3: "Large Team", 4: "FFA", 5: "Team FFA",
+};
 
 export const DEMO_MATCHES = [
   {

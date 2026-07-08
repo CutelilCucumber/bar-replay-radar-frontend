@@ -1,5 +1,5 @@
 import { ChevronDown, ChevronRight } from "lucide-react";
-import { MILESTONES, COLORS } from "../utils/globalVars";
+import { MILESTONES, COLORS, GAMEMODES } from "../utils/globalVars";
 import { ScoreDial, Badge, MiniSparkline, MatchDetail } from "./index";
 
 export function MatchCard({ match, analysis, expanded, onToggle }) {
@@ -54,7 +54,7 @@ export function MatchCard({ match, analysis, expanded, onToggle }) {
                 color: COLORS.muted,
               }}
             >
-              {match.gamemode} · {match.durationMin}m · {match.playerCount}p
+              {GAMEMODES[match.gamemode]} · {match.durationMin}m · {match.playerCount}p
             </span>
           </div>
           <div

@@ -48,8 +48,9 @@ export default function App() {
   const [loadParams, setLoadParams] = useState({
     limit: 20,
     gamemode: null,
-    minDurationMinutes: null,
+    minDurationMinutes: 5,
     minPlayers: null,
+    minimumAverageOS: null,
   });
   const [matches, setMatches] = useState(DEMO_MATCHES);
   const [loading, setLoading] = useState(false);
@@ -231,11 +232,13 @@ export default function App() {
             }}
           >
             <Settings2 size={15} color={COLORS.muted} />
-            {/* <input
-              value={baseUrl}
-              onChange={(e) => setBaseUrl(e.target.value)}
-              placeholder="gex instance base URL"
+            <label>Gamemode:
+              <select value={loadParams.gamemode} 
+              onChange={(e) =>
+                setLoadParams({ ...loadParams, gamemode: Number(e.target.value) })
+              }
               style={{
+                width: 70,
                 background: COLORS.panel,
                 border: `1px solid ${COLORS.line}`,
                 borderRadius: 6,
@@ -243,11 +246,56 @@ export default function App() {
                 color: COLORS.ink,
                 fontSize: 12.5,
                 fontFamily: "'JetBrains Mono', monospace",
-                flex: "1 1 220px",
-                minWidth: 180,
+              }}>
+            <option value="">Any</option>
+            <option value="1">Duel</option>
+            <option value="2">Small Team</option>
+            <option value="3">Large Team</option>
+            <option value="4">FFA</option>
+            <option value="5">Team FFA</option>
+          </select>
+            </label>
+            <label>Duration (minutes):
+              <input
+              type="number"
+              min={5}
+              value={loadParams.minDurationMinutes}
+              onChange={(e) =>
+                setLoadParams({ ...loadParams, minDurationMinutes: Number(e.target.value) })
+              }
+              style={{
+                width: 70,
+                background: COLORS.panel,
+                border: `1px solid ${COLORS.line}`,
+                borderRadius: 6,
+                padding: "7px 10px",
+                color: COLORS.ink,
+                fontSize: 12.5,
+                fontFamily: "'JetBrains Mono', monospace",
               }}
-            /> */}
-            <input
+            />
+            </label>
+            <label>Min-avg OS:
+              <input
+              type="number"
+              value={loadParams.minimumAverageOS}
+              onChange={(e) =>
+                setLoadParams({ ...loadParams, minimumAverageOS: Number(e.target.value) })
+              }
+              style={{
+                width: 70,
+                background: COLORS.panel,
+                border: `1px solid ${COLORS.line}`,
+                borderRadius: 6,
+                padding: "7px 10px",
+                color: COLORS.ink,
+                fontSize: 12.5,
+                fontFamily: "'JetBrains Mono', monospace",
+              }}
+            />
+            </label>
+            <label>Scan Limit:
+              <input
               type="number"
               min={5}
               max={100}
@@ -266,6 +314,7 @@ export default function App() {
                 fontFamily: "'JetBrains Mono', monospace",
               }}
             />
+            </label>
             <button
               onClick={runLiveSearch}
               disabled={loading}
