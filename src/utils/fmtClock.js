@@ -1,3 +1,5 @@
+  const FRAME_RATE = 30; // BAR/Recoil sim frames per second
+
 export function fmtClock(ms) {
   const s = Math.floor(ms / 1000);
   const m = Math.floor(s / 60);

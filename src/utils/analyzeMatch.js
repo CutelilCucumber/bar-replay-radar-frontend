@@ -1,6 +1,8 @@
 import { frameToClock } from "./fmtClock.js";
 
 export default function analyzeMatch(match, teamStats) {
+  
+  const FRAME_RATE = 30; // BAR/Recoil sim frames per second
 
   // build lookup table
   const teamToAlly = new Map();
@@ -44,7 +46,6 @@ export default function analyzeMatch(match, teamStats) {
   }
 
   const frames = [...byFrame.keys()].sort((a, b) => a - b);
-  console.log("frames: ", frames);
   // exclude very short games
   if (frames.length < 3) {
     console.log("game too short, skipping scoring");

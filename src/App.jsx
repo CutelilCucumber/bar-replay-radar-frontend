@@ -53,23 +53,36 @@ export default function App() {
             try {
               const stored = await window.storage.get(cacheKey, true);
               cached = stored ? JSON.parse(stored.value) : null;
-            } catch { /* no cache entry yet */ }
+            } catch {
+              /* no cache entry yet */
+            }
 
             if (cached) {
-              console.log("pulling from cache")
+              console.log("pulling from cache");
               analysis = cached;
             } else {
-              console.log("fetching from API")
+              console.log("fetching from API");
               const events = await getJson(
-                `${API}/game-event/${m.id}?includeTeamStats=true`
+                `${API}/game-event/${m.id}?includeTeamStats=true`,
               );
               console.log("match: ", m);
               console.log("events: ", events);
-              analysis = analyzeMatch(m, events.teamStats ?? []);
+              try {
+                analysis = analyzeMatch(m, events.teamStats ?? []);
+              } catch (e) {
+                console.error("analyzeMatch failed: ", e);
+                analysis = null;
+              }
               console.log("analysis: ", analysis);
               try {
-                await window.storage.set(cacheKey, JSON.stringify(analysis), true);
-              } catch { /* best effort cache */ }
+                await window.storage.set(
+                  cacheKey,
+                  JSON.stringify(analysis),
+                  true,
+                );
+              } catch {
+                /* best effort cache */
+              }
             }
             scored.push({ m, analysis });
           } catch (e) {
@@ -81,7 +94,9 @@ export default function App() {
 
       await Promise.all(Array.from({ length: CONCURRENCY }, worker));
 
-      scored.sort((a, b) => (b.analysis?.score ?? -1) - (a.analysis?.score ?? -1));
+      scored.sort(
+        (a, b) => (b.analysis?.score ?? -1) - (a.analysis?.score ?? -1),
+      );
       setResults(scored);
     } catch (e) {
       setError(String(e.message || e));
@@ -92,17 +107,21 @@ export default function App() {
 
   return (
     <div className="wrap">
-
       <div className="hdr">
         <h1>▲ Spectator Finder</h1>
-        <span className="sub">live scan of gex.honu.pw · Beyond All Reason replay data</span>
+        <span className="sub">
+          live scan of gex.honu.pw · Beyond All Reason replay data
+        </span>
       </div>
       <div className="rule" />
 
       <div className="controls">
         <div className="field">
           <label>Gamemode</label>
-          <select value={gamemode} onChange={(e) => setGamemode(e.target.value)}>
+          <select
+            value={gamemode}
+            onChange={(e) => setGamemode(e.target.value)}
+          >
             <option value="">Any</option>
             <option value="1">Duel</option>
             <option value="2">Small Team</option>
@@ -113,15 +132,29 @@ export default function App() {
         </div>
         <div className="field">
           <label>Min duration (min)</label>
-          <input type="number" min="0" value={minDuration} onChange={(e) => setMinDuration(+e.target.value)} />
+          <input
+            type="number"
+            min="0"
+            value={minDuration}
+            onChange={(e) => setMinDuration(+e.target.value)}
+          />
         </div>
         <div className="field">
           <label>Min players (exclusive)</label>
-          <input type="number" min="2" value={minPlayers} onChange={(e) => setMinPlayers(+e.target.value)} />
+          <input
+            type="number"
+            min="2"
+            value={minPlayers}
+            onChange={(e) => setMinPlayers(+e.target.value)}
+          />
         </div>
         <div className="field">
           <label>Matches to scan</label>
-          <select value={scanDepth} onChange={(e) => setScanDepth(+e.target.value)}>
+          <select
+            value={scanDepth}
+            onChange={(e) => setScanDepth(+e.target.value)}
+          >
+            <option value={1}>1</option>
             <option value={10}>10</option>
             <option value={30}>30</option>
             <option value={60}>60</option>
@@ -136,13 +169,23 @@ export default function App() {
       {running && (
         <div className="progress">
           fetched {progress.done} / {progress.total} matches
-          <div className="bar"><div className="bar-fill" style={{ width: `${progress.total ? (progress.done / progress.total) * 100 : 0}%` }} /></div>
+          <div className="bar">
+            <div
+              className="bar-fill"
+              style={{
+                width: `${progress.total ? (progress.done / progress.total) * 100 : 0}%`,
+              }}
+            />
+          </div>
         </div>
       )}
       {error && <div className="error">scan failed: {error}</div>}
 
       {!running && results.length === 0 && !error && (
-        <div className="empty">set your filters and run a scan — recent ranked matches will be pulled and scored for comebacks, big fights, close finishes, and upsets.</div>
+        <div className="empty">
+          set your filters and run a scan — recent ranked matches will be pulled
+          and scored for comebacks, big fights, close finishes, and upsets.
+        </div>
       )}
 
       <div className="grid">
