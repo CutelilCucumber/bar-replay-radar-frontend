@@ -1,5 +1,4 @@
 import { buildSeries, bucketFrameStatsToSeries } from "./buildSeries.js";
-import { FRAMES_PER_SECOND, CUMULATIVE } from "./globalVars.js";
 /**
  * https://gex.honu.pw/api-doc/index.html
  * Token bucket matching gex's stated policy: starts with 300 requests,
@@ -33,6 +32,7 @@ class RateLimiter {
 const rateLimiter = new RateLimiter(300, 1);
 
 async function getJson(url) {
+  //fetch the thing
   await rateLimiter.acquire();
   const res = await fetch(url, {
     referrerPolicy: "strict-origin-when-cross-origin",
@@ -42,22 +42,39 @@ async function getJson(url) {
   return body.data ?? body;
 }
 
-async function cacheGet(key) {
+function bothCacheGet() {
+  //return a combined array of local and session storage
   try {
-    const r = await window.storage.get(key, false);
-    return r ? JSON.parse(r.value) : null;
-  } catch {
-    return null;
+    let localMatches = [];
+    const localData = localStorage.getItem("cachedMatches");
+    if (localData) localMatches = JSON.parse(localData);
+
+    let sessionMatches = [];
+    const sessionData = sessionStorage.getItem("cachedMatches");
+    if (sessionData) sessionMatches = JSON.parse(sessionData);
+
+    return [...localMatches, ...sessionMatches];
+  } catch (e) {
+    console.log("Session storage Error: ", e);
   }
 }
-async function cacheSet(key, value) {
+
+function sessionCacheSet(match) {
   try {
-    await window.storage.set(key, JSON.stringify(value), false);
-  } catch {}
+    let sessionMatches = [];
+    const sessionData = sessionStorage.getItem("cachedMatches");
+    if (sessionData) sessionMatches = JSON.parse(sessionData);
+    const combined = [...sessionMatches, match];
+
+    sessionStorage.setItem("cachedMatches", JSON.stringify(combined));
+  } catch (e) {
+    console.log("Session storage Error: ", e);
+  }
 }
 
 export async function fetchLiveMatches(baseUrl, filters, setProgress) {
-  const { limit, gamemode, minDurationMinutes, minPlayers, minimumAverageOS } = filters;
+  const { limit, gamemode, minDurationMinutes, minPlayers, minimumAverageOS } =
+    filters;
 
   const params = new URLSearchParams({
     limit: String(limit),
@@ -67,7 +84,8 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
     processingAction: "true", // TeamStats only exist once the action log is parsed
   });
   if (gamemode) params.set("gamemode", String(gamemode));
-  if (minimumAverageOS) params.set("minimumAverageOS", String(minimumAverageOS));
+  if (minimumAverageOS)
+    params.set("minimumAverageOS", String(minimumAverageOS));
   if (minDurationMinutes)
     params.set("durationMinimum", String(minDurationMinutes * 60 * 1000));
   if (minPlayers) params.set("playerCountMinimum", String(minPlayers));
@@ -82,18 +100,17 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
     setProgress?.(
       `analyzing ${m.map ?? m.id} (${++done}/${matchesJson.length})`,
     );
-    const gameID = m.id;
-    const cacheKey = `bar-milestone-cache:${gameID}`;
-    const cached = await cacheGet(cacheKey);
-    if (cached) {
-      console.log(m.id, "Fetched from cache.");
-      results.push(cached);
+    const cache = bothCacheGet();
+    const foundInCache = cache.find((match) => match.id === m.id);
+    if (foundInCache) {
+      console.log(foundInCache, "Fetched from cache.");
+      results.push(foundInCache);
       continue;
     }
 
     try {
       const evJson = await getJson(
-        `${baseUrl}/api/game-event/${gameID}?includeTeamStats=true`,
+        `${baseUrl}/api/game-event/${m.id}?includeTeamStats=true`,
       );
       console.log(m.id, "Fetched from API.");
 
@@ -125,7 +142,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
       };
 
       const built = {
-        id: gameID,
+        id: m.id,
         map: m.map ?? "unknown map",
         gamemode: String(m.gamemode ?? ""),
         playerCount: m.playerCount ?? players.length,
@@ -136,9 +153,10 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
         winner,
         series,
       };
-      await cacheSet(cacheKey, built);
+      await sessionCacheSet(built);
       results.push(built);
     } catch (e) {
+      console.log(e);
       // skip matches we fail to fetch/parse — keep the batch resilient
       continue;
     }

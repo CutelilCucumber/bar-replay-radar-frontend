@@ -26,15 +26,14 @@ import {
   FONT_IMPORT,
   CUMULATIVE,
   FRAMES_PER_SECOND,
-  DEMO_MATCHES,
 } from "./utils/globalVars.js";
 
 /* ============================================================
-   DEMO MODE: fake built matches with synthetic per-minute
+   SAVED MODE: fake built matches with synthetic per-minute
    telemetry so the scoring logic is visible and tunable without
    a live connection.
  
-   LIVE MODE: queries a gex-compatible API
+   SCAN: queries a gex-compatible API
    (https://github.com/varunda/gex) at /api/match/recent and
    /api/game-event/{id}?includeTeamStats=true, buckets the raw
    per-frame GameEventTeamStats into per-minute team series, and
@@ -44,7 +43,7 @@ import {
    ============================================================ */
 
 export default function App() {
-  const [mode, setMode] = useState("demo"); // "demo" | "live"
+  const [mode, setMode] = useState("saved"); // "saved" | "scan"
   const [loadParams, setLoadParams] = useState({
     limit: 20,
     gamemode: null,
@@ -52,14 +51,26 @@ export default function App() {
     minPlayers: null,
     minimumAverageOS: null,
   });
-  const [matches, setMatches] = useState(DEMO_MATCHES);
-  const [loading, setLoading] = useState(false);
+  const [saved, setSaved] = useState(true);
+  const [matches, setMatches] = useState([]);
+  const [newMatches, setNewMatches] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [progress, setProgress] = useState("");
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
   const [activeFilters, setActiveFilters] = useState(new Set());
   const [minScore, setMinScore] = useState(0);
   const [sortBy, setSortBy] = useState("score");
+
+  useEffect(() => {
+    if (mode === "saved") {
+      const cachedMatches = localStorage.getItem("cachedMatches");
+      if (cachedMatches) setMatches(JSON.parse(cachedMatches));
+    } else {
+      setMatches(newMatches);
+    }
+    setLoading(false);
+  }, [mode, newMatches]);
 
   const analyses = useMemo(() => {
     const map = {};
@@ -101,21 +112,15 @@ export default function App() {
       );
       if (results.length === 0)
         setError("Connected, but no matches were found with this criteria.");
-      setMatches(results);
+      setNewMatches(results);
     } catch (e) {
       setError(`${e.message}`);
     } finally {
       setLoading(false);
+      setSaved(false);
       setProgress("");
     }
   }, [GEX_API_BASE, loadParams]);
-
-  useEffect(() => {
-    if (mode === "demo") {
-      setMatches(DEMO_MATCHES);
-      setError(null);
-    }
-  }, [mode]);
 
   const toggleFilter = (key) => {
     setActiveFilters((prev) => {
@@ -124,6 +129,26 @@ export default function App() {
       return next;
     });
   };
+
+  const handleSave = useCallback(async () => {
+    let cachedMatches = [];
+    const cache = localStorage.getItem("cachedMatches");
+    if (cache) cachedMatches = JSON.parse(cache);
+    const combined = [
+      ...cachedMatches,
+      ...matches.filter(
+        (match) =>
+          !cachedMatches.some(
+            (cachedMatch) => cachedMatch.id === match.id, // Replace 'id' with your unique identifier
+          ),
+      ),
+    ];
+
+    localStorage.setItem("cachedMatches", JSON.stringify(combined));
+
+    setSaved(true);
+    setMode("saved");
+  });
 
   return (
     <div
@@ -193,7 +218,7 @@ export default function App() {
               padding: 3,
             }}
           >
-            {["demo", "live"].map((m) => (
+            {["saved", "scan"].map((m) => (
               <button
                 key={m}
                 onClick={() => setMode(m)}
@@ -217,7 +242,7 @@ export default function App() {
         </div>
 
         {/* live controls */}
-        {mode === "live" && (
+        {mode === "scan" && (
           <div
             style={{
               background: COLORS.panel,
@@ -232,88 +257,106 @@ export default function App() {
             }}
           >
             <Settings2 size={15} color={COLORS.muted} />
-            <label>Gamemode:
-              <select value={loadParams.gamemode} 
-              onChange={(e) =>
-                setLoadParams({ ...loadParams, gamemode: Number(e.target.value) })
-              }
-              style={{
-                width: 70,
-                background: COLORS.panel,
-                border: `1px solid ${COLORS.line}`,
-                borderRadius: 6,
-                padding: "7px 10px",
-                color: COLORS.ink,
-                fontSize: 12.5,
-                fontFamily: "'JetBrains Mono', monospace",
-              }}>
-            <option value="">Any</option>
-            <option value="1">Duel</option>
-            <option value="2">Small Team</option>
-            <option value="3">Large Team</option>
-            <option value="4">FFA</option>
-            <option value="5">Team FFA</option>
-          </select>
+            <label>
+              Gamemode:
+              <select
+                value={loadParams.gamemode ?? ""}
+                onChange={(e) =>
+                  setLoadParams({
+                    ...loadParams,
+                    gamemode: Number(e.target.value),
+                  })
+                }
+                style={{
+                  width: 70,
+                  background: COLORS.panel,
+                  border: `1px solid ${COLORS.line}`,
+                  borderRadius: 6,
+                  padding: "7px 10px",
+                  color: COLORS.ink,
+                  fontSize: 12.5,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              >
+                <option value="">Any</option>
+                <option value="1">Duel</option>
+                <option value="2">Small Team</option>
+                <option value="3">Large Team</option>
+                <option value="4">FFA</option>
+                <option value="5">Team FFA</option>
+              </select>
             </label>
-            <label>Duration (minutes):
+            <label>
+              Duration (minutes):
               <input
-              type="number"
-              min={5}
-              value={loadParams.minDurationMinutes}
-              onChange={(e) =>
-                setLoadParams({ ...loadParams, minDurationMinutes: Number(e.target.value) })
-              }
-              style={{
-                width: 70,
-                background: COLORS.panel,
-                border: `1px solid ${COLORS.line}`,
-                borderRadius: 6,
-                padding: "7px 10px",
-                color: COLORS.ink,
-                fontSize: 12.5,
-                fontFamily: "'JetBrains Mono', monospace",
-              }}
-            />
+                type="number"
+                min={5}
+                value={loadParams.minDurationMinutes}
+                onChange={(e) =>
+                  setLoadParams({
+                    ...loadParams,
+                    minDurationMinutes: Number(e.target.value),
+                  })
+                }
+                style={{
+                  width: 70,
+                  background: COLORS.panel,
+                  border: `1px solid ${COLORS.line}`,
+                  borderRadius: 6,
+                  padding: "7px 10px",
+                  color: COLORS.ink,
+                  fontSize: 12.5,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              />
             </label>
-            <label>Min-avg OS:
+            <label>
+              Min-avg OS:
               <input
-              type="number"
-              value={loadParams.minimumAverageOS}
-              onChange={(e) =>
-                setLoadParams({ ...loadParams, minimumAverageOS: Number(e.target.value) })
-              }
-              style={{
-                width: 70,
-                background: COLORS.panel,
-                border: `1px solid ${COLORS.line}`,
-                borderRadius: 6,
-                padding: "7px 10px",
-                color: COLORS.ink,
-                fontSize: 12.5,
-                fontFamily: "'JetBrains Mono', monospace",
-              }}
-            />
+                type="number"
+                value={loadParams.minimumAverageOS ?? ""}
+                onChange={(e) =>
+                  setLoadParams({
+                    ...loadParams,
+                    minimumAverageOS: Number(e.target.value),
+                  })
+                }
+                style={{
+                  width: 70,
+                  background: COLORS.panel,
+                  border: `1px solid ${COLORS.line}`,
+                  borderRadius: 6,
+                  padding: "7px 10px",
+                  color: COLORS.ink,
+                  fontSize: 12.5,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              />
             </label>
-            <label>Scan Limit:
+            <label>
+              Scan Limit:
               <input
-              type="number"
-              min={5}
-              max={100}
-              value={loadParams.limit}
-              onChange={(e) =>
-                setLoadParams({ ...loadParams, limit: Number(e.target.value) })
-              }
-              style={{
-                width: 70,
-                background: COLORS.panel,
-                border: `1px solid ${COLORS.line}`,
-                borderRadius: 6,
-                padding: "7px 10px",
-                color: COLORS.ink,
-                fontSize: 12.5,
-                fontFamily: "'JetBrains Mono', monospace",
-              }}
-            />
+                type="number"
+                min={5}
+                max={100}
+                value={loadParams.limit}
+                onChange={(e) =>
+                  setLoadParams({
+                    ...loadParams,
+                    limit: Number(e.target.value),
+                  })
+                }
+                style={{
+                  width: 70,
+                  background: COLORS.panel,
+                  border: `1px solid ${COLORS.line}`,
+                  borderRadius: 6,
+                  padding: "7px 10px",
+                  color: COLORS.ink,
+                  fontSize: 12.5,
+                  fontFamily: "'JetBrains Mono', monospace",
+                }}
+              />
             </label>
             <button
               onClick={runLiveSearch}
@@ -344,6 +387,27 @@ export default function App() {
                 <RefreshCw size={14} />
               )}
               {loading ? progress || "working…" : "Scan recent matches"}
+            </button>
+            <button
+              onClick={handleSave}
+              disabled={saved && matches.length === 0}
+              style={{
+                all: "unset",
+                cursor: saved ? "default" : "pointer",
+                display: "flex",
+                alignItems: "center",
+                gap: 7,
+                background: COLORS.eco,
+                color: COLORS.bg,
+                padding: "8px 14px",
+                borderRadius: 7,
+                fontSize: 12.5,
+                fontFamily: "'Inter', sans-serif",
+                fontWeight: 600,
+                opacity: saved ? 0.6 : 1,
+              }}
+            >
+              {saved ? "Saved" : "Save this batch"}
             </button>
             <span style={{ fontSize: 11.5, color: COLORS.faint }}>
               results cache per match — re-scans skip what's already analyzed
@@ -470,8 +534,7 @@ export default function App() {
           scoring: comeback = winner was ever &gt;13pts behind in eco share ·
           photo finish = final eco share within 6pts on a 12m+ game · big battle
           = a damage spike &gt;2.6x the game's average burst · upset = 5+
-          skill-gap team lost. weights are tunable in{" "}
-          <code>analyzeMatch()</code>.
+          skill-gap team lost. weights are tunable in
         </div>
       </div>
     </div>

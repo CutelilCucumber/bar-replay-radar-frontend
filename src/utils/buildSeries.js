@@ -1,3 +1,5 @@
+import { FRAMES_PER_SECOND, CUMULATIVE } from "./globalVars.js";
+
 export function buildSeries(points) {
   // points: [ [minute, ecoA, ecoB, dmgA, dmgB], ... ] -> fills a clean series
   return points.map(([t, ecoA, ecoB, dmgA, dmgB]) => ({
