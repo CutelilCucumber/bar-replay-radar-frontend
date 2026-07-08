@@ -9,7 +9,13 @@ import {
   ReferenceDot,
   ResponsiveContainer,
 } from "recharts";
-import { AlertTriangle, Loader2, RefreshCw, Settings2 } from "lucide-react";
+import {
+  AlertTriangle,
+  Loader2,
+  RefreshCw,
+  Settings2,
+  Flame,
+} from "lucide-react";
 import { MatchCard } from "./components";
 import { analyzeMatch } from "./utils/analyzeMatch.js";
 import { fetchLiveMatches } from "./utils/api.js";
@@ -92,7 +98,6 @@ export default function App() {
         loadParams,
         setProgress,
       );
-      console.log(results);
       if (results.length === 0)
         setError("Connected, but no matches were found with this criteria.");
       setMatches(results);
@@ -153,6 +158,7 @@ export default function App() {
         >
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 9 }}>
+              <Flame size={20} color={COLORS.combat} />
               <h1
                 style={{
                   fontFamily: "'Space Grotesk', sans-serif",
@@ -162,7 +168,7 @@ export default function App() {
                   letterSpacing: "-0.01em",
                 }}
               >
-                Spectate Finder
+                Fire Replay Finder
               </h1>
             </div>
             <p

@@ -138,6 +138,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
     const cacheKey = `bar-milestone-cache:${gameID}`;
     const cached = await cacheGet(cacheKey);
     if (cached) {
+      console.log(m.id, "Fetched from cache.");
       results.push(cached);
       continue;
     }
@@ -146,6 +147,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
       const evJson = await getJson(
         `${baseUrl}/api/game-event/${gameID}?includeTeamStats=true`,
       );
+      console.log(m.id, "Fetched from API.");
 
       const teamStats = evJson.teamStats;
       const players = m.players;
@@ -186,11 +188,9 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
         winner,
         series,
       };
-      console.log("built match", built);
       await cacheSet(cacheKey, built);
       results.push(built);
     } catch (e) {
-      console.log("Error processing match:", e);
       // skip matches we fail to fetch/parse — keep the batch resilient
       continue;
     }
