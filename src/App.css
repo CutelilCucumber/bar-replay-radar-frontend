@@ -145,11 +145,6 @@ a {
   font-size: 12px;
   font-family: "JetBrains Mono", monospace;
 }
-.match-container {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
 .no-matches {
   text-align: center;
   padding: 40px 0;

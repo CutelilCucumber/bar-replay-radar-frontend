@@ -1,7 +1,7 @@
 export function Badge({ def, magnitude }) {
   const Icon = def.icon;
   return (
-    <div
+    <span
       title={`${def.label} (${Math.round(magnitude * 100)}%)`}
       style={{
         display: "flex",
@@ -20,6 +20,6 @@ export function Badge({ def, magnitude }) {
     >
       <Icon size={12} strokeWidth={2.4} />
       {def.label}
-    </div>
+    </span>
   );
 }

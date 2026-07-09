@@ -21,7 +21,7 @@ export function MatchDetail({ match, analysis }) {
       : null;
   return (
     <div className="detail-container">
-      <div className="chart-container">
+      <section className="chart-container">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart
             data={data}
@@ -87,8 +87,8 @@ export function MatchDetail({ match, analysis }) {
             )}
           </AreaChart>
         </ResponsiveContainer>
-      </div>
-      <div className="stat-container">
+      </section>
+      <section className="stat-container">
         <Stat
           label="Winner's worst deficit"
           value={`${Math.round(analysis.worstDeficit * 100)}% eco share`}
@@ -109,7 +109,7 @@ export function MatchDetail({ match, analysis }) {
           value={analysis.maxJumpAt != null ? `~${analysis.maxJumpAt}m` : "—"}
           color={COLORS.combat}
         />
-      </div>
+      </section>
       <a
         href={`https://gex.honu.pw/match/${match.id}`}
         target="_blank"

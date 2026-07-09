@@ -19,7 +19,7 @@ export function MatchCard({
   const activeMilestones = MILESTONES.filter((m) => analysis.flags[m.key]);
 
   return (
-    <div className="match-container">
+    <article className="match-container">
       {isSaved ? (
         <Trash2
           size={16}
@@ -37,7 +37,7 @@ export function MatchCard({
       )}
       <button onClick={onToggle} className="show-detail">
         <ScoreDial score={analysis.score} />
-        <div className="title-container">
+        <header className="title-container">
           <div className="title-info">
             <span className="title-map">{match.map}</span>
             <span className="title-detail">
@@ -45,7 +45,7 @@ export function MatchCard({
               {match.playerCount}p
             </span>
           </div>
-          <div className="badge-container">
+          <section className="badge-container">
             {activeMilestones.length > 0 ? (
               activeMilestones.map((m) => (
                 <Badge
@@ -57,8 +57,8 @@ export function MatchCard({
             ) : (
               <span className="no-badge">no milestones fired</span>
             )}
-          </div>
-        </div>
+          </section>
+        </header>
         <div className="miniSparkline-container">
           <MiniSparkline series={match.series} winner={match.winner} />
           {expanded ? (
@@ -69,6 +69,6 @@ export function MatchCard({
         </div>
       </button>
       {expanded && <MatchDetail match={match} analysis={analysis} />}
-    </div>
+    </article>
   );
 }

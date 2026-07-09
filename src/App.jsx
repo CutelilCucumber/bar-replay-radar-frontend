@@ -169,9 +169,9 @@ export default function App() {
 
   return (
     <div className="page-container">
-      <div className="page">
+      <main className="page">
         {/* header */}
-        <div className="header-container">
+        <header className="header-container">
           <div>
             <div className="page-title-container">
               <Flame size={20} color={COLORS.combat} />
@@ -198,11 +198,11 @@ export default function App() {
               </button>
             ))}
           </div>
-        </div>
+        </header>
 
         {/* live controls */}
         {mode === "scan" && (
-          <div className="param-filter">
+          <fieldset className="param-filter">
             <Settings2 size={15} color={COLORS.muted} />
             <label>
               Gamemode:
@@ -291,22 +291,22 @@ export default function App() {
             >
               {saved ? "Saved" : "Save batch"}
             </button>
-          </div>
+          </fieldset>
         )}
 
         {error && (
-          <div className="error">
+          <output className="error">
             <AlertTriangle
               size={15}
               color={COLORS.combat}
               style={{ flexShrink: 0, marginTop: 1 }}
             />
             <span>{error}</span>
-          </div>
+          </output>
         )}
 
         {/* milestone bar */}
-        <div className="milestone-container">
+        <nav className="milestone-container">
           {MILESTONES.map((m) => {
             const active = activeFilters.has(m.key);
             const Icon = m.icon;
@@ -326,12 +326,12 @@ export default function App() {
             <option value="recent">sort: most recent</option>
             <option value="duration">sort: longest</option>
           </select>
-        </div>
+        </nav>
 
         {/* results */}
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {filtered.length === 0 && !loading && (
-            <div className="match-container">
+            <div className="no-match">
               nothing matches these filters — loosen a milestone toggle or lower
               the score floor
             </div>
@@ -348,15 +348,15 @@ export default function App() {
               onDelete={() => handleDelete(m.id)}
             />
           ))}
-        </div>
+        </section>
 
-        <div className="scoring-tooltip">
+        <footer className="scoring-tooltip">
           scoring: comeback = winner was ever &gt;13pts behind in eco share ·
           photo finish = final eco share within 6pts on a 12m+ game · big battle
           = a damage spike &gt;2.6x the game's average burst · upset = 5+
           skill-gap team lost. weights are tunable in
-        </div>
-      </div>
+        </footer>
+      </main>
     </div>
   );
 }
