@@ -1,13 +1,24 @@
 //ideas for metrics
+//ARMY VALUE**********
+//sharp declines in army value for both team (rework #big battle)
+//winning team once far behind on army value (rework #comeback)
+//constant momentum shifts add to score
 //heavily one-sided to reduce points
-//apm for action packed games
-//unit type diversity (bots, veh, air, sea, hov, amphib) weighted less for large games, some units worth more
-//momentum shifts between teams army value
-//sharp declines in army value for both team (rework big battles)
-//1 commander left on winning team (rework close finish)
-//winning team once far behind on army value (rework comeback)
+//premature forfeits can be calculated by comparing army value at time of loss
+//  premature team resign reduces points (quick forfeit)
+//DAMAGE**************
 //combat efficiency - damage per metal spent
-//afus rush - afus before 20 mins (maybe depends on wind speed)
+//APM*****************
+//high apm per player per team
+//ECO*****************
+//close eco gives points
+//UNITS***************
+//1 commander left on winning team (rework close finish)
+//afus rush - afus before 20 mins (exclude metal maps)
+//nuke rush - nuke before 20 mins (exclude metal maps)
+//calamity rush (exclude metal maps)
+//unit type diversity (bots, veh, air, sea, hov, amphib) weighted less for large games, some units worth more
+//t3 in a duel
 
 export function analyzeMatch(match) {
   const { series, winner, teamA, teamB, durationMin } = match;

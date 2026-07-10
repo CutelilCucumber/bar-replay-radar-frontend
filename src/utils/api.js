@@ -1,4 +1,4 @@
-import { buildSeries, bucketFrameStatsToSeries } from "./buildSeries.js";
+import { bucketFrameStatsToSeries } from "./buildSeries.js";
 /**
  * https://gex.honu.pw/api-doc/index.html
  * Token bucket matching gex's stated policy: starts with 300 requests,

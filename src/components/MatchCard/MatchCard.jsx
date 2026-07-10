@@ -1,5 +1,11 @@
 import { useState } from "react";
-import { ChevronDown, ChevronRight, Save, Trash2 } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  Save,
+  Trash2,
+  FileWarningIcon,
+} from "lucide-react";
 import { MILESTONES, COLORS, GAMEMODES } from "../../utils/globalVars";
 import { MatchDetail } from "../MatchDetail/MatchDetail.jsx";
 import { ScoreDial } from "../ui/ScoreDial.jsx";
@@ -17,9 +23,25 @@ export function MatchCard({
   onDelete,
 }) {
   const activeMilestones = MILESTONES.filter((m) => analysis.flags[m.key]);
+  const unsupported =
+    match.gamemode === "4" || match.gamemode === "5" ? true : false;
 
   return (
     <article className="match-container">
+      {unsupported ? (
+        <output className="warning-container">
+          <FileWarningIcon
+            size={15}
+            color={COLORS.upset}
+            style={{ flexShrink: 0, marginTop: 1 }}
+          />
+          <span className="warning-message">
+            {GAMEMODES[match.gamemode]} not supported. Details may be incorrect
+          </span>
+        </output>
+      ) : (
+        ""
+      )}
       {isSaved ? (
         <Trash2
           size={16}

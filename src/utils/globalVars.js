@@ -1,5 +1,4 @@
 import { TrendingUp, Radio, Swords, Crown, Zap } from "lucide-react";
-import { buildSeries } from "./buildSeries.js";
 
 export const MILESTONES = [
   {
