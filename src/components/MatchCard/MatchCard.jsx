@@ -42,7 +42,10 @@ export function MatchCard({
             <span className="title-map">{match.map}</span>
             <span className="title-detail">
               {GAMEMODES[match.gamemode]} · {match.durationMin}m ·{" "}
-              {match.playerCount}p
+              {match.playerCount}p · {Math.round(match.averageOS * 100) / 100}os
+            </span>
+            <span className="title-detail">
+              {formatDateLocalTimezone(match.startTime)}
             </span>
           </div>
           <section className="badge-container">
@@ -55,7 +58,7 @@ export function MatchCard({
                 />
               ))
             ) : (
-              <span className="no-badge">no milestones fired</span>
+              <span className="no-badge">Nothing noteworthy detected</span>
             )}
           </section>
         </header>
@@ -71,4 +74,29 @@ export function MatchCard({
       {expanded && <MatchDetail match={match} analysis={analysis} />}
     </article>
   );
+}
+
+function formatDateLocalTimezone(isoString) {
+  // Parse the ISO string into a Date object
+  const date = new Date(isoString);
+
+  // Check if the date is valid
+  if (isNaN(date.getTime())) {
+    throw new Error("Invalid ISO 8601 timestamp");
+  }
+
+  // Format the date as YYYY-MM-DD
+  const datePart = date
+    .toLocaleDateString("en-CA", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    })
+    .replace(/\//g, "-");
+
+  // Get the timezone abbreviation (e.g., PDT, EST)
+  const timezone = date.toLocaleTimeString("en-US", { timeZoneName: "short" });
+
+  // Combine all parts
+  return `${datePart} ${timezone}`;
 }

@@ -1,3 +1,14 @@
+//ideas for metrics
+//heavily one-sided to reduce points
+//apm for action packed games
+//unit type diversity (bots, veh, air, sea, hov, amphib) weighted less for large games, some units worth more
+//momentum shifts between teams army value
+//sharp declines in army value for both team (rework big battles)
+//1 commander left on winning team (rework close finish)
+//winning team once far behind on army value (rework comeback)
+//combat efficiency - damage per metal spent
+//afus rush - afus before 20 mins (maybe depends on wind speed)
+
 export function analyzeMatch(match) {
   const { series, winner, teamA, teamB, durationMin } = match;
   const last = series[series.length - 1];

@@ -97,6 +97,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
   const results = [];
   let done = 0;
   for (const m of matchesJson) {
+    console.log(m);
     setProgress?.(
       `analyzing ${m.map ?? m.id} (${++done}/${matchesJson.length})`,
     );
@@ -146,6 +147,7 @@ export async function fetchLiveMatches(baseUrl, filters, setProgress) {
         map: m.map ?? "unknown map",
         gamemode: String(m.gamemode ?? ""),
         playerCount: m.playerCount ?? players.length,
+        averageOS: m.averageOS,
         durationMin,
         startTime: m.startTime,
         teamA: { name: "Ally Team A", skill: skillOf(allyIds[0]), players: [] },
