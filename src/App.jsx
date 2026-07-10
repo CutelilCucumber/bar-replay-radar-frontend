@@ -21,11 +21,11 @@ import { analyzeMatch } from "./utils/analyzeMatch.js";
 import { fetchLiveMatches } from "./utils/api.js";
 import {
   GEX_API_BASE,
-  MILESTONES,
   COLORS,
   FONT_IMPORT,
   CUMULATIVE,
   FRAMES_PER_SECOND,
+  MILESTONES,
 } from "./utils/globalVars.js";
 import "./App.css";
 
@@ -38,6 +38,7 @@ export default function App() {
     minPlayers: null,
     minimumAverageOS: null,
   });
+  const [activeFilters, setActiveFilters] = useState({});
   const [saved, setSaved] = useState(true);
   const [matches, setMatches] = useState([]);
   const [newMatches, setNewMatches] = useState([]);
@@ -45,7 +46,6 @@ export default function App() {
   const [progress, setProgress] = useState("");
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
-  const [activeFilters, setActiveFilters] = useState(new Set());
   const [minScore, setMinScore] = useState(0);
   const [sortBy, setSortBy] = useState("score");
   const [loadCount, setLoadCount] = useState(0);
@@ -70,11 +70,15 @@ export default function App() {
     let list = matches.filter((m) => {
       const a = analyses[m.id];
       if (a.score < minScore) return false;
+
+      // Check if activeFilters is non-empty
+      const hasActiveFilters = Object.keys(activeFilters).length > 0;
       if (
-        activeFilters.size > 0 &&
-        ![...activeFilters].every((f) => a.flags[f])
-      )
+        hasActiveFilters &&
+        !Object.keys(activeFilters).every((f) => a.flags[f])
+      ) {
         return false;
+      }
       return true;
     });
     list = list.slice().sort((a, b) => {
@@ -85,6 +89,7 @@ export default function App() {
       if (sortBy === "duration") return b.durationMin - a.durationMin;
       return 0;
     });
+
     return list;
   }, [matches, analyses, activeFilters, minScore, sortBy]);
 
@@ -112,8 +117,12 @@ export default function App() {
 
   const toggleFilter = (key) => {
     setActiveFilters((prev) => {
-      const next = new Set(prev);
-      next.has(key) ? next.delete(key) : next.add(key);
+      const next = { ...prev };
+      if (next[key]) {
+        delete next[key];
+      } else {
+        next[key] = true;
+      }
       return next;
     });
   };
@@ -308,13 +317,25 @@ export default function App() {
         {/* milestone bar */}
         <nav className="milestone-container">
           {MILESTONES.map((m) => {
-            const active = activeFilters.has(m.key);
+            const isSelected = activeFilters[m.key];
+
             const Icon = m.icon;
             return (
               <button
                 key={m.key}
                 onClick={() => toggleFilter(m.key)}
                 className="milestone-button"
+                style={{
+                  border: isSelected
+                    ? `1px solid var(${m.color})`
+                    : "1px solid var(--color-line)",
+                  background: isSelected
+                    ? "var(--milestone-bg-selected)"
+                    : "var(--bg)",
+                  color: isSelected ? `var(${m.color})` : "var(--color-faint)",
+                  transform: isSelected ? "translateY(-2px)" : "translateY(0)",
+                  transition: "transform 0.2s ease",
+                }}
               >
                 <Icon size={12.5} /> {m.label}
               </button>

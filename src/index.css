@@ -29,10 +29,3 @@ body {
 ::selection {
   background: var(--color-eco) 33;
 }
-
-button:focus-visible,
-input:focus-visible,
-select:focus-visible {
-  outline: 2px solid var(--color-eco);
-  outline-offset: 2px;
-}

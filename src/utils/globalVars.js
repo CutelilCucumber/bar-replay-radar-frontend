@@ -2,16 +2,26 @@ import { TrendingUp, Radio, Swords, Crown, Zap } from "lucide-react";
 import { buildSeries } from "./buildSeries.js";
 
 export const MILESTONES = [
-  { key: "comeback", label: "Comeback", icon: TrendingUp, color: "--eco" },
+  {
+    key: "comeback",
+    label: "Comeback",
+    icon: TrendingUp,
+    color: "--color-eco",
+  },
   {
     key: "closeFinish",
     label: "Photo finish",
     icon: Radio,
-    color: "--close",
+    color: "--color-close",
   },
-  { key: "bigBattle", label: "Big battle", icon: Swords, color: "--combat" },
-  { key: "upset", label: "Upset", icon: Crown, color: "--upset" },
-  { key: "ecoRace", label: "Fast start", icon: Zap, color: "--eco" },
+  {
+    key: "bigBattle",
+    label: "Big battle",
+    icon: Swords,
+    color: "--color-combat",
+  },
+  { key: "upset", label: "Upset", icon: Crown, color: "--color-upset" },
+  { key: "ecoRace", label: "Fast start", icon: Zap, color: "--color-eco" },
 ];
 
 export const COLORS = {

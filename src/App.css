@@ -135,9 +135,6 @@ a {
   font-size: 12px;
   font-weight: 600;
   font-family: "Inter", sans-serif;
-  border: 1px solid var(--milestone-border-color, var(--color-line));
-  background: var(--milestone-bg, transparent);
-  color: var(--milestone-color, var(--color-muted));
 }
 .milestone-container select {
   background: var(--color-panel);
