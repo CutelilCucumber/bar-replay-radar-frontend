@@ -204,7 +204,7 @@ export default function App() {
                 className="mode-switch-button"
                 style={{
                   background: mode === m ? COLORS.eco : "transparent",
-                  color: mode === m ? COLORS.bg : COLORS.muted,
+                  color: mode === m ? COLORS.bg : COLORS.ink,
                 }}
               >
                 {m.toUpperCase()}
@@ -226,6 +226,8 @@ export default function App() {
                     gamemode: Number(e.target.value),
                   })
                 }
+
+                className="field-filter"
               >
                 <option value="">Any</option>
                 <option value="1">Duel</option>
@@ -323,7 +325,7 @@ export default function App() {
           <div className="param-filter" >
             <span className="badge-show"
               onClick={toggleBadgeBox}>
-              {expandBadges ? "Hide Award Filters v" : "Show Award Filters >"}
+              {expandBadges ? "Hide Award Filters ⌄" : "Show Award Filters >"}
             </span>
 
             {expandBadges && (
@@ -342,9 +344,6 @@ export default function App() {
                         border: isSelected
                           ? `1px solid var(${m.color})`
                           : "1px solid var(--color-line)",
-                        background: isSelected
-                          ? "var(--milestone-bg-selected)"
-                          : "var(--bg)",
                         color: isSelected
                           ? `var(${m.color})`
                           : "var(--color-faint)",

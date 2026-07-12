@@ -3,18 +3,9 @@ export function Badge({ def, magnitude }) {
   return (
     <span
       title={`${def.label} (${Math.round(magnitude * 100)}%)`}
+      className="milestone-button"
       style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 5,
-        padding: "3px 8px",
-        borderRadius: 999,
-        color: `var(${def.color})`,
-        opacity: 0.7,
-        fontSize: 11.5,
-        fontFamily: "'Inter', sans-serif",
-        fontWeight: 600,
-        letterSpacing: "0.01em",
+        color: `var(${def.color})`
       }}
     >
       <Icon size={12} strokeWidth={2.4} />

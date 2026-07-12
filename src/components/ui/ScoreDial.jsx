@@ -6,7 +6,9 @@ export function ScoreDial({ score }) {
   const pct = score / 100;
   const color = numberToRgb(score);
   return (
-    <div style={{ position: "relative", width: 56, height: 56, flexShrink: 0 }}>
+    <div 
+    title="Spectator score out of 100"
+    style={{ position: "relative", width: 56, height: 56, flexShrink: 0 }}>
       <svg width="56" height="56" style={{ transform: "rotate(-90deg)" }}>
         <circle
           cx="28"
@@ -34,7 +36,7 @@ export function ScoreDial({ score }) {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "'JetBrains Mono', monospace",
+          fontFamily: "Orbitron",
           fontWeight: 600,
           fontSize: 15,
           color: COLORS.ink,

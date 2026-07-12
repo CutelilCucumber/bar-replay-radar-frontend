@@ -44,7 +44,7 @@ export function analyzeMatch(match) {
     quickForfeit: quickForfeit(loserFacts, playerCount),
     // baseRace: baseRace(last, durationMin, playerCount),
     guerillaFighters: guerillaFighters(teamA.facts, teamB.facts),
-    carpelTunnel: carpelTunnel(
+    carpalTunnel: carpalTunnel(
       teamA.facts,
       teamB.facts,
       playerCount,
@@ -228,7 +228,7 @@ function guerillaFighters(factsA, factsB) {
 }
 
 /** High average player APM across the match. */
-function carpelTunnel(factsA, factsB, playerCount, durationMin) {
+function carpalTunnel(factsA, factsB, playerCount, durationMin) {
   const totalActions =
     (factsA?.totalActions ?? 0) + (factsB?.totalActions ?? 0);
   const apmPerPlayer =

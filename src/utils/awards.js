@@ -59,8 +59,8 @@ export const MILESTONES = [
     description: "High average damage per metal / combat efficiency.",
   },
   {
-    key: "carpelTunnel",
-    label: "Carpel Tunnel",
+    key: "carpalTunnel",
+    label: "Carpal Tunnel",
     icon: Zap,
     color: "--color-eco",
     weight: 2,
