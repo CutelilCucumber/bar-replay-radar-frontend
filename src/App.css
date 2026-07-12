@@ -119,10 +119,26 @@ a {
 }
 .milestone-container {
   display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  align-items: center;
-  margin-bottom: 16px;
+  gap: 1rem; /* Adjust spacing between elements inside */
+  width: 100%;
+  max-width: 100%;
+  padding: 0.5rem;
+}
+
+.milestone-container .true {
+  flex-direction: row;
+}
+
+/* Style for the fieldset (badge-container) inside */
+.milestone-container .badge-container {
+  padding: 0;
+  margin: 0;
+  border: none;
+  background: transparent;
+  width: 100%;
+  cursor: pointer;
+  border-radius: 0.5rem;
+  border: 1px solid var(--color-line);
 }
 .milestone-button {
   all: unset;
@@ -157,3 +173,4 @@ a {
   color: var(--color-faint);
   line-height: 1.6;
 }
+
