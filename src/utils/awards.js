@@ -6,8 +6,8 @@ export const MILESTONES = [
     label: "Big Battle",
     icon: Swords,
     color: "--color-combat",
-    weight: 0,
-    description: "Rework: Sharp declines in army value for both teams."
+    weight: 2,
+    description: "Sharp declines in army value for both teams.",
   },
   {
     key: "comeback",
@@ -15,7 +15,7 @@ export const MILESTONES = [
     icon: TrendingUp,
     color: "--color-eco",
     weight: 3,
-    description: "Winning team once far behind on army value."
+    description: "Winning team once far behind on army value.",
   },
   {
     key: "backAndForth",
@@ -23,7 +23,7 @@ export const MILESTONES = [
     icon: TrendingUp,
     color: "--color-eco",
     weight: 2,
-    description: "Constant momentum shifts add to score."
+    description: "Constant momentum shifts add to score.",
   },
   {
     key: "stomp",
@@ -31,7 +31,7 @@ export const MILESTONES = [
     icon: Crown,
     color: "--color-upset",
     weight: -2,
-    description: "Heavily one-sided."
+    description: "Heavily one-sided.",
   },
   {
     key: "quickForfeit",
@@ -39,7 +39,8 @@ export const MILESTONES = [
     icon: Radio,
     color: "--color-close",
     weight: -2,
-    description: "Premature forfeits reduce points, weighted more for large teams."
+    description:
+      "Premature forfeits reduce points, weighted more for large teams.",
   },
   {
     key: "baseRace",
@@ -47,7 +48,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 2,
-    description: "Huge building damage for both teams relative to match size."
+    description: "Huge building damage for both teams relative to match size.",
   },
   {
     key: "guerillaFighters",
@@ -55,7 +56,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 2,
-    description: "High average damage per metal / combat efficiency."
+    description: "High average damage per metal / combat efficiency.",
   },
   {
     key: "carpelTunnel",
@@ -63,7 +64,7 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 2,
-    description: "High average player APM."
+    description: "High average player APM.",
   },
   {
     key: "windyDay",
@@ -71,7 +72,7 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 0,
-    description: "Wind speed higher than average, worth no points."
+    description: "Wind speed higher than average, worth no points.",
   },
   {
     key: "spaceRace",
@@ -79,7 +80,7 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 1,
-    description: "Close eco overall."
+    description: "Close eco between teams.",
   },
   {
     key: "legionEnabled",
@@ -87,7 +88,7 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 0,
-    description: "Legion enabled, worth no points."
+    description: "Legion enabled, worth no points.",
   },
   {
     key: "earlyBombing",
@@ -95,7 +96,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 1,
-    description: "At least 10 bombers built before 5 minutes."
+    description: "At least 8 bombers built before 5 minutes.",
   },
   {
     key: "nailBiter",
@@ -103,7 +104,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 2,
-    description: "One commander left on winning team."
+    description: "One commander left on winning team.",
   },
   {
     key: "afusRush",
@@ -111,7 +112,8 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 1,
-    description: "AFUs built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps."
+    description:
+      "AFUS built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
   },
   {
     key: "nukeRush",
@@ -119,7 +121,8 @@ export const MILESTONES = [
     icon: Zap,
     color: "--color-eco",
     weight: 1,
-    description: "Nukes built as fast as AFUs, exclude metal maps."
+    description:
+      "AFUS built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
   },
   {
     key: "orbitalCannons",
@@ -127,7 +130,8 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 2,
-    description: "Ragnarok/Calamity/Starfall rush (e.g., 30 mins on 15 average wind speed) or 3+ total."
+    description:
+      "Ragnarok/Calamity/Starfall rush (e.g., 30 mins on 15 average wind speed) or 3+ total.",
   },
   {
     key: "techSpread",
@@ -135,7 +139,8 @@ export const MILESTONES = [
     icon: TrendingUp,
     color: "--color-eco",
     weight: 3,
-    description: "Unit type diversity (bots, veh, air, sea, hov, amphib), weighted less for large games. Some units (commandos, bedbugs, spy bots) worth more."
+    description:
+      "Unit type diversity (bots, veh, air, sea, hov, amphib), weighted less for large games. Some units (commandos, bedbugs, spy bots) worth more.",
   },
   {
     key: "goliathDuel",
@@ -143,7 +148,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 3,
-    description: "T3 in a duel."
+    description: "T3 in a duel.",
   },
   {
     key: "commanderAttack",
@@ -151,7 +156,7 @@ export const MILESTONES = [
     icon: Swords,
     color: "--color-combat",
     weight: 2,
-    description: "One team's commander moves into enemy start location."
+    description: "One team's commander moves into enemy start location.",
   },
   {
     key: "upset",
@@ -159,6 +164,6 @@ export const MILESTONES = [
     icon: Crown,
     color: "--color-upset",
     weight: 0,
-    description: "Noticable skill gap between teams."
-  }
+    description: "Noticable skill gap between teams, worth no points.",
+  },
 ];

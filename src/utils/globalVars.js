@@ -17,7 +17,6 @@ export const GEX_API_BASE = "https://gex.honu.pw";
 export const FONT_IMPORT =
   "@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&display=swap');";
 
-export const CUMULATIVE = true;
 export const FRAMES_PER_SECOND = 30;
 export const GAMEMODES = {
   0: "Unknown",

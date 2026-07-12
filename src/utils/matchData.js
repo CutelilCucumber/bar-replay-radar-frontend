@@ -76,7 +76,8 @@ function sessionCacheSet(match) {
  * Builds the query string and hits /api/match/search.
  */
 async function searchMatches(baseUrl, filters) {
-  const { limit, gamemode, minDurationMinutes, minPlayers, minimumAverageOS } = filters;
+  const { limit, gamemode, minDurationMinutes, minPlayers, minimumAverageOS } =
+    filters;
 
   const params = new URLSearchParams({
     limit: String(limit),
@@ -84,15 +85,14 @@ async function searchMatches(baseUrl, filters) {
     orderByDir: "desc",
     ranked: "true",
     processingAction: "true", // teamStats only exist once the action log is parsed
-    includePlayerLeaves: "true", // for early leaver score
-    includeSpectators: "true", // for big audience
-    includeMapDraws: "true", //for artistic players
-
-
+    includePlayerLeaves: "true", // for the quick-forfeit milestone
+    includeSpectators: "true", // for audience-size context
+    includeMapDraws: "true", // for the "artistic players" milestone
   });
 
   if (gamemode) params.set("gamemode", String(gamemode));
-  if (minimumAverageOS) params.set("minimumAverageOS", String(minimumAverageOS));
+  if (minimumAverageOS)
+    params.set("minimumAverageOS", String(minimumAverageOS));
   if (minDurationMinutes) {
     params.set("durationMinimum", String(minDurationMinutes * 60 * 1000));
   }
@@ -114,34 +114,42 @@ function findInCache(matchId) {
  * missing ally teams, or too short a stat series to plot).
  */
 async function buildMatchRecord(baseUrl, summary) {
-const params = new URLSearchParams({
-    includeTeamStats:true,
-    includeExtraStats: true,
-    includeWindUpdates: true,
-
-    includeUnitsCreated:true,
-    includeUnitsKilled: true,
-    includeUnitDamage:true,
-    includeUnitDefs: true,
-    includeUnitResources: true,
-    includeFactoryUnitCreate:true,
-    includeWindUpdates: true,
-    includeTeamDiedEvents: true,
-    includeCommanderPositionUpdates: true,
-
+  const eventParams = new URLSearchParams({
+    includeTeamStats: "true",
+    includeExtraStats: "true",
+    includeWindUpdates: "true",
+    includeUnitsCreated: "true",
+    includeUnitsKilled: "true",
+    includeUnitDamage: "true",
+    includeUnitDefs: "true",
+    includeUnitResources: "true",
+    includeFactoryUnitCreate: "true",
+    includeTeamDiedEvents: "true",
+    includeCommanderPositionUpdates: "true",
   });
 
   const eventJson = await getJson(
-    `${baseUrl}/api/game-event/${summary.id}?${params.toString()}`,
+    `${baseUrl}/api/game-event/${summary.id}?${eventParams.toString()}`,
   );
 
+  // /api/game-event/{id} returns 204 (empty body) if the match hasn't been
+  // processed yet — getJson resolves to null/undefined in that case.
+  if (!eventJson) return null;
+
+  // teamStats is documented nullable; treat missing as "no data yet".
+  const teamStats = eventJson.teamStats ?? [];
   const { players, allyTeams } = summary;
 
-  if (eventJson.teamStats.length === 0 || allyTeams.length < 2) return null;
+  if (teamStats.length === 0 || allyTeams.length < 2) return null;
 
   const durationMin = Math.round(summary.durationMs / 60000);
-  const series = bucketFrameStatsToSeries(eventJson, players, allyTeams, durationMin);
-  if (series.length < 3) return null;
+  const dataset = bucketFrameStatsToSeries(
+    eventJson,
+    players,
+    allyTeams,
+    durationMin,
+  );
+  if (dataset.series.length < 3) return null;
 
   const allyIds = getSortedAllyIds(allyTeams);
   const winnerSide = getWinnerSide(allyTeams, allyIds);
@@ -154,10 +162,26 @@ const params = new URLSearchParams({
     averageOS: summary.averageOS,
     durationMin,
     startTime: summary.startTime,
-    teamA: { name: "Ally Team A", skill: averageSkill(players, allyIds[0]), players: [] },
-    teamB: { name: "Ally Team B", skill: averageSkill(players, allyIds[1]), players: [] },
+    teamA: {
+      name: "Ally Team A",
+      skill: averageSkill(players, allyIds[0]),
+      players: [],
+      facts: dataset.teamFacts.A,
+    },
+    teamB: {
+      name: "Ally Team B",
+      skill: averageSkill(players, allyIds[1]),
+      players: [],
+      facts: dataset.teamFacts.B,
+    },
     winner: winnerSide,
-    series,
+    series: dataset.series,
+    wind: dataset.wind,
+    unitDefsById: dataset.unitDefsById,
+    playerLeaves: summary.playerLeaves ?? [],
+    spectatorCount: summary.spectators?.length ?? 0,
+    mapDraws: summary.mapDraws ?? [],
+    legionEnabled: dataset.legionEnabled,
   };
 }
 
@@ -188,8 +212,6 @@ function averageSkill(players, allyId) {
   const total = teamPlayers.reduce((sum, p) => sum + Number(p.skill ?? 20), 0);
   return total / teamPlayers.length;
 }
-
-
 /**
  * Fetches recent ranked matches from the Gex API and enriches each one with
  * its team-stats time series, pulled from /api/game-event/{id}.

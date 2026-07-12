@@ -23,10 +23,9 @@ import {
   GEX_API_BASE,
   COLORS,
   FONT_IMPORT,
-  CUMULATIVE,
-  FRAMES_PER_SECOND
+  FRAMES_PER_SECOND,
 } from "./utils/globalVars.js";
-import {MILESTONES} from "./utils/awards.js" 
+import { MILESTONES } from "./utils/awards.js";
 import "./App.css";
 
 export default function App() {
@@ -127,7 +126,7 @@ export default function App() {
       return next;
     });
   };
-    const toggleBadgeBox = () => {
+  const toggleBadgeBox = () => {
     setExpandBadges(!expandBadges);
   };
 
@@ -319,44 +318,48 @@ export default function App() {
         )}
 
         {/* milestone bar */}
-        
+
         <nav className={`milestone-container ${String(expandBadges)}`}>
-          <fieldset className='badge-container'
-      onClick={toggleBadgeBox}>
-      <span
-      className="badge-show">{expandBadges ? "Hide v" : "Show >"}</span>
+          <fieldset className="badge-container" onClick={toggleBadgeBox}>
+            <span className="badge-show">
+              {expandBadges ? "Hide v" : "Show >"}
+            </span>
 
-    {expandBadges && (
-      <div className="badge-content">
-        {MILESTONES.map((m) => {
-          const isSelected = activeFilters[m.key];
-          const Icon = m.icon;
+            {expandBadges && (
+              <div className="badge-content">
+                {MILESTONES.map((m) => {
+                  const isSelected = activeFilters[m.key];
+                  const Icon = m.icon;
 
-          return (
-            <button
-              key={m.key}
-              onClick={() => toggleFilter(m.key)}
-              className="milestone-button"
-              style={{
-                border: isSelected
-                  ? `1px solid var(${m.color})`
-                  : "1px solid var(--color-line)",
-                background: isSelected
-                  ? "var(--milestone-bg-selected)"
-                  : "var(--bg)",
-                color: isSelected ? `var(${m.color})` : "var(--color-faint)",
-                transform: isSelected ? "translateY(-2px)" : "translateY(0)",
-                transition: "transform 0.2s ease",
-              }}
-            >
-              <Icon size={12.5} /> {m.label}
-            </button>
-          );
-        })}
-      </div>
-    )}
-  </fieldset>
-          
+                  return (
+                    <button
+                      key={m.key}
+                      onClick={() => toggleFilter(m.key)}
+                      className="milestone-button"
+                      style={{
+                        border: isSelected
+                          ? `1px solid var(${m.color})`
+                          : "1px solid var(--color-line)",
+                        background: isSelected
+                          ? "var(--milestone-bg-selected)"
+                          : "var(--bg)",
+                        color: isSelected
+                          ? `var(${m.color})`
+                          : "var(--color-faint)",
+                        transform: isSelected
+                          ? "translateY(-2px)"
+                          : "translateY(0)",
+                        transition: "transform 0.2s ease",
+                      }}
+                    >
+                      <Icon size={12.5} /> {m.label}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </fieldset>
+
           <div style={{ flex: 1 }} />
           <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="score">sort: spectate score</option>
