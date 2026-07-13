@@ -245,7 +245,7 @@ function buildTeamFacts({
   const unitsKilledForSide = unitsKilled.filter((u) => teamIDs.has(u.teamID));
 
   // Rush-timing / diversity lookup: definitionName -> { count, firstFrame }.
-  // Callers match specific names (AFUS, nukes, calamity, bombers, ...) themselves.
+  // Callers match specific names (AFU, nukes, calamity, bombers, ...) themselves.
   const unitsCreatedByDef = {};
   const unitGroupsSeen = new Set();
   for (const u of unitsCreatedForSide) {

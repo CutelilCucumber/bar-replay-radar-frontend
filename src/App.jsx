@@ -184,10 +184,10 @@ export default function App() {
       <main className="page">
         {/* header */}
         <header className="header-container">
+          <img src="../public/radarIcon.png" alt="radar bot" style={{height: 100}}/>
           <div>
             <div className="page-title-container">
-              <Flame size={20} color={COLORS.combat} />
-              <h1>Fire Replay Finder</h1>
+              <h1>Replay Radar</h1>
             </div>
             <p className="sub-header">
               Scores Beyond All Reason replays based on how good they are to watch · built on{" "}
@@ -214,7 +214,7 @@ export default function App() {
 
         {/* live controls */}
         {mode === "scan" && (
-          <fieldset className="param-filter">
+          <fieldset className="option-container">
             <Settings2 size={15} color={COLORS.muted} />
             <label>
               Gamemode:
@@ -322,7 +322,7 @@ export default function App() {
         {/* milestone bar */}
 
         <nav className={`filter-container ${expandBadges ? "expanded" : ""}`}>
-          <div className="param-filter" >
+          <div className="option-badge" >
             <span className="badge-show"
               onClick={toggleBadgeBox}>
               {expandBadges ? "Hide Award Filters ⌄" : "Show Award Filters >"}
@@ -361,7 +361,7 @@ export default function App() {
             )}
           </div>
 
-          <select className="param-filter" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <select className="option-container" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
             <option value="score">Sort by: spectate score</option>
             <option value="recent">Sort by: most recent</option>
             <option value="duration">Sort by: longest game</option>

@@ -15,7 +15,7 @@ export const MILESTONES = [
     icon: TrendingUp,
     color: "--color-eco",
     weight: 2,
-    description: "Winning team once far behind on army value.",
+    description: "Winning team once far behind on army value and eco.",
   },
   {
     key: "backAndForth",
@@ -88,7 +88,7 @@ export const MILESTONES = [
     icon: Bot,
     color: "--color-eco",
     weight: 0,
-    description: "Legion faction detected in this game",
+    description: "Legion faction detected in this game. Worth no points.",
   },
   {
     key: "earlyBombing",
@@ -96,11 +96,11 @@ export const MILESTONES = [
     icon: Plane,
     color: "--color-combat",
     weight: 1,
-    description: "At least 8 bombers built before 5 minutes.",
+    description: "At least 4 bombers built before 5 minutes.",
   },
   {
     key: "nailBiter",
-    label: "Nail Biter",
+    label: "Last Commander",
     icon: LocateFixed,
     color: "--color-close",
     weight: 2,
@@ -160,7 +160,7 @@ export const MILESTONES = [
   },
   {
     key: "upset",
-    label: "Upset",
+    label: "Imbalanced",
     icon: Crown,
     color: "--color-upset",
     weight: 0,

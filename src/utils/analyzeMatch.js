@@ -3,6 +3,9 @@ import { FRAMES_PER_SECOND } from "./globalVars.js";
 
 // ---------------------------------------------------------------------------
 // TODO: rework base race to account for buildings killed
+// change comeback to account for eco, bigger swing more points
+//tweak early bombing lower threshhold
+//make tech spread higher threshold
 // ---------------------------------------------------------------------------
 const AFUS_DEFS = ["corafus", "armafus", "legafus"]; // e.g. advanced fusion reactor def names
 const NUKE_DEFS = ["corsilo", "armsilo", "legsilo"]; // e.g. nuke silo def names, both factions
@@ -265,15 +268,15 @@ function legionMatch(match) {
   return { flag, magnitude: flag ? 1 : 0 };
 }
 
-/** At least 8 bombers built by either side before minute 5. */
+/** At least 4 bombers built by either side before minute 5. */
 function earlyBombing(factsA, factsB) {
-  const countBefore5 = (facts) =>
+  const countBefore = (facts) =>
     BOMBER_DEFS.reduce((sum, name) => {
       const frames = facts?.unitsCreatedByDef?.[name]?.frames ?? [];
       return sum + frames.filter((f) => frameToMinute(f) <= 5).length;
     }, 0);
-  const maxCount = Math.max(countBefore5(factsA), countBefore5(factsB));
-  const flag = maxCount >= 8;
+  const maxCount = Math.max(countBefore(factsA), countBefore(factsB));
+  const flag = maxCount >= 4;
   return { flag, magnitude: clamp01(maxCount / 12) };
 }
 
