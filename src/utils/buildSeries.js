@@ -68,7 +68,12 @@ export function bucketFrameStatsToSeries(
       commanderPositionUpdates,
       series,
       matchDurationFrames,
-      seriesKeys: { army: "armyA", dmg: "dmgA", metalUsed: "metalUsedA", actions: "actionsA" },
+      seriesKeys: {
+        army: "armyA",
+        dmg: "dmgA",
+        metalUsed: "metalUsedA",
+        actions: "actionsA",
+      },
     }),
     B: buildTeamFacts({
       ally: allyB,
@@ -82,7 +87,12 @@ export function bucketFrameStatsToSeries(
       commanderPositionUpdates,
       series,
       matchDurationFrames,
-      seriesKeys: { army: "armyB", dmg: "dmgB", metalUsed: "metalUsedB", actions: "actionsB" },
+      seriesKeys: {
+        army: "armyB",
+        dmg: "dmgB",
+        metalUsed: "metalUsedB",
+        actions: "actionsB",
+      },
     }),
   };
 
@@ -251,7 +261,11 @@ function buildTeamFacts({
   for (const u of unitsCreatedForSide) {
     const def = unitDefsById.get(u.definitionID);
     const name = def?.definitionName ?? u.definitionName ?? "unknown";
-    const entry = unitsCreatedByDef[name] ?? { count: 0, firstFrame: u.frame, frames: [] };
+    const entry = unitsCreatedByDef[name] ?? {
+      count: 0,
+      firstFrame: u.frame,
+      frames: [],
+    };
     entry.count += 1;
     entry.firstFrame = Math.min(entry.firstFrame, u.frame);
     entry.frames.push(u.frame);
@@ -276,7 +290,12 @@ function buildTeamFacts({
   if (opponentStart) {
     for (const pos of commanderPositionUpdates) {
       if (!commanderUnitIDs.has(pos.unitID)) continue;
-      const dist = distance2D(pos.unitX, pos.unitZ, opponentStart.x, opponentStart.z);
+      const dist = distance2D(
+        pos.unitX,
+        pos.unitZ,
+        opponentStart.x,
+        opponentStart.z,
+      );
       if (!closestApproach || dist < closestApproach.distance) {
         closestApproach = { distance: dist, frame: pos.frame };
       }
@@ -286,11 +305,13 @@ function buildTeamFacts({
   const deathEvent = teamDiedEvents.find((d) => teamIDs.has(d.teamID));
   const lastPoint = series[series.length - 1];
   const peakArmyPoint = series.reduce(
-    (best, p) => (p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best),
+    (best, p) =>
+      p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best,
     null,
   );
   const minArmyPoint = series.reduce(
-    (worst, p) => (p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst),
+    (worst, p) =>
+      p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst,
     null,
   );
 
@@ -314,10 +335,15 @@ function buildTeamFacts({
 }
 
 function averageStartPosition(players, allyTeamID) {
-  const sidePlayers = players.filter((p) => p.allyTeamID === allyTeamID && p.startingPosition);
+  const sidePlayers = players.filter(
+    (p) => p.allyTeamID === allyTeamID && p.startingPosition,
+  );
   if (sidePlayers.length === 0) return null;
   const sum = sidePlayers.reduce(
-    (acc, p) => ({ x: acc.x + p.startingPosition.x, z: acc.z + p.startingPosition.z }),
+    (acc, p) => ({
+      x: acc.x + p.startingPosition.x,
+      z: acc.z + p.startingPosition.z,
+    }),
     { x: 0, z: 0 },
   );
   return { x: sum.x / sidePlayers.length, z: sum.z / sidePlayers.length };

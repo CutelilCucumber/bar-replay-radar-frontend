@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   ChevronDown,
   ChevronRight,
@@ -7,7 +7,7 @@ import {
   FileWarningIcon,
 } from "lucide-react";
 
-import {MILESTONES} from "../../utils/awards.js" 
+import { MILESTONES } from "../../utils/awards.js";
 import { COLORS, GAMEMODES } from "../../utils/globalVars";
 import { MatchDetail } from "../MatchDetail/MatchDetail.jsx";
 import { ScoreDial } from "../ui/ScoreDial.jsx";
@@ -24,6 +24,19 @@ export function MatchCard({
   onSave,
   onDelete,
 }) {
+  const [showWinner, setShowWinner] = useState(false);
+  const [showAwards, setShowAwards] = useState(false);
+  const [flipGraphs, setFlipGraphs] = useState(true);
+
+  useEffect(() => {
+    if (showWinner === true) {
+      setFlipGraphs(false);
+    } else {
+      const flipped = Math.random() < 0.5;
+      setFlipGraphs(flipped);
+    }
+  }, [showWinner]);
+
   const activeMilestones = MILESTONES.filter((m) => analysis.flags[m.key]);
   const unsupported =
     match.gamemode === "4" || match.gamemode === "5" ? true : false;
@@ -72,22 +85,47 @@ export function MatchCard({
               {formatDateLocalTimezone(match.startTime)}
             </span>
           </div>
-          <section className="badge-container">
-            {activeMilestones.length > 0 ? (
-              activeMilestones.map((m) => (
-                <Badge
-                  key={m.key}
-                  def={m}
-                  magnitude={analysis.magnitudes[m.key]}
-                />
-              ))
-            ) : (
-              <span className="no-badge">Nothing noteworthy detected</span>
-            )}
-          </section>
+          {showAwards ? (
+            <section className="badge-container">
+              {activeMilestones.length > 0 ? (
+                activeMilestones.map((m) => (
+                  <Badge
+                    key={m.key}
+                    def={m}
+                    magnitude={analysis.magnitudes[m.key]}
+                  />
+                ))
+              ) : (
+                <span className="no-badge">Nothing noteworthy detected</span>
+              )}
+            </section>
+          ) : (
+            <div
+              className="awards-show"
+              onClick={(e) => {
+                setShowAwards(true);
+                e.stopPropagation();
+              }}
+            >{`Show ${activeMilestones.length} awards >`}</div>
+          )}
+          {showWinner ? (
+            ""
+          ) : (
+            <div
+              className="winner-show"
+              onClick={(e) => {
+                setShowWinner(true);
+                e.stopPropagation();
+              }}
+            >{`Spoil results >`}</div>
+          )}
         </header>
         <div className="miniSparkline-container">
-          <MiniSparkline series={match.series} />
+          <MiniSparkline
+            series={match.series}
+            winner={showWinner ? match.winner : null}
+            flipped={flipGraphs}
+          />
           {expanded ? (
             <ChevronDown size={16} color={COLORS.muted} />
           ) : (

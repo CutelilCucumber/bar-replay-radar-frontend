@@ -1,4 +1,25 @@
-import { LocateFixed, StepForward, FoldHorizontal, Crosshair, Plane, Bot, Wind, Mouse, TrendingUp, Radio, Swords, Crown, Zap, Rocket, PocketKnife, ArrowRightLeft, SportShoe, Flag, BowArrow, Bomb } from "lucide-react";
+import {
+  LocateFixed,
+  StepForward,
+  FoldHorizontal,
+  Crosshair,
+  Plane,
+  Bot,
+  Wind,
+  Mouse,
+  TrendingUp,
+  Radio,
+  Swords,
+  Crown,
+  Zap,
+  Rocket,
+  PocketKnife,
+  ArrowRightLeft,
+  SportShoe,
+  Flag,
+  BowArrow,
+  Bomb,
+} from "lucide-react";
 
 export const MILESTONES = [
   {
@@ -130,8 +151,7 @@ export const MILESTONES = [
     icon: Crosshair,
     color: "--color-combat",
     weight: 1,
-    description:
-      "Ragnarok/Calamity/Starfall is rushed or at lest 3 are built",
+    description: "Ragnarok/Calamity/Starfall is rushed or at lest 3 are built",
   },
   {
     key: "techSpread",
@@ -164,6 +184,7 @@ export const MILESTONES = [
     icon: Crown,
     color: "--color-upset",
     weight: 0,
-    description: "Noticable skill gap between teams regardless of outcome, worth no points.",
+    description:
+      "Noticable skill gap between teams regardless of outcome, worth no points.",
   },
 ];

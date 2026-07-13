@@ -184,33 +184,33 @@ export default function App() {
       <main className="page">
         {/* header */}
         <header className="header-container">
-          <img src="../public/radarIcon.png" alt="radar bot" style={{height: 100}}/>
+          <img src="/radarIcon.png" alt="radar bot" style={{ height: 100 }} />
           <div>
             <div className="page-title-container">
               <h1>Replay Radar</h1>
             </div>
             <p className="sub-header">
-              Scores Beyond All Reason replays based on how good they are to watch · built on{" "}
-              <a href="https://gex.honu.pw/">gex</a>
+              Scores Beyond All Reason replays based on how good they are to
+              watch · built on <a href="https://gex.honu.pw/">gex</a>
             </p>
           </div>
         </header>
 
         <div className="mode-switch">
-            {["saved", "scan"].map((m) => (
-              <button
-                key={m}
-                onClick={() => setMode(m)}
-                className="mode-switch-button"
-                style={{
-                  background: mode === m ? COLORS.eco : "transparent",
-                  color: mode === m ? COLORS.bg : COLORS.ink,
-                }}
-              >
-                {m.toUpperCase()}
-              </button>
-            ))}
-          </div>
+          {["saved", "scan"].map((m) => (
+            <button
+              key={m}
+              onClick={() => setMode(m)}
+              className="mode-switch-button"
+              style={{
+                background: mode === m ? COLORS.eco : "transparent",
+                color: mode === m ? COLORS.bg : COLORS.ink,
+              }}
+            >
+              {m.toUpperCase()}
+            </button>
+          ))}
+        </div>
 
         {/* live controls */}
         {mode === "scan" && (
@@ -226,7 +226,6 @@ export default function App() {
                     gamemode: Number(e.target.value),
                   })
                 }
-
                 className="field-filter"
               >
                 <option value="">Any</option>
@@ -322,10 +321,9 @@ export default function App() {
         {/* milestone bar */}
 
         <nav className={`filter-container ${expandBadges ? "expanded" : ""}`}>
-          <div className="option-badge" >
-            <span className="badge-show"
-              onClick={toggleBadgeBox}>
-              {expandBadges ? "Hide Award Filters ⌄" : "Show Award Filters >"}
+          <div className="option-badge">
+            <span className="badge-show" onClick={toggleBadgeBox}>
+              {expandBadges ? "Hide award filters ⌄" : "Show award filters >"}
             </span>
 
             {expandBadges && (
@@ -361,7 +359,11 @@ export default function App() {
             )}
           </div>
 
-          <select className="option-container" value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+          <select
+            className="option-container"
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+          >
             <option value="score">Sort by: spectate score</option>
             <option value="recent">Sort by: most recent</option>
             <option value="duration">Sort by: longest game</option>

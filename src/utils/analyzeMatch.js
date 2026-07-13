@@ -11,7 +11,15 @@ const AFUS_DEFS = ["corafus", "armafus", "legafus"]; // e.g. advanced fusion rea
 const NUKE_DEFS = ["corsilo", "armsilo", "legsilo"]; // e.g. nuke silo def names, both factions
 const ORBITAL_CANNON_DEFS = ["armvulc", "corbuzz", "legstarfall"]; // Ragnarok / Calamity / Starfall def names
 const BOMBER_DEFS = ["corshad", "armthund"]; // t1 bomber def names
-const BONUS_TECH_DEFS = ["armspy", "corspy", "legspy", "cormando", "leginfestor", "corsktl", "armgremlin"]; // commandos, bedbugs, spy bots, etc — for techSpread bonus
+const BONUS_TECH_DEFS = [
+  "armspy",
+  "corspy",
+  "legspy",
+  "cormando",
+  "leginfestor",
+  "corsktl",
+  "armgremlin",
+]; // commandos, bedbugs, spy bots, etc — for techSpread bonus
 const T3_DEFS = ["corgant", "leggant", "armshltx"]; // any tech-3 gantry, both factions
 
 // Reference wind speed the rush-timing thresholds below are tuned against

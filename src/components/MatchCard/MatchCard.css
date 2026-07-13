@@ -7,6 +7,9 @@
   transition: border-color 120ms ease;
   font-family: "EXxo2";
 }
+.match-container:hover {
+  background: var(--color-panel2);
+}
 
 .save-action {
   position: absolute;
@@ -55,6 +58,24 @@
 .title-detail {
   font-size: 14px;
   color: var(--color-muted);
+}
+.awards-show {
+  margin-top: -10px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  font-weight: 600px;
+}
+.awards-show:hover {
+  color: var(--color-eco);
+}
+.winner-show {
+  margin-top: 10px;
+  font-family: "Space Grotesk";
+  font-size: 14px;
+  font-weight: 600px;
+}
+.winner-show:hover {
+  color: var(--color-upset);
 }
 .badge-container {
   display: flex;

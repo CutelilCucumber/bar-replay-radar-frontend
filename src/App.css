@@ -15,7 +15,6 @@
 .header-container {
   display: flex;
   align-items: center;
-  flex-wrap: wrap;
   gap: 12px;
   margin-bottom: 22px;
   background: var(--color-panel2);
@@ -23,6 +22,7 @@
   border-radius: 0px 0px 10px 10px;
 }
 .page-title-container {
+  margin-top: 12px;
   display: flex;
   align-items: center;
   gap: 9px;
@@ -138,7 +138,7 @@ a {
   margin-bottom: 16px;
   font-weight: 600;
 }
-.badge-show{
+.badge-show {
   font-weight: 600;
   cursor: pointer;
   padding: 14px;
@@ -199,4 +199,3 @@ a {
   color: var(--color-faint);
   line-height: 1.6;
 }
-
