@@ -87,7 +87,7 @@ export function MatchCard({
           </section>
         </header>
         <div className="miniSparkline-container">
-          <MiniSparkline series={match.series} winner={match.winner} />
+          <MiniSparkline series={match.series} />
           {expanded ? (
             <ChevronDown size={16} color={COLORS.muted} />
           ) : (

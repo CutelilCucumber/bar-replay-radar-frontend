@@ -45,6 +45,7 @@ export function bucketFrameStatsToSeries(
   const teamToAlly = buildTeamToAllyMap(players);
   const [allyA, allyB] = getSortedAllyIds(allyTeams);
   const unitDefsById = buildUnitDefsById(unitDefinitions);
+  const matchDurationFrames = durationMin * 60 * FRAMES_PER_SECOND;
 
   const series = buildSeries({
     teamStats,
@@ -66,12 +67,8 @@ export function bucketFrameStatsToSeries(
       teamDiedEvents,
       commanderPositionUpdates,
       series,
-      seriesKeys: {
-        army: "armyA",
-        dmg: "dmgA",
-        metalUsed: "metalUsedA",
-        actions: "actionsA",
-      },
+      matchDurationFrames,
+      seriesKeys: { army: "armyA", dmg: "dmgA", metalUsed: "metalUsedA", actions: "actionsA" },
     }),
     B: buildTeamFacts({
       ally: allyB,
@@ -84,12 +81,8 @@ export function bucketFrameStatsToSeries(
       teamDiedEvents,
       commanderPositionUpdates,
       series,
-      seriesKeys: {
-        army: "armyB",
-        dmg: "dmgB",
-        metalUsed: "metalUsedB",
-        actions: "actionsB",
-      },
+      matchDurationFrames,
+      seriesKeys: { army: "armyB", dmg: "dmgB", metalUsed: "metalUsedB", actions: "actionsB" },
     }),
   };
 
@@ -98,7 +91,7 @@ export function bucketFrameStatsToSeries(
     teamFacts,
     wind: buildWindSummary(windUpdates),
     unitDefsById,
-    legionMatch: detectlegionMatch(unitsCreated),
+    legionEnabled: detectLegionEnabled(unitsCreated),
   };
 
   // unitResources and unitDamage are included in the fetch (per-unit granularity)
@@ -107,7 +100,6 @@ export function bucketFrameStatsToSeries(
   // they're easy to wire in if a milestone needs unit-level damage later.
   void unitDamage;
   void unitResources;
-  void durationMin;
 }
 
 /**
@@ -253,17 +245,13 @@ function buildTeamFacts({
   const unitsKilledForSide = unitsKilled.filter((u) => teamIDs.has(u.teamID));
 
   // Rush-timing / diversity lookup: definitionName -> { count, firstFrame }.
-  // Callers match specific names (AFUs, nukes, calamity, bombers, ...) themselves.
+  // Callers match specific names (AFUS, nukes, calamity, bombers, ...) themselves.
   const unitsCreatedByDef = {};
   const unitGroupsSeen = new Set();
   for (const u of unitsCreatedForSide) {
     const def = unitDefsById.get(u.definitionID);
     const name = def?.definitionName ?? u.definitionName ?? "unknown";
-    const entry = unitsCreatedByDef[name] ?? {
-      count: 0,
-      firstFrame: u.frame,
-      frames: [],
-    };
+    const entry = unitsCreatedByDef[name] ?? { count: 0, firstFrame: u.frame, frames: [] };
     entry.count += 1;
     entry.firstFrame = Math.min(entry.firstFrame, u.frame);
     entry.frames.push(u.frame);
@@ -288,12 +276,7 @@ function buildTeamFacts({
   if (opponentStart) {
     for (const pos of commanderPositionUpdates) {
       if (!commanderUnitIDs.has(pos.unitID)) continue;
-      const dist = distance2D(
-        pos.unitX,
-        pos.unitZ,
-        opponentStart.x,
-        opponentStart.z,
-      );
+      const dist = distance2D(pos.unitX, pos.unitZ, opponentStart.x, opponentStart.z);
       if (!closestApproach || dist < closestApproach.distance) {
         closestApproach = { distance: dist, frame: pos.frame };
       }
@@ -303,13 +286,11 @@ function buildTeamFacts({
   const deathEvent = teamDiedEvents.find((d) => teamIDs.has(d.teamID));
   const lastPoint = series[series.length - 1];
   const peakArmyPoint = series.reduce(
-    (best, p) =>
-      p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best,
+    (best, p) => (p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best),
     null,
   );
   const minArmyPoint = series.reduce(
-    (worst, p) =>
-      p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst,
+    (worst, p) => (p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst),
     null,
   );
 
@@ -333,15 +314,10 @@ function buildTeamFacts({
 }
 
 function averageStartPosition(players, allyTeamID) {
-  const sidePlayers = players.filter(
-    (p) => p.allyTeamID === allyTeamID && p.startingPosition,
-  );
+  const sidePlayers = players.filter((p) => p.allyTeamID === allyTeamID && p.startingPosition);
   if (sidePlayers.length === 0) return null;
   const sum = sidePlayers.reduce(
-    (acc, p) => ({
-      x: acc.x + p.startingPosition.x,
-      z: acc.z + p.startingPosition.z,
-    }),
+    (acc, p) => ({ x: acc.x + p.startingPosition.x, z: acc.z + p.startingPosition.z }),
     { x: 0, z: 0 },
   );
   return { x: sum.x / sidePlayers.length, z: sum.z / sidePlayers.length };
@@ -357,7 +333,7 @@ function distance2D(x1, z1, x2, z2) {
  * standard Armada/Cortex commander defs). Looks at every unit created on
  * the earliest build frame, since all commanders spawn at match start.
  */
-function detectlegionMatch(unitsCreated) {
+function detectLegionEnabled(unitsCreated) {
   if (unitsCreated.length === 0) return false;
   const earliestFrame = Math.min(...unitsCreated.map((u) => u.frame));
   return unitsCreated

@@ -73,6 +73,7 @@ a {
   flex-wrap: wrap;
   align-items: center;
   margin-bottom: 16px;
+  font-weight: 600;
 }
 .field-filter {
   width: 70px;
@@ -122,6 +123,7 @@ a {
   gap: 0px;
 }
 .badge-show{
+  font-weight: 600;
   cursor: pointer;
 }
 
@@ -152,6 +154,7 @@ a {
   border-radius: 7px;
   padding: 6px 10px;
   cursor: pointer;
+  font-weight: 600;
 }
 .no-matches {
   text-align: center;

@@ -1,6 +1,6 @@
 import { COLORS } from "../../utils/globalVars.js";
 
-export function MiniSparkline({ series, width = 220, height = 46, winner }) {
+export function MiniSparkline({ series, width = 220, height = 46}) {
   const w = width,
     h = height,
     mid = h / 2;
@@ -26,7 +26,7 @@ export function MiniSparkline({ series, width = 220, height = 46, winner }) {
       <path
         d={path}
         fill="none"
-        stroke={winner === "A" ? COLORS.eco : COLORS.close}
+        stroke={COLORS.eco}
         strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -35,7 +35,7 @@ export function MiniSparkline({ series, width = 220, height = 46, winner }) {
         cx={pts[pts.length - 1][0]}
         cy={pts[pts.length - 1][1]}
         r="3"
-        fill={winner === "A" ? COLORS.eco : COLORS.close}
+        fill={COLORS.eco}
       />
     </svg>
   );
