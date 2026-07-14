@@ -1,5 +1,7 @@
 # BAR Replay Radar
 
+Live site can be found here: https://gex-game-finder.vercel.app/
+
 Scans recent Beyond All Reason matches and scores them on how worth watching they are with awards like comebacks, big fights, close finishes, etc — using data pulled live from [gex](https://github.com/Varunda/gex)'s public API.
 
 ## What it does
