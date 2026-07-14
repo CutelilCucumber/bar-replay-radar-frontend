@@ -79,6 +79,13 @@ export function analyzeMatch(match) {
       12,
       windAverage,
     ),
+    gantryRush: rushMilestone(
+      teamA.facts,
+      teamB.facts,
+      T3_DEFS,
+      25,
+      windAverage,
+    ),
     orbitalCannons: orbitalCannons(teamA.facts, teamB.facts, windAverage),
     techSpread: techSpread(teamA.facts, teamB.facts, playerCount),
     goliathDuel: goliathDuel(teamA.facts, teamB.facts, isDuel),
@@ -99,12 +106,19 @@ export function analyzeMatch(match) {
     flags,
     magnitudes,
     score,
-    // a few raw numbers useful for tooltips/debugging, same spirit as before
+    // a few raw numbers useful for comparison/debugging, same spirit as before
     details: {
-      worstDeficit: results.comeback.worstDeficit,
-      finalLeadGap: Math.abs(last.leadPct - 0.5),
+      worstDeficit: results.comeback.worstDeficitVal,
+      finalDmgGap: Math.abs((last.dmgA ?? 0) - (last.dmgB ?? 0)),
       skillGap: Math.abs(teamA.skill - teamB.skill),
       momentumShifts: results.backAndForth.shifts,
+      highestDamageMinute: results.bigBattle.highestDamageMinute,
+      firstAfus: results.afusRush.fastestMinute,
+      firstNuke: results.nukeRush.fastestMinute,
+      firstT3Minute: results.gantryRush.fastestMinute,
+      firstRFLRPC: results.orbitalCannons.rush.fastestMinute,
+      commandersLeft: results.nailBiter.remaining,
+      uniqueUnits: results.techSpread.diversity,
     },
   };
 }
@@ -143,9 +157,12 @@ function frameToMinute(frame) {
 // occasionally extra fields, e.g. comeback.worstDeficit, used in `details`).
 // ---------------------------------------------------------------------------
 
-/** Sharp declines in army value for BOTH teams in the same interval — a real fight, not a one-sided rout. */
+/** Sharp declines in army value for BOTH teams in the same interval — a real fight, not a one-sided rout.
+ * highest damage being calculated alongside for a tooltip
+ */
 function bigBattle(series) {
   let bestCombined = 0;
+  let highestDamageMinute = 0;
   for (let i = 1; i < series.length; i++) {
     const prev = series[i - 1];
     const cur = series[i];
@@ -155,20 +172,34 @@ function bigBattle(series) {
     if (declineA > prev.armyA * 0.3 && declineB > prev.armyB * 0.3) {
       bestCombined = Math.max(bestCombined, declineA + declineB);
     }
+    //compute highest damage minute by calculating the delta and comparing it to previous max
+    const combinedDelta = cur.dmgA - prev.dmgA + (cur.dmgB - prev.dmgB);
+    if (combinedDelta > bestCombined) {
+      bestCombined = combinedDelta;
+      highestDamageMinute = cur.t;
+    }
   }
   const flag = bestCombined > 0;
-  return { flag, magnitude: clamp01(bestCombined / 10000) };
+  return {
+    flag,
+    magnitude: clamp01(bestCombined / 10000),
+    highestDamageMinute,
+  };
 }
 
 /** Winning team was once far behind on army value. */
 function comeback(series, winnerIsA) {
   let worstDeficit = 0;
+  let worstDeficitVal = 0;
   for (const p of series) {
     const winnerShare = winnerIsA ? p.leadPct : 1 - p.leadPct;
     worstDeficit = Math.max(worstDeficit, 0.5 - winnerShare);
+
+    const winnerArmyVal = winnerIsA ? p.armyA - p.armyB : p.armyB - p.armyA;
+    worstDeficitVal = Math.max(worstDeficitVal, 0.5 - winnerArmyVal);
   }
   const flag = worstDeficit >= 0.5;
-  return { flag, magnitude: clamp01(worstDeficit / 0.5), worstDeficit };
+  return { flag, magnitude: clamp01(worstDeficit / 0.5), worstDeficitVal };
 }
 
 /** Constant momentum shifts — count sign changes in army-value lead across the match. */
@@ -216,9 +247,9 @@ function quickForfeit(loserFacts, playerCount) {
 }
 
 /**
- * Huge combined damage relative to match length and player count.
+ * significant building damage from both teams in a close time frams.
  * NOTE: this uses total damageDealt (units + structures combined) since the
- * will need to be reworked to check specifically destroyed structs
+ * a possible change could be checking damage dealt or taken by both teams without significant army value declines
  */
 // function baseRace(last, durationMin, playerCount) {
 //   const combinedDmg = (last?.dmgA ?? 0) + (last?.dmgB ?? 0);
@@ -289,12 +320,13 @@ function earlyBombing(factsA, factsB) {
 
 /** One commander left on the winning team. Excludes 1v1 duels (trivially always true there). */
 function nailBiter(winnerFacts, isDuel) {
-  if (isDuel || !winnerFacts) return { flag: false, magnitude: 0 };
+  if (isDuel || !winnerFacts)
+    return { flag: false, magnitude: 0, remaining: "1 (duel)" };
   const remaining =
     (winnerFacts.commanderUnitIDs?.length ?? 0) -
     (winnerFacts.commanderDeaths?.length ?? 0);
   const flag = remaining === 1;
-  return { flag, magnitude: flag ? 1 : 0 };
+  return { flag, magnitude: flag ? 1 : 0, remaining };
 }
 
 /**
@@ -328,7 +360,7 @@ function rushMilestone(
   const magnitude = clamp01(
     (adjustedThreshold - fastestMinute) / adjustedThreshold,
   );
-  return { flag, magnitude };
+  return { flag, magnitude, fastestMinute };
 }
 
 /** Ragnarok/Calamity/Starfall rush, or 1 built total across the match. */
@@ -347,8 +379,8 @@ function orbitalCannons(factsA, factsB, windAverage) {
     );
   const combinedCount = totalBuilt(factsA) + totalBuilt(factsB);
   const flag = rush.flag || combinedCount >= 1;
-  const magnitude = Math.max(rush.magnitude, clamp01(combinedCount / 5));
-  return { flag, magnitude };
+  const magnitude = Math.max(rush.magnitude, clamp01(combinedCount / 3));
+  return { flag, magnitude, rush };
 }
 
 /**
@@ -372,7 +404,45 @@ function techSpread(factsA, factsB, playerCount) {
   const magnitude = clamp01(
     (diversity / 6) * sizeAdjustment + bonusCount * 0.05,
   );
-  return { flag, magnitude: clamp01(magnitude) };
+  return { flag, magnitude: clamp01(magnitude), diversity };
+}
+
+/**
+ * T3 built relatively fast by either side, wind-adjusted the same way as
+ * afusRush/nukeRush (more energy available -> a "fast" T3 is faster).
+ * Unlike goliathDuel (which only checks *whether* both sides reached T3 in a
+ * duel), this checks *how fast either side* got there, in any gamemode.
+ *
+ * `isMetalMap` isn't wired up yet — per the MILESTONES description this
+ * should be excluded on metal maps, but that needs map data (e.g.
+ * mapData.maxMetal) threaded through from fetchLiveMatches first. Defaults
+ * to false so the milestone still functions until that's plumbed in.
+ */
+function gantryRush(factsA, factsB, windAverage, isMetalMap = false) {
+  if (T3_DEFS.length === 0 || isMetalMap) {
+    return { flag: false, magnitude: 0, firstT3Minute: null };
+  }
+
+  const fastestFrame = (facts) =>
+    T3_DEFS.reduce((best, name) => {
+      const firstFrame = facts?.unitsCreatedByDef?.[name]?.firstFrame;
+      return firstFrame != null ? Math.min(best, firstFrame) : best;
+    }, Infinity);
+
+  const earliestFrame = Math.min(fastestFrame(factsA), fastestFrame(factsB));
+  if (!Number.isFinite(earliestFrame)) {
+    return { flag: false, magnitude: 0, firstT3Minute: null };
+  }
+
+  const firstT3Minute = frameToMinute(earliestFrame);
+  const windFactor = windAverage > 0 ? WIND_BASELINE / windAverage : 1;
+  const adjustedThreshold = 25 * Math.min(2, Math.max(0.5, windFactor));
+
+  const flag = firstT3Minute <= adjustedThreshold;
+  const magnitude = clamp01(
+    (adjustedThreshold - firstT3Minute) / adjustedThreshold,
+  );
+  return { flag, magnitude, firstT3Minute };
 }
 
 /** Both sides reached tech 3 in a 1v1 duel. */

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from "react";
 import { COLORS } from "../../utils/globalVars.js";
 import {
@@ -15,47 +14,75 @@ import { Stat } from "../ui/Stat.jsx";
 import "./MatchDetail.css";
 
 const CHARTS = [
-  { key: "armyDiff", title: "Army Value Difference", color: COLORS.eco, unit: "m" },
-  { key: "ecoDiff", title: "Eco Value Difference", color: COLORS.close, unit: "m" },
-  { key: "dmgDiff", title: "Damage Dealt Difference", color: COLORS.combat, unit: "dmg" },
-  { key: "actionsDiff", title: "APM Difference", color: COLORS.upset, unit: "apm" },
+  {
+    key: "armyDiff",
+    title: "Army Value Difference",
+    color: COLORS.eco,
+    unit: "M",
+  },
+  {
+    key: "ecoDiff",
+    title: "Eco Value Difference",
+    color: COLORS.close,
+    unit: "M",
+  },
+  {
+    key: "dmgDiff",
+    title: "Damage Dealt Difference",
+    color: COLORS.combat,
+    unit: "DMG",
+  },
+  {
+    key: "actionsDiff",
+    title: "APM Difference",
+    color: COLORS.upset,
+    unit: "APM",
+  },
 ];
 
 export function MatchDetail({ match, analysis, flipGraphs }) {
-  const [diffData, setDiffData] = useState((match.series.map((p) => ({
-          t: p.t,
-          armyDiff: (p.armyA ?? 0) - (p.armyB ?? 0),
-          ecoDiff: (p.ecoA ?? 0) - (p.ecoB ?? 0),
-          dmgDiff: (p.dmgA ?? 0) - (p.dmgB ?? 0),
-          actionsDiff: (p.actionsA ?? 0) - (p.actionsB ?? 0),
-        }))))
+  const [diffData, setDiffData] = useState(
+    match.series.map((p) => ({
+      t: p.t,
+      armyDiff: (p.armyA ?? 0) - (p.armyB ?? 0),
+      ecoDiff: (p.ecoA ?? 0) - (p.ecoB ?? 0),
+      dmgDiff: (p.dmgA ?? 0) - (p.dmgB ?? 0),
+      actionsDiff: (p.actionsA ?? 0) - (p.actionsB ?? 0),
+    })),
+  );
   const { details } = analysis;
 
   // one shared array of per-minute diffs, feeding all 4 charts below
-    useEffect(() => {
+  useEffect(() => {
     if (flipGraphs) {
-        setDiffData (match.series.map((p) => ({
+      setDiffData(
+        match.series.map((p) => ({
           t: p.t,
           armyDiff: (p.armyB ?? 0) - (p.armyA ?? 0),
           ecoDiff: (p.ecoB ?? 0) - (p.ecoA ?? 0),
           dmgDiff: (p.dmgB ?? 0) - (p.dmgA ?? 0),
           actionsDiff: (p.actionsB ?? 0) - (p.actionsA ?? 0),
-        })))
-          } else {
-              setDiffData (match.series.map((p) => ({
+        })),
+      );
+    } else {
+      setDiffData(
+        match.series.map((p) => ({
           t: p.t,
           armyDiff: (p.armyA ?? 0) - (p.armyB ?? 0),
           ecoDiff: (p.ecoA ?? 0) - (p.ecoB ?? 0),
           dmgDiff: (p.dmgA ?? 0) - (p.dmgB ?? 0),
           actionsDiff: (p.actionsA ?? 0) - (p.actionsB ?? 0),
-        })))
+        })),
+      );
     }
   }, [flipGraphs]);
 
-
   return (
     <div className="detail-container">
-      <div className="chart-grid" style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}>
+      <div
+        className="chart-grid"
+        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
+      >
         {CHARTS.map((chart) => (
           <DiffChart
             key={chart.key}
@@ -64,29 +91,76 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
             data={diffData}
             dataKey={chart.key}
             color={chart.color}
+            unit={chart.unit}
           />
         ))}
       </div>
       <section className="stat-container">
         <Stat
-          label="Winner's worst deficit"
-          value={`${Math.round(details.worstDeficit * 100)}% army share`}
+          label="Biggest comeback:"
+          value={`${Math.round(details.worstDeficit)}m army value`}
           color={COLORS.eco}
         />
         <Stat
-          label="Final army gap"
-          value={`${Math.round(details.finalLeadGap * 100)}%`}
-          color={COLORS.close}
+          label="Final Damage gap:"
+          value={`${Math.round(details.finalDmgGap)} damage`}
+          color={COLORS.combat}
         />
         <Stat
-          label="Skill gap (ally teams)"
-          value={details.skillGap.toFixed(1)}
+          label="Team skill gap:"
+          value={`${details.skillGap.toFixed(2)} OS`}
           color={COLORS.upset}
         />
         <Stat
-          label="Momentum shifts"
-          value={details.momentumShifts}
+          label="Highest Damage Moment:"
+          value={`${details.highestDamageMinute} minutes`}
           color={COLORS.combat}
+        />
+        <Stat
+          label="surviving Commanders:"
+          value={`${details.commandersLeft}`}
+          color={COLORS.close}
+        />
+        <Stat
+          label="Unique Units:"
+          value={`${details.uniqueUnits}`}
+          color={COLORS.close}
+        />
+        <Stat
+          label="First AFUS Timing:"
+          value={
+            details.firstAfus
+              ? `${details.firstAfus.toFixed(2)} minutes`
+              : "none"
+          }
+          color={COLORS.close}
+        />
+        <Stat
+          label="First Gantry Timing:"
+          value={
+            details.firstT3Minute
+              ? `${details.firstT3Minute.toFixed(2)} minutes`
+              : "none"
+          }
+          color={COLORS.combat}
+        />
+        <Stat
+          label="First Nuke Timing:"
+          value={
+            details.firstNuke
+              ? `${details.firstNuke.toFixed(2)} minutes`
+              : "none"
+          }
+          color={COLORS.combat}
+        />
+        <Stat
+          label="First RFLRPC Timing:"
+          value={
+            details.firstRFLRPC
+              ? `${details.firstRFLRPC.toFixed(2)} minutes`
+              : "none"
+          }
+          color={COLORS.close}
         />
       </section>
       <a
@@ -114,16 +188,22 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
  * team B), drawn symmetrically around a zero midline so "who's ahead" reads
  * as above/below center rather than needing a legend.
  */
-function DiffChart({ id, title, data, dataKey, color}) {
+function DiffChart({ id, title, data, dataKey, color, unit }) {
   const maxAbs = Math.max(1, ...data.map((p) => Math.abs(p[dataKey])));
 
   return (
     <section className="chart-container">
-      <div className="chart-title" style={{ fontSize: 11, color: COLORS.muted, marginBottom: 2 }}>
+      <div
+        className="chart-title"
+        style={{ fontSize: 11, color: COLORS.muted, marginBottom: 2 }}
+      >
         {title}
       </div>
       <ResponsiveContainer width="100%" height="100%">
-        <AreaChart data={data} margin={{ top: 8, right: 8, left: -18, bottom: 0 }}>
+        <AreaChart
+          data={data}
+          margin={{ top: 8, right: 8, left: -18, bottom: 0 }}
+        >
           <defs>
             <linearGradient id={`grad-${id}`} x1="0" y1="0" x2="0" y2="1">
               <stop offset="0%" stopColor={color} stopOpacity={0.35} />
@@ -132,10 +212,13 @@ function DiffChart({ id, title, data, dataKey, color}) {
           </defs>
           <XAxis
             dataKey="t"
-            tick={{ fill: COLORS.muted, fontSize: 10, fontFamily: "JetBrains Mono" }}
+            tick={{
+              fill: COLORS.muted,
+              fontSize: 10,
+              fontFamily: "JetBrains Mono",
+            }}
             axisLine={{ stroke: COLORS.line }}
             tickLine={false}
-            unit="m"
           />
           <YAxis domain={[-maxAbs, maxAbs]} hide />
           <ReferenceLine y={0} stroke={COLORS.line} strokeDasharray="2 3" />
@@ -151,7 +234,7 @@ function DiffChart({ id, title, data, dataKey, color}) {
               `${v >= 0 ? "+" : ""}${Math.round(v)} ${v >= 0 ? "Blue team lead" : "Red team lead"}`,
               "",
             ]}
-            labelFormatter={(t) => `minute ${t}`}
+            labelFormatter={(t) => `${unit} at ${t} minutes.`}
           />
           <Area
             type="monotone"
