@@ -271,20 +271,19 @@ function spaceRace(series) {
 
 /** Legion detected. Weight 0 — informational only. */
 function legionMatch(match) {
-  console.log(match)
   const flag = Boolean(match.legionMatch);
   return { flag, magnitude: flag ? 1 : 0 };
 }
 
-/** At least 1 bombers built by either side before minute 5. */
+/** At least 5 bombers built by either side before minute 10. */
 function earlyBombing(factsA, factsB) {
   const countBefore = (facts) =>
     BOMBER_DEFS.reduce((sum, name) => {
       const frames = facts?.unitsCreatedByDef?.[name]?.frames ?? [];
-      return sum + frames.filter((f) => frameToMinute(f) <= 5).length;
+      return sum + frames.filter((f) => frameToMinute(f) <= 10).length;
     }, 0);
   const maxCount = Math.max(countBefore(factsA), countBefore(factsB));
-  const flag = maxCount >= 1;
+  const flag = maxCount >= 5;
   return { flag, magnitude: clamp01(maxCount / 12) };
 }
 

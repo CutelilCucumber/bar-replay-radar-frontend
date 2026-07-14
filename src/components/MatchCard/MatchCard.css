@@ -61,21 +61,33 @@
 }
 .awards-show {
   margin-top: -10px;
-  font-family: "Space Grotesk";
   font-size: 14px;
-  font-weight: 600px;
+  font-family: "Roboto mono", sans-serif;
+  font-weight: 600;
+  border: 1px solid var(--color-line);
+  padding: 6px 12px;
+  margin-right: 10px;
+  border-radius: 7px;
+  width: fit-content;
 }
 .awards-show:hover {
   color: var(--color-eco);
+  background-color: var(--color-panel);
 }
 .winner-show {
-  margin-top: 10px;
-  font-family: "Space Grotesk";
+  margin-top: 8px;
   font-size: 14px;
-  font-weight: 600px;
+  font-family: "Roboto mono", sans-serif;
+  font-weight: 600;
+  border: 1px solid var(--color-line);
+  padding: 6px 12px;
+  margin-right: 10px;
+  border-radius: 7px;
+  width: fit-content;
 }
 .winner-show:hover {
   color: var(--color-upset);
+  background-color: var(--color-panel);
 }
 .award-container {
   display: flex;

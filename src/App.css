@@ -52,6 +52,9 @@ a {
   margin-bottom: 16px;
   font-family: "Share Tech Mono";
 }
+.mode-switch:hover {
+  background-color: var(--color-panel2);
+}
 .mode-switch-button {
   all: unset;
   cursor: pointer;
@@ -75,6 +78,9 @@ a {
   align-items: center;
   margin-bottom: 16px;
   font-weight: 600;
+}
+.option-container:hover{
+  background-color: var(--color-panel2);
 }
 .field-filter {
   width: 70px;
@@ -137,6 +143,9 @@ a {
   align-items: center;
   margin-bottom: 16px;
   font-weight: 600;
+}
+.option-badge:hover{
+  background-color: var(--color-panel2);
 }
 .badge-show {
   font-weight: 600;

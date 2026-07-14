@@ -68,7 +68,12 @@ export function bucketFrameStatsToSeries(
       commanderPositionUpdates,
       series,
       matchDurationFrames,
-      seriesKeys: { army: "armyA", dmg: "dmgA", metalUsed: "metalUsedA", actions: "actionsA" },
+      seriesKeys: {
+        army: "armyA",
+        dmg: "dmgA",
+        metalUsed: "metalUsedA",
+        actions: "actionsA",
+      },
     }),
     B: buildTeamFacts({
       ally: allyB,
@@ -82,7 +87,12 @@ export function bucketFrameStatsToSeries(
       commanderPositionUpdates,
       series,
       matchDurationFrames,
-      seriesKeys: { army: "armyB", dmg: "dmgB", metalUsed: "metalUsedB", actions: "actionsB" },
+      seriesKeys: {
+        army: "armyB",
+        dmg: "dmgB",
+        metalUsed: "metalUsedB",
+        actions: "actionsB",
+      },
     }),
   };
 
@@ -233,7 +243,6 @@ function buildTeamFacts({
   teamDiedEvents,
   commanderPositionUpdates,
   series,
-  matchDurationFrames,
   seriesKeys,
 }) {
   const teamIDs = new Set(
@@ -244,22 +253,19 @@ function buildTeamFacts({
 
   const unitsCreatedForSide = unitsCreated.filter((u) => teamIDs.has(u.teamID));
   const unitsKilledForSide = unitsKilled.filter((u) => teamIDs.has(u.teamID));
-  const completedUnitsForSide = filterToFullyConstructed(
-    unitsCreatedForSide,
-    unitsKilledForSide,
-    unitDefsById,
-    matchDurationFrames,
-  );
 
   // Rush-timing / diversity lookup: definitionName -> { count, firstFrame }.
-  // Only counts units confirmed fully built (see filterToFullyConstructed) —
-  // callers still match specific names (AFUs, nukes, calamity, bombers, ...) themselves.
+  // Callers match specific names (AFU, nukes, calamity, bombers, ...) themselves.
   const unitsCreatedByDef = {};
   const unitGroupsSeen = new Set();
-  for (const u of completedUnitsForSide) {
+  for (const u of unitsCreatedForSide) {
     const def = unitDefsById.get(u.definitionID);
     const name = def?.definitionName ?? u.definitionName ?? "unknown";
-    const entry = unitsCreatedByDef[name] ?? { count: 0, firstFrame: u.frame, frames: [] };
+    const entry = unitsCreatedByDef[name] ?? {
+      count: 0,
+      firstFrame: u.frame,
+      frames: [],
+    };
     entry.count += 1;
     entry.firstFrame = Math.min(entry.firstFrame, u.frame);
     entry.frames.push(u.frame);
@@ -267,11 +273,7 @@ function buildTeamFacts({
     if (def?.unitGroup) unitGroupsSeen.add(def.unitGroup);
   }
 
-  // Commander tracking uses the UNFILTERED creation list: commanders spawn
-  // complete at match start (effectively buildTime ~0), so the construction
-  // filter above is a no-op for them, but there's no reason to route
-  // something as safety-critical as "is the commander still alive" through
-  // an estimate when the raw data is unambiguous.
+  // Commander tracking: which unitIDs are commanders, and when (if ever) they died.
   const commanderUnitIDs = new Set(
     unitsCreatedForSide
       .filter((u) => unitDefsById.get(u.definitionID)?.isCommander)
@@ -288,7 +290,12 @@ function buildTeamFacts({
   if (opponentStart) {
     for (const pos of commanderPositionUpdates) {
       if (!commanderUnitIDs.has(pos.unitID)) continue;
-      const dist = distance2D(pos.unitX, pos.unitZ, opponentStart.x, opponentStart.z);
+      const dist = distance2D(
+        pos.unitX,
+        pos.unitZ,
+        opponentStart.x,
+        opponentStart.z,
+      );
       if (!closestApproach || dist < closestApproach.distance) {
         closestApproach = { distance: dist, frame: pos.frame };
       }
@@ -298,11 +305,13 @@ function buildTeamFacts({
   const deathEvent = teamDiedEvents.find((d) => teamIDs.has(d.teamID));
   const lastPoint = series[series.length - 1];
   const peakArmyPoint = series.reduce(
-    (best, p) => (p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best),
+    (best, p) =>
+      p[seriesKeys.army] > (best?.[seriesKeys.army] ?? -Infinity) ? p : best,
     null,
   );
   const minArmyPoint = series.reduce(
-    (worst, p) => (p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst),
+    (worst, p) =>
+      p[seriesKeys.army] < (worst?.[seriesKeys.army] ?? Infinity) ? p : worst,
     null,
   );
 
@@ -326,10 +335,15 @@ function buildTeamFacts({
 }
 
 function averageStartPosition(players, allyTeamID) {
-  const sidePlayers = players.filter((p) => p.allyTeamID === allyTeamID && p.startingPosition);
+  const sidePlayers = players.filter(
+    (p) => p.allyTeamID === allyTeamID && p.startingPosition,
+  );
   if (sidePlayers.length === 0) return null;
   const sum = sidePlayers.reduce(
-    (acc, p) => ({ x: acc.x + p.startingPosition.x, z: acc.z + p.startingPosition.z }),
+    (acc, p) => ({
+      x: acc.x + p.startingPosition.x,
+      z: acc.z + p.startingPosition.z,
+    }),
     { x: 0, z: 0 },
   );
   return { x: sum.x / sidePlayers.length, z: sum.z / sidePlayers.length };
@@ -337,48 +351,6 @@ function averageStartPosition(players, allyTeamID) {
 
 function distance2D(x1, z1, x2, z2) {
   return Math.hypot(x1 - x2, z1 - z2);
-}
-
-// Assumes unitDef.buildTime is expressed in seconds (matching the "seconds at
-// nominal build power" convention used elsewhere in the Spring/BAR unit defs).
-// If units created counts still look inflated after this fix, this is the
-// first thing to verify against a known replay.
-const BUILD_TIME_SECONDS_TO_FRAMES = FRAMES_PER_SECOND;
-
-/**
- * `unitsCreated` fires when construction STARTS, not when it finishes (see
- * the /api/game-event doc), so a raw count includes buildings that were
- * canceled, reclaimed, destroyed mid-build, or simply still in progress when
- * the match ended. There's no explicit "construction complete" event in this
- * API, so this estimates completion using each unit's `buildTime`: real
- * build power only ever speeds construction up relative to that nominal
- * value, never slows it down, so requiring the full buildTime to have
- * elapsed is a conservative (few false-positives) completion check.
- *
- * A unit counts as fully constructed if BOTH:
- *   1. it wasn't killed/reclaimed before its estimated completion frame, and
- *   2. enough match time actually passed since it started for that estimate
- *      to have been reachable (i.e. the match didn't end first).
- */
-function filterToFullyConstructed(unitsCreatedForSide, unitsKilledForSide, unitDefsById, matchDurationFrames) {
-  const killFrameByUnitID = {};
-  for (const k of unitsKilledForSide) {
-    const existing = killFrameByUnitID[k.unitID];
-    killFrameByUnitID[k.unitID] = existing != null ? Math.min(existing, k.frame) : k.frame;
-  }
-
-  return unitsCreatedForSide.filter((u) => {
-    const def = unitDefsById.get(u.definitionID);
-    const buildTimeFrames = Math.max(0, Number(def?.buildTime ?? 0)) * BUILD_TIME_SECONDS_TO_FRAMES;
-    const completionEstimateFrame = u.frame + buildTimeFrames;
-
-    const killFrame = killFrameByUnitID[u.unitID];
-    const destroyedBeforeCompletion = killFrame != null && killFrame < completionEstimateFrame;
-
-    const enoughTimeElapsed = matchDurationFrames - u.frame >= buildTimeFrames;
-
-    return !destroyedBeforeCompletion && enoughTimeElapsed;
-  });
 }
 
 /**
