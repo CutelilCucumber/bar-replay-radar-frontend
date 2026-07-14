@@ -3,7 +3,6 @@ import { FRAMES_PER_SECOND } from "./globalVars.js";
 
 // ---------------------------------------------------------------------------
 // TODO: rework base race to account for buildings killed
-// change comeback to account for eco, bigger swing more points
 //tweak early bombing lower threshhold
 //make tech spread higher threshold
 // ---------------------------------------------------------------------------
@@ -153,12 +152,12 @@ function bigBattle(series) {
     const declineA = Math.max(0, prev.armyA - cur.armyA);
     const declineB = Math.max(0, prev.armyB - cur.armyB);
     // require BOTH sides to have lost meaningful army, not just one side getting rolled
-    if (declineA > prev.armyA * 0.1 && declineB > prev.armyB * 0.1) {
+    if (declineA > prev.armyA * 0.3 && declineB > prev.armyB * 0.3) {
       bestCombined = Math.max(bestCombined, declineA + declineB);
     }
   }
   const flag = bestCombined > 0;
-  return { flag, magnitude: clamp01(bestCombined / 400) };
+  return { flag, magnitude: clamp01(bestCombined / 10000) };
 }
 
 /** Winning team was once far behind on army value. */
@@ -168,8 +167,8 @@ function comeback(series, winnerIsA) {
     const winnerShare = winnerIsA ? p.leadPct : 1 - p.leadPct;
     worstDeficit = Math.max(worstDeficit, 0.5 - winnerShare);
   }
-  const flag = worstDeficit >= 0.13;
-  return { flag, magnitude: clamp01(worstDeficit / 0.35), worstDeficit };
+  const flag = worstDeficit >= 0.4;
+  return { flag, magnitude: clamp01(worstDeficit / 0.5), worstDeficit };
 }
 
 /** Constant momentum shifts — count sign changes in army-value lead across the match. */
@@ -182,7 +181,7 @@ function backAndForth(series) {
     if (sign !== 0) prevSign = sign;
   }
   const flag = shifts >= 3;
-  return { flag, magnitude: clamp01(shifts / 6), shifts };
+  return { flag, magnitude: clamp01(shifts / 10), shifts };
 }
 
 /** Heavily one-sided — average lead gap across the whole match, not just the final score. */
@@ -266,8 +265,8 @@ function spaceRace(series) {
       const total = p.ecoA + p.ecoB;
       return sum + (total === 0 ? 0 : Math.abs(p.ecoA - p.ecoB) / total);
     }, 0) / Math.max(1, series.length);
-  const flag = avgEcoGapPct <= 0.1;
-  return { flag, magnitude: clamp01(1 - avgEcoGapPct / 0.1) };
+  const flag = avgEcoGapPct <= 0.2;
+  return { flag, magnitude: clamp01(1 - avgEcoGapPct / 0.25) };
 }
 
 /** Legion Enabled. Weight 0 — informational only. */
@@ -276,7 +275,7 @@ function legionMatch(match) {
   return { flag, magnitude: flag ? 1 : 0 };
 }
 
-/** At least 4 bombers built by either side before minute 5. */
+/** At least 1 bombers built by either side before minute 5. */
 function earlyBombing(factsA, factsB) {
   const countBefore = (facts) =>
     BOMBER_DEFS.reduce((sum, name) => {
@@ -284,7 +283,7 @@ function earlyBombing(factsA, factsB) {
       return sum + frames.filter((f) => frameToMinute(f) <= 5).length;
     }, 0);
   const maxCount = Math.max(countBefore(factsA), countBefore(factsB));
-  const flag = maxCount >= 4;
+  const flag = maxCount >= 1;
   return { flag, magnitude: clamp01(maxCount / 12) };
 }
 
@@ -332,7 +331,7 @@ function rushMilestone(
   return { flag, magnitude };
 }
 
-/** Ragnarok/Calamity/Starfall rush, OR 3+ built total across the match. */
+/** Ragnarok/Calamity/Starfall rush, or 1 built total across the match. */
 function orbitalCannons(factsA, factsB, windAverage) {
   const rush = rushMilestone(
     factsA,
@@ -347,7 +346,7 @@ function orbitalCannons(factsA, factsB, windAverage) {
       0,
     );
   const combinedCount = totalBuilt(factsA) + totalBuilt(factsB);
-  const flag = rush.flag || combinedCount >= 3;
+  const flag = rush.flag || combinedCount >= 1;
   const magnitude = Math.max(rush.magnitude, clamp01(combinedCount / 5));
   return { flag, magnitude };
 }

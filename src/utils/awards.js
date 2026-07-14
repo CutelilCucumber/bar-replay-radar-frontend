@@ -36,7 +36,7 @@ export const MILESTONES = [
     icon: TrendingUp,
     color: "--color-eco",
     weight: 2,
-    description: "Winning team once far behind on army value and eco.",
+    description: "Winning team once 50% behind in army value.",
   },
   {
     key: "backAndForth",
@@ -117,7 +117,7 @@ export const MILESTONES = [
     icon: Plane,
     color: "--color-combat",
     weight: 1,
-    description: "At least 4 bombers built before 5 minutes.",
+    description: "At least 1 bomber built before 5 minutes.",
   },
   {
     key: "nailBiter",
@@ -151,7 +151,7 @@ export const MILESTONES = [
     icon: Crosshair,
     color: "--color-combat",
     weight: 1,
-    description: "Ragnarok/Calamity/Starfall is rushed or at lest 3 are built",
+    description: "Ragnarok/Calamity/Starfall is built",
   },
   {
     key: "techSpread",
