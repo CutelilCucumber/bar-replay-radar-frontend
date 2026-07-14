@@ -35,7 +35,7 @@ export const MILESTONES = [
     label: "Comeback",
     icon: TrendingUp,
     color: "--color-eco",
-    weight: 2,
+    weight: 3,
     description: "Winning team once 50% behind in army value.",
   },
   {
@@ -76,7 +76,7 @@ export const MILESTONES = [
     label: "Guerilla Fighters",
     icon: BowArrow,
     color: "--color-combat",
-    weight: 2,
+    weight: 3,
     description: "High average damage per metal spent. Combat efficient.",
   },
   {
@@ -100,7 +100,7 @@ export const MILESTONES = [
     label: "Space Race",
     icon: Rocket,
     color: "--color-close",
-    weight: 1,
+    weight: 2,
     description: "Close eco between teams throughout the match.",
   },
   {

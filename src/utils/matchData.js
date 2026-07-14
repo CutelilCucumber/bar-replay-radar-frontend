@@ -1,4 +1,5 @@
 import { bucketFrameStatsToSeries } from "./buildSeries.js";
+import { bothCacheGet, sessionCacheSet } from "./storage.js";
 /**
  * https://gex.honu.pw/api-doc/index.html
  * Token bucket matching gex's stated policy: starts with 300 requests,
@@ -41,37 +42,6 @@ async function getJson(url) {
   const body = await res.json();
   return body.data ?? body;
 }
-
-function bothCacheGet() {
-  //return a combined array of local and session storage
-  try {
-    let localMatches = [];
-    const localData = localStorage.getItem("saved-matches");
-    if (localData) localMatches = JSON.parse(localData);
-
-    let sessionMatches = [];
-    const sessionData = sessionStorage.getItem("processed-matches");
-    if (sessionData) sessionMatches = JSON.parse(sessionData);
-
-    return [...localMatches, ...sessionMatches];
-  } catch (e) {
-    console.log("Session storage Error: ", e);
-  }
-}
-
-function sessionCacheSet(match) {
-  try {
-    let sessionMatches = [];
-    const sessionData = sessionStorage.getItem("processed-matches");
-    if (sessionData) sessionMatches = JSON.parse(sessionData);
-    const combined = [...sessionMatches, match];
-
-    sessionStorage.setItem("processed-matches", JSON.stringify(combined));
-  } catch (e) {
-    console.log("Session storage Error: ", e);
-  }
-}
-
 /**
  * Builds the query string and hits /api/match/search.
  */

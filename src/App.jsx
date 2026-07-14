@@ -27,6 +27,7 @@ import {
 } from "./utils/globalVars.js";
 import { MILESTONES } from "./utils/awards.js";
 import "./App.css";
+import { deleteSavedMatch, getSavedMatches, isMatchSaved, saveMatch } from "./utils/storage.js";
 
 export default function App() {
   const [mode, setMode] = useState("saved"); // "saved" | "scan" | find
@@ -53,8 +54,7 @@ export default function App() {
 
   useEffect(() => {
     if (mode === "saved") {
-      const cachedMatches = localStorage.getItem("saved-matches");
-      setMatches(cachedMatches ? JSON.parse(cachedMatches) : []);
+      setMatches(getSavedMatches())
     } else {
       setMatches(newMatches);
     }
@@ -139,16 +139,12 @@ export default function App() {
   };
 
   const handleSave = (match) => {
-    if (inCache(match.id)) {
+    if (isMatchSaved(match.id)) {
       setError("Match: " + match.id + " is already saved");
       return;
     }
-    const cache = localStorage.getItem("saved-matches");
-    const cachedMatches = cache ? JSON.parse(cache) : [];
-
-    const updatedMatches = [...cachedMatches, match];
     try {
-      localStorage.setItem("saved-matches", JSON.stringify(updatedMatches));
+      saveMatch(match)
       setLoadCount(loadCount + 1);
     } catch (e) {
       setError(e);
@@ -156,29 +152,16 @@ export default function App() {
   };
 
   const handleDelete = (matchID) => {
-    if (!inCache(matchID)) {
+    if (!isMatchSaved(matchID)) {
       setError("Match: " + match.id + " has not been saved");
       return;
-    }
-
-    const cache = localStorage.getItem("saved-matches");
-    const cachedMatches = cache ? JSON.parse(cache) : [];
-
-    const updatedMatches = cachedMatches.filter((m) => m.id !== matchID);
-
     try {
-      localStorage.setItem("saved-matches", JSON.stringify(updatedMatches));
+      deleteSavedMatch(matchID)
       setLoadCount(loadCount + 1);
     } catch (e) {
       setError(e);
     }
-  };
-
-  function inCache(matchID) {
-    const cache = localStorage.getItem("saved-matches");
-    const cachedMatches = cache ? JSON.parse(cache) : [];
-    return cachedMatches.some((m) => m.id === matchID);
-  }
+  };}
 
   return (
     <div className="page-container">
@@ -395,7 +378,7 @@ export default function App() {
               analysis={analyses[m.id]}
               expanded={expandedId === m.id}
               onToggle={() => setExpandedId(expandedId === m.id ? null : m.id)}
-              isSaved={inCache(m.id)}
+              isSaved={isMatchSaved(m.id)}
               onSave={() => handleSave(m)}
               onDelete={() => handleDelete(m.id)}
               spoiled={spoiled}
