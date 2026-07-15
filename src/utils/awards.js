@@ -153,7 +153,7 @@ export const MILESTONES = [
     color: "--color-combat",
     weight: 1,
     description:
-      "T3 built relatively fast (e.g., 25 mins on 15 average wind speed), exclude metal maps.",
+      "T3 built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
   },
   {
     key: "orbitalCannons",

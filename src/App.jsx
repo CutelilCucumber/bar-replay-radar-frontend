@@ -340,6 +340,7 @@ export default function App() {
                     </button>
                   );
                 })}
+                <span style={{width: "100%", color: COLORS.eco, paddingTop: 10}}>{filtered.length} Matches with this criteria</span>
               </fieldset>
             )}
           </div>

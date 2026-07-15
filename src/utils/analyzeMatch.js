@@ -69,24 +69,27 @@ export function analyzeMatch(match) {
       teamA.facts,
       teamB.facts,
       AFUS_DEFS,
-      12,
+      10,
       windAverage,
+      playerCount
     ),
     nukeRush: rushMilestone(
       teamA.facts,
       teamB.facts,
       NUKE_DEFS,
-      12,
+      10,
       windAverage,
+      playerCount
     ),
     gantryRush: rushMilestone(
       teamA.facts,
       teamB.facts,
       T3_DEFS,
-      25,
+      12,
       windAverage,
+      playerCount
     ),
-    orbitalCannons: orbitalCannons(teamA.facts, teamB.facts, windAverage),
+    orbitalCannons: orbitalCannons(teamA.facts, teamB.facts, windAverage, playerCount),
     techSpread: techSpread(teamA.facts, teamB.facts, playerCount),
     goliathDuel: goliathDuel(teamA.facts, teamB.facts, isDuel),
     commanderAttack: commanderAttack(teamA.facts, teamB.facts),
@@ -219,7 +222,7 @@ function backAndForth(series) {
 /** Heavily one-sided — average lead gap across the whole match, not just the final score. */
 function stomp(series) {
   const avgGap =
-    series.reduce((sum, p) => sum + Math.abs(p.leadPct - 0.5), 0) /
+    series.reduce((sum, p) => sum + Math.abs(p.leadPct - 0.4), 0) /
     Math.max(1, series.length);
   const flag = avgGap >= 0.3;
   return { flag, magnitude: clamp01((avgGap - 0.3) / 0.2) };
@@ -232,6 +235,7 @@ function stomp(series) {
  * quit wastes more spectator time).
  */
 function quickForfeit(loserFacts, playerCount) {
+
   if (!loserFacts?.deathFrame || !loserFacts.peakArmyValue)
     return { flag: false, magnitude: 0 };
   const deathMinute = frameToMinute(loserFacts.deathFrame);
@@ -341,6 +345,7 @@ function rushMilestone(
   defNames,
   baseThresholdMin,
   windAverage,
+  playerCount
 ) {
   if (defNames.length === 0) return { flag: false, magnitude: 0 };
   const fastestFrame = (facts) =>
@@ -352,10 +357,10 @@ function rushMilestone(
     Math.min(fastestFrame(factsA), fastestFrame(factsB)),
   );
   if (!Number.isFinite(fastestMinute)) return { flag: false, magnitude: 0 };
-
+  const sizeFactor = clamp01(2 - (playerCount - 2) / (16 - 2), 1, 2)
   const windFactor = windAverage > 0 ? WIND_BASELINE / windAverage : 1;
   const adjustedThreshold =
-    baseThresholdMin * Math.min(2, Math.max(0.5, windFactor));
+    baseThresholdMin * Math.min(2, Math.max(0.5, windFactor)) * sizeFactor;
 
   const flag = fastestMinute <= adjustedThreshold;
   const magnitude = clamp01(
@@ -365,13 +370,14 @@ function rushMilestone(
 }
 
 /** Ragnarok/Calamity/Starfall rush, or 1 built total across the match. */
-function orbitalCannons(factsA, factsB, windAverage) {
+function orbitalCannons(factsA, factsB, windAverage, playerCount) {
   const rush = rushMilestone(
     factsA,
     factsB,
     ORBITAL_CANNON_DEFS,
     30,
     windAverage,
+    playerCount
   );
   const totalBuilt = (facts) =>
     ORBITAL_CANNON_DEFS.reduce(
@@ -406,44 +412,6 @@ function techSpread(factsA, factsB, playerCount) {
     (diversity / 6) * sizeAdjustment + bonusCount * 0.05,
   );
   return { flag, magnitude: clamp01(magnitude), diversity };
-}
-
-/**
- * T3 built relatively fast by either side, wind-adjusted the same way as
- * afusRush/nukeRush (more energy available -> a "fast" T3 is faster).
- * Unlike goliathDuel (which only checks *whether* both sides reached T3 in a
- * duel), this checks *how fast either side* got there, in any gamemode.
- *
- * `isMetalMap` isn't wired up yet — per the MILESTONES description this
- * should be excluded on metal maps, but that needs map data (e.g.
- * mapData.maxMetal) threaded through from fetchLiveMatches first. Defaults
- * to false so the milestone still functions until that's plumbed in.
- */
-function gantryRush(factsA, factsB, windAverage, isMetalMap = false) {
-  if (T3_DEFS.length === 0 || isMetalMap) {
-    return { flag: false, magnitude: 0, firstT3Minute: null };
-  }
-
-  const fastestFrame = (facts) =>
-    T3_DEFS.reduce((best, name) => {
-      const firstFrame = facts?.unitsCreatedByDef?.[name]?.firstFrame;
-      return firstFrame != null ? Math.min(best, firstFrame) : best;
-    }, Infinity);
-
-  const earliestFrame = Math.min(fastestFrame(factsA), fastestFrame(factsB));
-  if (!Number.isFinite(earliestFrame)) {
-    return { flag: false, magnitude: 0, firstT3Minute: null };
-  }
-
-  const firstT3Minute = frameToMinute(earliestFrame);
-  const windFactor = windAverage > 0 ? WIND_BASELINE / windAverage : 1;
-  const adjustedThreshold = 25 * Math.min(2, Math.max(0.5, windFactor));
-
-  const flag = firstT3Minute <= adjustedThreshold;
-  const magnitude = clamp01(
-    (adjustedThreshold - firstT3Minute) / adjustedThreshold,
-  );
-  return { flag, magnitude, firstT3Minute };
 }
 
 /** Both sides reached tech 3 in a 1v1 duel. */
