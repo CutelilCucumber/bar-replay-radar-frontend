@@ -122,7 +122,7 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
           color={COLORS.close}
         />
         <Stat
-          label="Unique Units:"
+          label="Unit type diversity:"
           value={`${details.uniqueUnits}`}
           color={COLORS.close}
         />

@@ -135,7 +135,7 @@ export const MILESTONES = [
     color: "--color-eco",
     weight: 1,
     description:
-      "AFUS built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
+      "AFUS built relatively fast, scaled with wind speed and players (e.g., 12 mins on 15 wind 16 players).",
   },
   {
     key: "nukeRush",
@@ -144,7 +144,7 @@ export const MILESTONES = [
     color: "--color-combat",
     weight: 2,
     description:
-      "Nuke built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
+      "Nuke built relatively fast, scaled with wind speed and players (e.g., 12 mins on 15 wind 16 players).",
   },
   {
     key: "gantryRush",
@@ -153,7 +153,7 @@ export const MILESTONES = [
     color: "--color-combat",
     weight: 1,
     description:
-      "T3 built relatively fast (e.g., 12 mins on 15 average wind speed), exclude metal maps.",
+      "T3 built relatively fast, scaled with wind speed and players (e.g., 12 mins on 15 wind 16 players).",
   },
   {
     key: "orbitalCannons",

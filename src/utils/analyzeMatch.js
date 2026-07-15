@@ -141,9 +141,13 @@ function computeScore(flags, magnitudes, durationMin) {
     if (!flags[m.key]) continue;
     raw += m.weight * (0.5 + 0.5 * magnitudes[m.key]);
   }
-  let score = maxPositiveWeight > 0 ? (raw / maxPositiveWeight) * 100 : 0;
+  let score = maxPositiveWeight > 0
+  ? (Math.sqrt(raw) / Math.sqrt(maxPositiveWeight)) * 100
+  : 0;
+
   // sweet-spot duration bonus (most watchable games run 15-40 min)
-  if (durationMin >= 15 && durationMin <= 40) score += 6;
+  if (durationMin >= 15 && durationMin <= 40) score += 5;
+  
   return Math.max(0, Math.min(100, Math.round(score)));
 }
 
@@ -357,11 +361,11 @@ function rushMilestone(
     Math.min(fastestFrame(factsA), fastestFrame(factsB)),
   );
   if (!Number.isFinite(fastestMinute)) return { flag: false, magnitude: 0 };
-  const sizeFactor = clamp01(2 - (playerCount - 2) / (16 - 2), 1, 2)
+  //adjust time threshhold for size and wind
+  const sizeFactor = 3 - 2 * (playerCount - 2) / (16 - 2)
   const windFactor = windAverage > 0 ? WIND_BASELINE / windAverage : 1;
   const adjustedThreshold =
     baseThresholdMin * Math.min(2, Math.max(0.5, windFactor)) * sizeFactor;
-
   const flag = fastestMinute <= adjustedThreshold;
   const magnitude = clamp01(
     (adjustedThreshold - fastestMinute) / adjustedThreshold,
@@ -407,9 +411,9 @@ function techSpread(factsA, factsB, playerCount) {
     );
   const bonusCount = bonusUnits(factsA) + bonusUnits(factsB);
 
-  const flag = diversity >= 4;
+  const flag = diversity >= 8;
   const magnitude = clamp01(
-    (diversity / 6) * sizeAdjustment + bonusCount * 0.05,
+    (diversity / 14) * sizeAdjustment + bonusCount * 0.05,
   );
   return { flag, magnitude: clamp01(magnitude), diversity };
 }

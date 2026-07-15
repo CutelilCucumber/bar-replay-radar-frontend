@@ -27,3 +27,7 @@
   margin-right: 10px;
   border-radius: 7px;
 }
+.link:hover {
+  background-color: var(--color-panel);
+  color: var(--color-close);
+}
