@@ -162,6 +162,7 @@ function frameToMinute(frame) {
  */
 function bigBattle(series) {
   let bestCombined = 0;
+  let bestDamage = 0;
   let highestDamageMinute = 0;
   for (let i = 1; i < series.length; i++) {
     const prev = series[i - 1];
@@ -169,13 +170,13 @@ function bigBattle(series) {
     const declineA = Math.max(0, prev.armyA - cur.armyA);
     const declineB = Math.max(0, prev.armyB - cur.armyB);
     // require BOTH sides to have lost meaningful army, not just one side getting rolled
-    if (declineA > prev.armyA * 0.3 && declineB > prev.armyB * 0.3) {
+    if (declineA > prev.armyA * 0.9 && declineB > prev.armyB * 0.9) {
       bestCombined = Math.max(bestCombined, declineA + declineB);
     }
     //compute highest damage minute by calculating the delta and comparing it to previous max
     const combinedDelta = cur.dmgA - prev.dmgA + (cur.dmgB - prev.dmgB);
-    if (combinedDelta > bestCombined) {
-      bestCombined = combinedDelta;
+    if (combinedDelta > bestDamage) {
+      bestDamage = combinedDelta;
       highestDamageMinute = cur.t;
     }
   }

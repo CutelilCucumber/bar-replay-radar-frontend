@@ -5,7 +5,7 @@
   border-radius: 12px;
   overflow: hidden;
   transition: border-color 120ms ease;
-  font-family: "EXxo2";
+  font-family: "Exo 2";
 }
 .match-container:hover {
   background: var(--color-panel2);
@@ -18,7 +18,13 @@
   top: 5px;
   right: 5px;
   display: none;
+  opacity: .8;
 }
+.save-action:hover {
+  opacity: 1;
+  background-color: var(--color-panel);
+}
+
 
 .match-container:hover .save-action {
   display: block;

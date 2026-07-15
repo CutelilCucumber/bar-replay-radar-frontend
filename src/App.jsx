@@ -147,7 +147,7 @@ export default function App() {
       saveMatch(match)
       setLoadCount(loadCount + 1);
     } catch (e) {
-      setError(e);
+      setError(e.message ?? String(e));
     }
   };
 
@@ -155,13 +155,14 @@ export default function App() {
     if (!isMatchSaved(matchID)) {
       setError("Match: " + match.id + " has not been saved");
       return;
+    }
     try {
       deleteSavedMatch(matchID)
       setLoadCount(loadCount + 1);
     } catch (e) {
-      setError(e);
+      setError(e.message ?? String(e));
     }
-  };}
+  };
 
   return (
     <div className="page-container">
