@@ -157,7 +157,9 @@ function computeScore(magnitudes, durationMin, isDuel) {
   let score = maxPositiveWeight > 0 ? (raw / maxPositiveWeight) * 120 : 0;
 
   // sweet-spot duration bonus (most watchable games run 15-40 min)
-  if (durationMin >= 15 && durationMin <= 40) score += 5;
+  const timeBonus = calculateTimeBonus(durationMin);
+  console.log(durationMin, timeBonus)
+  score += timeBonus;
 
   return Math.max(0, Math.min(100, Math.round(score)));
 }
@@ -169,6 +171,25 @@ function excludedKey(isDuel, key) {
   if (key === "upset") return true;
   if (key === "goliathDuel" && !isDuel) return true;
   if (key === "nailBiter" && isDuel) return true;
+}
+
+function calculateTimeBonus(durationMin) {
+  // Normalize durationMin to a value between 0 and 1
+  const normalized = clamp01((durationMin - 10) / (60 - 10));
+
+  // Define the spectrum rules
+  if (normalized >= 0 && normalized <= 0.5) {
+    // 10-30 minutes: Linear increase from 1 to 10
+    // normalized 0 (10 min) -> 1, normalized 0.5 (30 min) -> 10
+    return Math.round(normalized * 2 * 9 + 1);
+  } else if (normalized > 0.5 && normalized <= (40 - 10) / (60 - 10)) {
+    // 30-40 minutes: Fixed value of 10
+    return 10;
+  } else {
+    // 40-60 minutes: Linear decrease from 10 to 1
+    // normalized 0.5 (40 min) -> 10, normalized 1 (60 min) -> 1
+    return Math.round(10 - (normalized - 0.5) * 2 * 9);
+  }
 }
 
 function clamp01(x) {
@@ -395,9 +416,10 @@ function rushMilestone(
   const adjustedThreshold =
     baseThresholdMin * Math.min(2, Math.max(0.5, windFactor)) * sizeFactor;
   const flag = fastestMinute <= adjustedThreshold;
-  const magnitude = clamp01(
+  let magnitude = clamp01(
     1 - (fastestMinute - adjustedThreshold) / adjustedThreshold,
   );
+  magnitude = magnitude < .3 ? .3 : magnitude
   return { flag, magnitude, fastestMinute };
 }
 
