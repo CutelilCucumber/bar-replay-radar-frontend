@@ -8,7 +8,7 @@ import {
 } from "lucide-react";
 
 import { MILESTONES } from "../../utils/awards.js";
-import { COLORS, GAMEMODES } from "../../utils/globalVars";
+import { COLORS, GAMEMODES } from "../../utils/globalVars.js";
 import { MatchDetail } from "../MatchDetail/MatchDetail.jsx";
 import { ScoreDial } from "../ui/ScoreDial.jsx";
 import { Badge } from "../ui/Badge.jsx";

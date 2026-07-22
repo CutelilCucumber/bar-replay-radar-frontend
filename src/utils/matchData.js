@@ -35,7 +35,6 @@ const rateLimiter = new RateLimiter(300, 1);
 async function getJson(url) {
   //fetch the thing
   await rateLimiter.acquire();
-  console.log("fetching from: ", url)
   const res = await fetch(url, {
     referrerPolicy: "strict-origin-when-cross-origin",
   });
