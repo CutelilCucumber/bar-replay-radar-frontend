@@ -1,0 +1,284 @@
+/* ---------------------------------------------------------------------
+   Toggle button — same visual language as .scan-button (secondary variant:
+   panel background instead of solid eco fill, since this just opens a panel
+   rather than triggering the network call).
+--------------------------------------------------------------------- */
+.filter-sidebar-toggle {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  color: var(--color-ink);
+  padding: 8px 14px;
+  border-radius: 7px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+.filter-sidebar-toggle:hover {
+  background: var(--color-panel2);
+}
+
+.filter-count-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--color-eco);
+  color: var(--color-bg);
+  font-family: "Share Tech Mono";
+  font-size: 11px;
+  font-weight: 700;
+}
+.mode-switch {
+  display: flex;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 8px;
+  padding: 3px;
+  width: fit-content;
+  margin-bottom: 16px;
+  font-family: "Share Tech Mono";
+}
+.mode-switch:hover {
+  background-color: var(--color-panel2);
+}
+.mode-switch-button {
+  all: unset;
+  cursor: pointer;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+
+/* ---------------------------------------------------------------------
+   Scrim + sidebar shell
+--------------------------------------------------------------------- */
+.filter-sidebar-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 40;
+}
+
+.filter-sidebar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 360px;
+  max-width: 92vw;
+  background: var(--color-panel);
+  border-left: 1px solid var(--color-line);
+  box-shadow: -12px 0 32px rgba(0, 0, 0, 0.35);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.25s ease;
+  z-index: 50;
+  font-family: "Share Tech Mono";
+}
+.filter-sidebar.open {
+  transform: translateX(0);
+}
+
+.filter-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px;
+  border-bottom: 1px solid var(--color-line);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.02em;
+}
+
+.filter-sidebar-close {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  color: var(--color-muted);
+  padding: 4px;
+  border-radius: 6px;
+}
+.filter-sidebar-close:hover {
+  background: var(--color-panel2);
+  color: var(--color-ink);
+}
+
+.filter-sidebar-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ---------------------------------------------------------------------
+   Sections
+--------------------------------------------------------------------- */
+.filter-section {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid var(--color-line);
+}
+.filter-section:last-child {
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+.filter-section-title {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.filter-section-hint {
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--color-faint);
+  font-style: italic;
+}
+
+.filter-range-row {
+  display: flex;
+  gap: 10px;
+}
+.filter-range-row .filter-field {
+  flex: 1;
+  min-width: 0;
+}
+
+.filter-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-muted);
+}
+
+/* .field-filter is shared with the old inline scan controls, which relied on
+   a fixed 70px width in a flex row. Inside the sidebar's stacked/2-col
+   layout it should fill its container instead. */
+.field-filter {
+  width: 100%;
+  box-sizing: border-box;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 6px;
+  padding: 7px 10px;
+  color: var(--color-ink);
+  font-family: "roboto Mono";
+}
+.field-filter {
+  width: 100%;
+  box-sizing: border-box;
+}
+.badge-container {
+  display: flex;
+  padding: 10px;
+  border: none;
+  width: 100%;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: baseline;
+}
+.milestone-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 11px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: "Space Grotesk";
+}
+
+/* ---------------------------------------------------------------------
+   Footer
+--------------------------------------------------------------------- */
+.filter-sidebar-footer {
+  padding: 14px 16px;
+  border-top: 1px solid var(--color-line);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.filter-result-count {
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.filter-sidebar-actions {
+  display: flex;
+  gap: 8px;
+}
+.filter-sidebar-actions .scan-button {
+  flex: 1;
+  justify-content: center;
+}
+
+.filter-reset-button {
+  all: unset;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: transparent;
+  border: 1px solid var(--color-line);
+  color: var(--color-muted);
+  padding: 8px 14px;
+  border-radius: 7px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+}
+.filter-reset-button:hover {
+  background: var(--color-panel2);
+  color: var(--color-ink);
+}
+
+.scan-button {
+  all: unset;
+  cursor: var(--loading-cursor, pointer);
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--color-eco);
+  color: var(--color-bg);
+  padding: 8px 14px;
+  border-radius: 7px;
+  font-family: "Inter", sans-serif;
+  font-weight: 600;
+  opacity: var(--loading-opacity, 1);
+}
+
+.filter-reset-button:disabled,
+.filter-sidebar-actions .scan-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}

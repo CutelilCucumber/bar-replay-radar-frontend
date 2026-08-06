@@ -8,9 +8,12 @@
 // small index key holding just the list of IDs for enumeration — reads/writes
 // now only ever touch the one record actually being changed.
 //
-// localStorage = user's manually-saved matches (small, curated, persistent).
-// sessionStorage = API fetch cache, to avoid re-hitting gex (larger, capped,
-// cleared when the tab closes).
+// localStorage = user's manually-saved matches (small, curated, persistent),
+// plus a client-only "liked" stub until the backend supports it.
+// sessionStorage = single-match analyze() result cache, to avoid re-triggering
+// backend/gex work for a match already looked up this session. List queries
+// (GET /matches) are NOT cached here — that route is fast/DB-backed now, so
+// caching it client-side would just reintroduce staleness risk for little gain.
 // ---------------------------------------------------------------------------
 
 const SAVED_PREFIX = "saved:";
@@ -19,8 +22,8 @@ const SAVED_INDEX_KEY = "saved:index";
 const PROCESSED_PREFIX = "processed:";
 const PROCESSED_INDEX_KEY = "processed:index";
 
-// Caps how many API results session storage will hold at once. Oldest
-// entries (by insertion order in the index) are evicted first. Tune as needed.
+// Caps how many single-match lookups session storage will hold at once.
+// Oldest entries (by insertion order in the index) are evicted first.
 const MAX_PROCESSED_MATCHES = 500;
 
 // --- generic per-key helpers, parameterized by which Storage to use --------
@@ -116,8 +119,9 @@ export function clearSavedMatches() {
 }
 
 // ---------------------------------------------------------------------------
-// Processed match cache (sessionStorage) — API fetch results, to avoid
-// re-hitting gex for matches already analyzed this session.
+// Single-match analyze() result cache (sessionStorage) — avoids re-triggering
+// a POST /matches/:id/analyze (which may do real work on a cold lookup) for
+// a match already fetched this session.
 // ---------------------------------------------------------------------------
 
 /** All cached processed matches, as an array. */
@@ -166,7 +170,15 @@ export function clearProcessedCache() {
 // Combined saved + processed lookups.
 // ---------------------------------------------------------------------------
 
-/** Combined array of saved (local) + processed (session) matches, saved first. */
+/**
+ * Combined array of saved (local) + processed (session) matches, saved first.
+ *
+ * Likely dead weight now: this existed to power the old "scan mode" list view
+ * built entirely from client-side caches. With list browsing now going
+ * straight to GET /matches, the only remaining use is something like a
+ * "recently viewed, whether saved or not" widget — keep if you want that,
+ * otherwise safe to delete along with the old scan-mode UI.
+ */
 export function bothCacheGet() {
   try {
     return [...getSavedMatches(), ...getProcessedMatches()];

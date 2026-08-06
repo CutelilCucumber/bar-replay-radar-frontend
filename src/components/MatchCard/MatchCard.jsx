@@ -43,7 +43,7 @@ export function MatchCard({
     }
   }, [showWinner]);
 
-  const activeMilestones = MILESTONES.filter((m) => analysis.flags[m.key]);
+  const activeMilestones = MILESTONES.filter((m) => match[m.key]);
   const unsupported =
     match.gamemode === "4" || match.gamemode === "5" ? true : false;
 
@@ -79,7 +79,7 @@ export function MatchCard({
         />
       )}
       <button onClick={onToggle} className="show-detail">
-        <ScoreDial score={analysis.score} />
+        <ScoreDial score={match.score} />
         <header className="title-container">
           <div className="title-info">
             <span className="title-map">{match.map}</span>

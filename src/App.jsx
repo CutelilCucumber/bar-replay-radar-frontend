@@ -1,142 +1,90 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import {
-  AreaChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ReferenceLine,
-  ReferenceDot,
-  ResponsiveContainer,
-} from "recharts";
-import {
-  AlertTriangle,
-  Loader2,
-  RefreshCw,
-  Settings2,
-  Flame,
-} from "lucide-react";
 import { MatchCard } from "./components/MatchCard/MatchCard.jsx";
-import { analyzeMatch } from "./utils/analyzeMatch.js";
-import { fetchLiveMatches } from "./utils/matchData.js";
 import {
-  GEX_API_BASE,
-  COLORS,
-  FONT_IMPORT,
-  FRAMES_PER_SECOND,
-} from "./utils/globalVars.js";
-import { MILESTONES } from "./utils/awards.js";
+  MatchFilterSidebar,
+  DEFAULT_FILTERS,
+} from "./components/Filter/Filter.jsx";
+import { listMatches } from "./utils/api.js";
+import { COLORS } from "./utils/globalVars.js";
 import "./App.css";
-import { deleteSavedMatch, getSavedMatches, isMatchSaved, saveMatch } from "./utils/storage.js";
+import {
+  deleteSavedMatch,
+  getSavedMatches,
+  isMatchSaved,
+  saveMatch,
+} from "./utils/storage.js";
 
 export default function App() {
-  const [mode, setMode] = useState("saved"); // "saved" | "scan" | find
-  const [loadParams, setLoadParams] = useState({
-    limit: 20,
-    gamemode: null,
-    minDurationMinutes: 5,
-    minPlayers: null,
-    minimumAverageOS: null,
-  });
-  const [activeFilters, setActiveFilters] = useState({});
-  const [expandBadges, setExpandBadges] = useState(false);
-  const [saved, setSaved] = useState(true);
+  const [mode, setMode] = useState("scan"); // "saved" | "scan"
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [matches, setMatches] = useState([]);
-  const [newMatches, setNewMatches] = useState([]);
+  const [fetchedMatches, setFetchedMatches] = useState([]);
+  const [resultTotal, setResultTotal] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [progress, setProgress] = useState("");
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
-  const [minScore, setMinScore] = useState(0);
-  const [sortBy, setSortBy] = useState("score");
   const [spoiled, setSpoiled] = useState(false);
   const [loadCount, setLoadCount] = useState(0);
 
   useEffect(() => {
     if (mode === "saved") {
-      setMatches(getSavedMatches())
+      setMatches(getSavedMatches());
     } else {
-      setMatches(newMatches);
+      setMatches(fetchedMatches);
     }
     setLoading(false);
-  }, [mode, newMatches, loadCount]);
-
-  const analyses = useMemo(() => {
-    const map = {};
-    for (const m of matches) map[m.id] = analyzeMatch(m);
-    return map;
-  }, [matches]);
+  }, [mode, fetchedMatches, loadCount]);
 
   const filtered = useMemo(() => {
     let list = matches.filter((m) => {
-      const a = analyses[m.id];
-      if (a.score < minScore) return false;
+      if (filters.scoreMin != null && m.score < filters.scoreMin) return false;
+      if (filters.scoreMax != null && m.score > filters.scoreMax) return false;
 
-      // Check if activeFilters is non-empty
-      const hasActiveFilters = Object.keys(activeFilters).length > 0;
-      if (
-        hasActiveFilters &&
-        !Object.keys(activeFilters).every((f) => a.flags[f])
-      ) {
-        return false;
+      // Milestone requirements only need re-checking locally in "saved" mode.
+      // In "scan" mode, fetchedMatches already came back pre-filtered by the
+      // backend query, so re-applying the same filter here would be redundant.
+      if (mode === "saved") {
+        for (const [key, required] of Object.entries(filters.milestones ?? {})) {
+          if (Boolean(m[key]) !== required) return false;
+        }
       }
       return true;
     });
+
     list = list.slice().sort((a, b) => {
-      if (sortBy === "score")
-        return analyses[b.id].score - analyses[a.id].score;
-      if (sortBy === "recent")
-        return new Date(b.startTime) - new Date(a.startTime);
-      if (sortBy === "duration") return b.durationMin - a.durationMin;
+      const dir = filters.sortDir === "asc" ? 1 : -1;
+      if (filters.sortBy === "score") return (a.score - b.score) * dir;
+      if (filters.sortBy === "startTime") {
+        return (new Date(a.startTime) - new Date(b.startTime)) * dir;
+      }
+      if (filters.sortBy === "duration") return (a.durationMin - b.durationMin) * dir;
       return 0;
     });
 
     return list;
-  }, [matches, analyses, activeFilters, minScore, sortBy]);
+  }, [matches, filters, mode]);
 
   const runLiveSearch = useCallback(async () => {
     setLoading(true);
     setError(null);
-    setProgress("connecting…");
     try {
-      const results = await fetchLiveMatches(
-        GEX_API_BASE,
-        loadParams,
-        setProgress,
-      );
-      if (results.length === 0)
+      const { matches: results, total } = await listMatches(filters);
+      if (results.length === 0) {
         setError("Connected, but no matches were found with this criteria.");
-      setSaved(false);
-      setNewMatches(results);
+      }
+      setFetchedMatches(results);
+      setResultTotal(total);
+      setMode("scan"); // otherwise the "saved" mode effect immediately overwrites these results
     } catch (e) {
       setError(`${e.message}`);
     } finally {
       setLoading(false);
-      setProgress("");
     }
-  }, [GEX_API_BASE, loadParams]);
+  }, [filters]);
 
-  const toggleFilter = (key) => {
-    setActiveFilters((prev) => {
-      const next = { ...prev };
-      if (next[key]) {
-        delete next[key];
-      } else {
-        next[key] = true;
-      }
-      return next;
-    });
-  };
-  const toggleBadgeBox = () => {
-    setExpandBadges(!expandBadges);
-  };
-
-  const handleSaveAll = () => {
-    matches.forEach((matchId) => {
-      handleSave(matchId);
-    });
-    setSaved(true);
-  };
+  useEffect(() => {
+    runLiveSearch();
+  }, []);
 
   const handleSave = (match) => {
     if (isMatchSaved(match.id)) {
@@ -144,7 +92,7 @@ export default function App() {
       return;
     }
     try {
-      saveMatch(match)
+      saveMatch(match);
       setLoadCount(loadCount + 1);
     } catch (e) {
       setError(e.message ?? String(e));
@@ -153,11 +101,11 @@ export default function App() {
 
   const handleDelete = (matchID) => {
     if (!isMatchSaved(matchID)) {
-      setError("Match: " + match.id + " has not been saved");
+      setError("Match: " + matchID + " has not been saved");
       return;
     }
     try {
-      deleteSavedMatch(matchID)
+      deleteSavedMatch(matchID);
       setLoadCount(loadCount + 1);
     } catch (e) {
       setError(e.message ?? String(e));
@@ -181,6 +129,18 @@ export default function App() {
           </div>
         </header>
 
+        <aside>
+          <MatchFilterSidebar
+            filters={filters}
+            onFiltersChange={setFilters}
+            onSearch={runLiveSearch}
+            loading={loading}
+            resultTotal={resultTotal}
+            spoiled={spoiled}
+            onSpoiledChange={setSpoiled}
+          />
+        </aside>
+
         <div className="mode-switch">
           {["saved", "scan"].map((m) => (
             <button
@@ -197,178 +157,10 @@ export default function App() {
           ))}
         </div>
 
-        {/* live controls */}
-        {mode === "scan" && (
-          <fieldset className="option-container">
-            <Settings2 size={15} color={COLORS.muted} />
-            <label>
-              Gamemode:
-              <select
-                value={loadParams.gamemode ?? ""}
-                onChange={(e) =>
-                  setLoadParams({
-                    ...loadParams,
-                    gamemode: Number(e.target.value),
-                  })
-                }
-                className="field-filter"
-              >
-                <option value="">Any</option>
-                <option value="1">Duel</option>
-                <option value="2">Small Team</option>
-                <option value="3">Large Team</option>
-                <option value="4">FFA</option>
-                <option value="5">Team FFA</option>
-              </select>
-            </label>
-            <label>
-              Duration (minutes):
-              <input
-                type="number"
-                min={5}
-                value={loadParams.minDurationMinutes}
-                onChange={(e) =>
-                  setLoadParams({
-                    ...loadParams,
-                    minDurationMinutes: Number(e.target.value),
-                  })
-                }
-                className="field-filter"
-              />
-            </label>
-            <label>
-              Min-avg OS:
-              <input
-                type="number"
-                value={loadParams.minimumAverageOS ?? ""}
-                onChange={(e) =>
-                  setLoadParams({
-                    ...loadParams,
-                    minimumAverageOS: Number(e.target.value),
-                  })
-                }
-                className="field-filter"
-              />
-            </label>
-            <label>
-              Scan Limit:
-              <input
-                type="number"
-                min={5}
-                max={100}
-                value={loadParams.limit}
-                onChange={(e) =>
-                  setLoadParams({
-                    ...loadParams,
-                    limit: Number(e.target.value),
-                  })
-                }
-                className="field-filter"
-              />
-            </label>
-            <button
-              onClick={runLiveSearch}
-              disabled={loading}
-              className="scan-button"
-            >
-              {loading ? (
-                <Loader2
-                  size={14}
-                  className="spin"
-                  style={{ animation: "spin 1s linear infinite" }}
-                />
-              ) : (
-                <RefreshCw size={14} />
-              )}
-              {loading ? progress || "working…" : "Scan recent matches"}
-            </button>
-            <button
-              onClick={handleSaveAll}
-              disabled={saved && matches.length === 0}
-              className="scan-button"
-            >
-              {saved ? "Saved" : "Save batch"}
-            </button>
-          </fieldset>
-        )}
-
-        {error && (
-          <output className="error">
-            <AlertTriangle
-              size={15}
-              color={COLORS.combat}
-              style={{ flexShrink: 0, marginTop: 1 }}
-            />
-            <span>{error}</span>
-          </output>
-        )}
-
-        {/* milestone bar */}
-
-        <nav className={`filter-container ${expandBadges ? "expanded" : ""}`}>
-          <div className="option-badge">
-            <span className="badge-show" onClick={toggleBadgeBox}>
-              {expandBadges ? "Hide award filters ⌄" : "Show award filters >"}
-            </span>
-
-            {expandBadges && (
-              <fieldset className="badge-container">
-                {MILESTONES.map((m) => {
-                  const isSelected = activeFilters[m.key];
-                  const Icon = m.icon;
-
-                  return (
-                    <button
-                      key={m.key}
-                      onClick={() => toggleFilter(m.key)}
-                      className="milestone-button"
-                      title={m.description}
-                      style={{
-                        border: isSelected
-                          ? `1px solid var(${m.color})`
-                          : "1px solid var(--color-line)",
-                        color: isSelected
-                          ? `var(${m.color})`
-                          : "var(--color-faint)",
-                        transform: isSelected
-                          ? "translateY(-2px)"
-                          : "translateY(0)",
-                        transition: "transform 0.2s ease",
-                      }}
-                    >
-                      <Icon size={12.5} /> {m.label}
-                    </button>
-                  );
-                })}
-                <span style={{width: "100%", color: COLORS.eco, paddingTop: 10}}>{filtered.length} Matches with this criteria</span>
-              </fieldset>
-            )}
-          </div>
-
-          <select
-            className="option-container"
-            value={sortBy}
-            onChange={(e) => setSortBy(e.target.value)}
-          >
-            <option value="score">Sort by: spectate score</option>
-            <option value="recent">Sort by: most recent</option>
-            <option value="duration">Sort by: longest game</option>
-          </select>
-          <select
-            className="option-container"
-            value={spoiled}
-            onChange={(e) => setSpoiled(e.target.value)}
-          >
-            <option value={false}>Spoil: none</option>
-            <option value="award">Spoil: awards</option>
-            <option value="winner">Spoil: winner</option>
-            <option value="both">Spoil: awards and winner</option>
-          </select>
-        </nav>
-
         {/* results */}
         <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {filtered.length === 0 && !loading && (
+          {error && <div className="no-matches">{error}</div>}
+          {filtered.length === 0 && !loading && !error && (
             <div className="no-matches">
               No matches to display — scan for matches or loosen filter settings
             </div>
@@ -377,7 +169,7 @@ export default function App() {
             <MatchCard
               key={m.id}
               match={m}
-              analysis={analyses[m.id]}
+              analysis={m.analysis}
               expanded={expandedId === m.id}
               onToggle={() => setExpandedId(expandedId === m.id ? null : m.id)}
               isSaved={isMatchSaved(m.id)}
