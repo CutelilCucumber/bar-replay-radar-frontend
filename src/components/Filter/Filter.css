@@ -36,29 +36,6 @@
   font-size: 11px;
   font-weight: 700;
 }
-.mode-switch {
-  display: flex;
-  background: var(--color-panel);
-  border: 1px solid var(--color-line);
-  border-radius: 8px;
-  padding: 3px;
-  width: fit-content;
-  margin-bottom: 16px;
-  font-family: "Share Tech Mono";
-}
-.mode-switch:hover {
-  background-color: var(--color-panel2);
-}
-.mode-switch-button {
-  all: unset;
-  cursor: pointer;
-  padding: 6px 14px;
-  border-radius: 6px;
-  font-size: 14px;
-  font-weight: 600;
-  letter-spacing: 0.03em;
-}
-
 /* ---------------------------------------------------------------------
    Scrim + sidebar shell
 --------------------------------------------------------------------- */

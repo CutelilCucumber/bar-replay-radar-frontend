@@ -1,10 +1,11 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
+import { Loader2, RefreshCw, Search } from "lucide-react";
 import { MatchCard } from "./components/MatchCard/MatchCard.jsx";
 import {
   MatchFilterSidebar,
   DEFAULT_FILTERS,
 } from "./components/Filter/Filter.jsx";
-import { listMatches } from "./utils/api.js";
+import { listMatches, lookupMatch } from "./utils/api.js";
 import { COLORS } from "./utils/globalVars.js";
 import "./App.css";
 import {
@@ -15,7 +16,7 @@ import {
 } from "./utils/storage.js";
 
 export default function App() {
-  const [mode, setMode] = useState("scan"); // "saved" | "scan"
+  const [mode, setMode] = useState("scan"); // "saved" | "scan" | "find"
   const [filters, setFilters] = useState(DEFAULT_FILTERS);
   const [matches, setMatches] = useState([]);
   const [fetchedMatches, setFetchedMatches] = useState([]);
@@ -26,14 +27,25 @@ export default function App() {
   const [spoiled, setSpoiled] = useState(false);
   const [loadCount, setLoadCount] = useState(0);
 
+  // --- single match lookup by ID ("find" mode) ---
+  const [lookupId, setLookupId] = useState("");
+  const [lookupResult, setLookupResult] = useState(null); // { status, match? | message? | error? }
+  const [lookupLoading, setLookupLoading] = useState(false);
+
   useEffect(() => {
     if (mode === "saved") {
       setMatches(getSavedMatches());
+    } else if (mode === "find") {
+      setMatches(lookupResult?.status === "ready" ? [lookupResult.match] : []);
     } else {
       setMatches(fetchedMatches);
     }
     setLoading(false);
-  }, [mode, fetchedMatches, loadCount]);
+  }, [mode, fetchedMatches, loadCount, lookupResult]);
+
+useEffect(() => {
+  runLiveSearch();
+}, []);
 
   const filtered = useMemo(() => {
     let list = matches.filter((m) => {
@@ -82,9 +94,28 @@ export default function App() {
     }
   }, [filters]);
 
-  useEffect(() => {
-    runLiveSearch();
-  }, []);
+  /**
+   * forceRefresh is passed through on manual retry (the "processing" state's
+   * retry button) — a plain re-run without it would just return the same
+   * cached-or-not result from lookupMatch's internal cache check.
+   */
+  const runLookup = useCallback(
+    async (forceRefresh = false) => {
+      const id = lookupId.trim();
+      if (!id) return;
+      setLookupLoading(true);
+      setError(null);
+      try {
+        const result = await lookupMatch(id, { forceRefresh });
+        setLookupResult(result);
+      } catch (e) {
+        setLookupResult({ status: "error", error: e.message ?? String(e) });
+      } finally {
+        setLookupLoading(false);
+      }
+    },
+    [lookupId],
+  );
 
   const handleSave = (match) => {
     if (isMatchSaved(match.id)) {
@@ -142,7 +173,7 @@ export default function App() {
         </aside>
 
         <div className="mode-switch">
-          {["saved", "scan"].map((m) => (
+          {["saved", "scan", "find"].map((m) => (
             <button
               key={m}
               onClick={() => setMode(m)}
@@ -157,15 +188,71 @@ export default function App() {
           ))}
         </div>
 
+        {mode === "find" && (
+          <div className="option-container">
+            <input
+              type="text"
+              placeholder="Match ID"
+              value={lookupId}
+              onChange={(e) => setLookupId(e.target.value)}
+              onKeyDown={(e) => e.key === "Enter" && runLookup()}
+              className="field-filter"
+              style={{ width: 280 }}
+            />
+            <button
+              onClick={() => runLookup()}
+              disabled={lookupLoading || !lookupId.trim()}
+              className="scan-button"
+            >
+              {lookupLoading ? (
+                <Loader2 size={14} className="spin" style={{ animation: "spin 1s linear infinite" }} />
+              ) : (
+                <Search size={14} />
+              )}
+              {lookupLoading ? "looking up…" : "Look up"}
+            </button>
+          </div>
+        )}
+
         {/* results */}
         <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {error && <div className="no-matches">{error}</div>}
-          {filtered.length === 0 && !loading && !error && (
-            <div className="no-matches">
-              No matches to display — scan for matches or loosen filter settings
-            </div>
+
+          {mode === "find" ? (
+            <>
+              {lookupResult?.status === "processing" && (
+                <div className="no-matches">
+                  {lookupResult.message}
+                  <button
+                    onClick={() => runLookup(true)}
+                    className="scan-button"
+                    style={{ marginLeft: 10 }}
+                  >
+                    <RefreshCw size={14} /> Retry
+                  </button>
+                </div>
+              )}
+              {lookupResult?.status === "notFound" && (
+                <div className="no-matches">No match found with id "{lookupId}".</div>
+              )}
+              {(lookupResult?.status === "insufficientData" || lookupResult?.status === "error") && (
+                <div className="no-matches">{lookupResult.error}</div>
+              )}
+              {!lookupResult && !lookupLoading && (
+                <div className="no-matches">Enter a match ID above and click Look up.</div>
+              )}
+            </>
+          ) : (
+            filtered.length === 0 &&
+            !loading &&
+            !error && (
+              <div className="no-matches">
+                No matches to display — scan for matches or loosen filter settings
+              </div>
+            )
           )}
-          {filtered.map((m) => (
+
+          {(mode === "find" ? matches : filtered).map((m) => (
             <MatchCard
               key={m.id}
               match={m}
