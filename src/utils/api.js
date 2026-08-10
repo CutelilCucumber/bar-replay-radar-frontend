@@ -1,14 +1,6 @@
 import { sessionCacheSet, findCachedMatch } from "./storage.js";
 
-// ---------------------------------------------------------------------------
-// Client for the own backend (Fastify) API. Replaces fetchLiveMatches.js —
-// the backend now does the gex fetch + bucketFrameStatsToSeries + analyzeMatch
-// pipeline; this module just talks to it.
-// ---------------------------------------------------------------------------
-
-// Assumes a Vite-style env var. If you're on a different bundler, swap this
-// one line (e.g. process.env.NEXT_PUBLIC_API_BASE_URL, process.env.REACT_APP_...).
-const API_BASE_URL = import.meta.env?.VITE_API_BASE_URL ?? "http://localhost:3000";
+const API_BASE_URL = "p01--bar-replay-radar--x27hr2kwdwcv.code.run";
 
 const LIST_FILTER_KEYS = [
   "limit",
