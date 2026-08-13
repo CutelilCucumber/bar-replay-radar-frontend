@@ -92,7 +92,7 @@ export const MILESTONES = [
 
   {
     key: "spaceRace",
-    label: "Space Race",
+    label: "Close Eco",
     icon: Rocket,
     color: "--color-close",
     weight: 2,
