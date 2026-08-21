@@ -256,8 +256,8 @@ useEffect(() => {
               )}
               {(lookupResult?.status === "insufficientData" || lookupResult?.status === "error") && (
                 <div className="no-matches">
-                <a href={`https://gex.honu.pw/match/${lookupId}`} target="_blank" rel="noopener noreferrer">
-                  {lookupResult.error} prioritize gex processing here
+                <a href={`https://gex.honu.pw/match/${lookupId}`} target="_blank">
+                  {lookupResult.error}. prioritize gex processing here
                 </a>
                 </div>
               )}
