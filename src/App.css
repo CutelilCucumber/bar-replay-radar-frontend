@@ -34,6 +34,13 @@ h1 {
   margin: 0;
   letter-spacing: 0.05em;
 }
+h2 {
+  font-family: "Orbitron", sans-serif;
+  font-weight: 700;
+  font-size: 22px;
+  margin: 0;
+  letter-spacing: 0.05em;
+}
 .sub-header {
   color: var(--color-muted);
   font-size: 13.5px;
@@ -63,7 +70,7 @@ a {
 .no-matches {
   text-align: center;
   padding: 40px 0;
-  color: var(--color-faint);
+  color: var(--color-combat);
   font-size: 13px;
 }
 .scoring-tooltip {

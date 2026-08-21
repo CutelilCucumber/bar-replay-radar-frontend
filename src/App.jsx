@@ -143,6 +143,19 @@ useEffect(() => {
     }
   };
 
+  const getTitle = (by, dir) => {
+  switch (by) {
+    case "score":
+      return dir === "desc" ? "Highest Scored Games" : "Lowest Scored Games";
+    case "startTime":
+      return dir === "desc" ? "Recent Games" : "Oldest Games";
+    case "duration":
+      return dir === "desc" ? "Longest Games" : "Shortest Games";
+    default:
+      return "Unknown Sorting";
+  }
+}
+
   return (
     <div className="page-container">
       <main className="page">
@@ -214,9 +227,15 @@ useEffect(() => {
           </div>
         )}
 
+        {/* sort title */}
+        
         {/* results */}
         <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
           {error && <div className="no-matches">{error}</div>}
+
+          {matches.length > 0 &&mode !== "find" && (
+          <h2>{getTitle(filters.sortBy, filters.sortDir)}</h2>
+        )}
 
           {mode === "find" ? (
             <>
