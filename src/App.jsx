@@ -67,7 +67,7 @@ useEffect(() => {
       const dir = filters.sortDir === "asc" ? 1 : -1;
       if (filters.sortBy === "score") return (a.score - b.score) * dir;
       if (filters.sortBy === "startTime") {
-        return (new Date(a.startTime).toISOString() - new Date(b.startTime).toISOString()) * dir;
+        return (new Date(a.startTime) - new Date(b.startTime)) * dir;
       }
       if (filters.sortBy === "duration") return (a.durationMin - b.durationMin) * dir;
       return 0;

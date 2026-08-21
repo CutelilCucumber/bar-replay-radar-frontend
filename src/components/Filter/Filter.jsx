@@ -227,7 +227,9 @@ export function MatchFilterSidebar({
                 <input
                   type="datetime-local"
                   value={filters.startTimeAfter ?? ""}
-                  onChange={(e) => updateFilter("startTimeAfter", e.target.value || undefined)}
+                  onChange={(e) =>
+                    updateFilter("startTimeAfter", e.target.value ? new Date(e.target.value).toISOString() : undefined)
+                  }
                   className="field-filter"
                 />
               </label>
@@ -236,7 +238,9 @@ export function MatchFilterSidebar({
                 <input
                   type="datetime-local"
                   value={filters.startTimeBefore ?? ""}
-                  onChange={(e) => updateFilter("startTimeBefore", e.target.value || undefined)}
+                  onChange={(e) =>
+                    updateFilter("startTimeBefore", e.target.value ? new Date(e.target.value).toISOString() : undefined)
+                  }
                   className="field-filter"
                 />
               </label>
