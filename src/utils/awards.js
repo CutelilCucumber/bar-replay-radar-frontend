@@ -217,4 +217,22 @@ export const MILESTONES = [
     description:
       "Metal or energy boosted in game options, worth no points.",
   },
+  {
+    key: "extraUnits",
+    label: "Extra Units",
+    icon: Bot,
+    color: "--color-upset",
+    weight: 0,
+    description:
+      "Experimental or Scav units enabled in game options, worth no points.",
+  },
+  {
+    key: "modded",
+    label: "Modded",
+    icon: Bot,
+    color: "--color-upset",
+    weight: 0,
+    description:
+      "Mods are installed, worth no points.",
+  },
 ];
