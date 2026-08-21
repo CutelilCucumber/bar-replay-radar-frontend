@@ -208,4 +208,13 @@ export const MILESTONES = [
     description:
       "At least 10 spectators. Generally more yapping, worth no points.",
   },
+  {
+    key: "ecoBoost",
+    label: "Eco Boost",
+    icon: Rocket,
+    color: "--color-upset",
+    weight: 0,
+    description:
+      "Metal or energy boosted in game options, worth no points.",
+  },
 ];
