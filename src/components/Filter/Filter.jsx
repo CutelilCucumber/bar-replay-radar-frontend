@@ -226,7 +226,7 @@ export function MatchFilterSidebar({
                 Played after
                 <input
                   type="datetime-local"
-                  value={filters.startTimeAfter ?? ""}
+                  value={filters.startTimeAfter ? new Date(filters.startTimeAfter).toLocaleString('sv-SE').replace(' ', 'T') : ""}
                   onChange={(e) =>
                     updateFilter("startTimeAfter", e.target.value ? new Date(e.target.value).toISOString() : undefined)
                   }
@@ -237,7 +237,7 @@ export function MatchFilterSidebar({
                 Played before
                 <input
                   type="datetime-local"
-                  value={filters.startTimeBefore ?? ""}
+                  value={filters.startTimeBefore ? new Date(filters.startTimeBefore).toLocaleString('sv-SE').replace(' ', 'T') : ""}
                   onChange={(e) =>
                     updateFilter("startTimeBefore", e.target.value ? new Date(e.target.value).toISOString() : undefined)
                   }
