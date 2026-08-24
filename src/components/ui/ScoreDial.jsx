@@ -7,6 +7,7 @@ export function ScoreDial({ score }) {
   const color = numberToRgb(score);
   return (
     <div 
+    className="score-dial"
     title="Spectator score out of 100"
     style={{ position: "relative", width: 56, height: 56, flexShrink: 0 }}>
       <svg width="56" height="56" style={{ transform: "rotate(-90deg)" }}>
