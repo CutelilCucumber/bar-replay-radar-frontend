@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
+import { MatchLoad } from "../ui/MatchLoad.jsx";
 import {
   ChevronDown,
   ChevronRight,
@@ -52,8 +51,8 @@ export function MatchCard({
 
   return (
     loading ? (
-      <div className="match-container">
-        <Skeleton count={5} />
+      <div className="match-container loading-container">
+        <MatchLoad />
       </div>
     ) : (
     <article className="match-container">
