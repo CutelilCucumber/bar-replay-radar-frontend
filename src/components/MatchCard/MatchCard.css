@@ -7,6 +7,13 @@
   transition: border-color 120ms ease;
   font-family: "Exo 2";
 }
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 4em;
+}
+
 .match-container:hover {
   background: var(--color-panel2);
 }
