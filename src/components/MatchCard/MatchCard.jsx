@@ -53,7 +53,7 @@ export function MatchCard({
   return (
     loading ? (
       <div className="match-container">
-        <Skeleton height={100} />
+        <Skeleton count={5} />
       </div>
     ) : (
     <article className="match-container">
@@ -86,7 +86,7 @@ export function MatchCard({
           className="save-action"
         />
       )}
-      <button onClick={loading ? onToggle : ""} className="show-detail">
+      <button onClick={onToggle} className="show-detail">
         <ScoreDial score={match.score} />
         <header className="title-container">
           <div className="title-info">
