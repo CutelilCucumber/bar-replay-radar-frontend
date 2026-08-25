@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import {
   ChevronDown,
   ChevronRight,
@@ -49,6 +51,11 @@ export function MatchCard({
     match.gamemode === "4" || match.gamemode === "5" ? true : false;
 
   return (
+    loading ? (
+      <div className="match-container">
+        <Skeleton />
+      </div>
+    ) : (
     <article className="match-container">
       {unsupported ? (
         <output className="warning-container">
@@ -142,6 +149,7 @@ export function MatchCard({
       </button>
       {expanded && <MatchDetail match={match} analysis={analysis} flipGraphs={flipGraphs} />}
     </article>
+    )
   );
 }
 
