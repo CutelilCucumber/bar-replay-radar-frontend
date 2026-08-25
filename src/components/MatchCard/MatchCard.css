@@ -11,7 +11,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 4em;
+  height: 10em;
 }
 
 .match-container:hover {
