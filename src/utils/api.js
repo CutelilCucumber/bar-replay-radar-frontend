@@ -8,6 +8,7 @@ const LIST_FILTER_KEYS = [
   "sortBy",
   "sortDir",
   "gamemode",
+  "map",
   "playerCountMin",
   "playerCountMax",
   "averageOSMin",

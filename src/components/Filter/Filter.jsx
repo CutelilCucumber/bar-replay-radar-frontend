@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { COLORS } from "../../utils/globalVars.js";
 import { MILESTONES } from "../../utils/awards.js";
+import { MAPLIST } from "../../utils/matchList.js";
 import {
   SlidersHorizontal,
   X,
@@ -16,6 +17,7 @@ export const DEFAULT_FILTERS = {
   sortBy: "startTime",
   sortDir: "desc",
   gamemode: undefined,
+  map: undefined,
   playerCountMin: undefined,
   playerCountMax: undefined,
   averageOSMin: undefined,
@@ -28,15 +30,6 @@ export const DEFAULT_FILTERS = {
   startTimeBefore: undefined,
   milestones: {}, // { [milestoneKey]: true | false }, absent = don't filter
 };
-
-const GAMEMODES = [
-  { value: "", label: "Any" },
-  { value: 1, label: "Duel" },
-  { value: 2, label: "Small Team" },
-  { value: 3, label: "Large Team" },
-  { value: 4, label: "FFA" },
-  { value: 5, label: "Team FFA" },
-];
 
 /** Converts an input's raw string value into a filter value: "" clears the filter (undefined), not 0/NaN. */
 function parseOptionalNumber(raw) {
@@ -127,6 +120,27 @@ export function MatchFilterSidebar({
                   </option>
                 ))}
               </select>
+            </label>
+
+            <label className="filter-field">
+              Map
+              <input
+                list="map-list"
+                placeholder="Any"
+                type="text"
+                value={filters.map ?? ""}
+                onChange={(e) =>
+                  updateFilter("map", e.target.value === "" ? undefined : e.target.value)
+                }
+                className="field-filter"
+              />
+                <datalist id="map-list">
+                {MAPLIST.map((m) => (
+                  <option key={m.label} value={m.label}>
+
+                  </option>
+                ))}
+              </datalist>
             </label>
 
             <div className="filter-range-row">
@@ -276,13 +290,13 @@ export function MatchFilterSidebar({
             </div>
             <label className="filter-field">
               Result limit
-              <span className="filter-section-hint">max 100</span>
+              <span className="filter-section-hint">max 1000</span>
               <input
                 type="number"
-                min={1}
-                max={100}
+                min={0}
+                max={1000}
                 value={filters.limit}
-                onChange={(e) => updateFilter("limit", Number(e.target.value) || 1)}
+                onChange={(e) => updateFilter("limit", e.target.value)}
                 className="field-filter"
               />
             </label>
@@ -373,3 +387,12 @@ function countActiveFilters(filters) {
   count += Object.keys(filters.milestones ?? {}).length;
   return count;
 }
+
+const GAMEMODES = [
+  { value: "", label: "Any" },
+  { value: 1, label: "Duel" },
+  { value: 2, label: "Small Team" },
+  { value: 3, label: "Large Team" },
+  { value: 4, label: "FFA" },
+  { value: 5, label: "Team FFA" },
+];
