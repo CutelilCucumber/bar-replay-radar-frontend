@@ -43,9 +43,9 @@ export default function App() {
     setLoading(false);
   }, [mode, fetchedMatches, loadCount, lookupResult]);
 
-useEffect(() => {
-  runLiveSearch();
-}, []);
+  useEffect(() => {
+    runLiveSearch();
+  }, []);
 
   const filtered = useMemo(() => {
     let list = matches.filter((m) => {
@@ -286,6 +286,7 @@ useEffect(() => {
               onSave={() => handleSave(m)}
               onDelete={() => handleDelete(m.id)}
               spoiled={spoiled}
+              loading={loading}
             />
           ))}
         </section>
