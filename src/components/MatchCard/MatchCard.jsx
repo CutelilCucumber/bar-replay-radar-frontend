@@ -1,6 +1,4 @@
 import { useState, useEffect } from "react";
-import Skeleton from 'react-loading-skeleton'
-import 'react-loading-skeleton/dist/skeleton.css'
 import {
   ChevronDown,
   ChevronRight,
@@ -66,9 +64,7 @@ export function MatchCard({
       ) : (
         ""
       )}
-      {loading ? (
-        <Skeleton className="save-action" />
-      ) : isSaved ? (
+      {isSaved ? (
         <Trash2
           size={16}
           color={COLORS.combat}
@@ -83,38 +79,20 @@ export function MatchCard({
           className="save-action"
         />
       )}
-      <button
-        disabled
-        aria-disabled="true"
-        className="show-detail"
-      >
-        {loading ? (
-          <Skeleton className="score-dial-skeleton" />
-        ) : (
-          <ScoreDial score={match.score} />
-        )}
+      <button onClick={loading ? onToggle : ""} className="show-detail">
+        <ScoreDial score={match.score} />
         <header className="title-container">
           <div className="title-info">
-            <span className="title-map">
-              {loading ? <Skeleton /> : match.map}
+            <span className="title-map">{match.map}</span>
+            <span className="title-detail">
+              {GAMEMODES[match.gamemode]} · {match.durationMin}m ·{" "}
+              {match.playerCount}p · {Math.round(match.averageOS * 100) / 100}os
             </span>
             <span className="title-detail">
-              {loading ? (
-                <Skeleton />
-              ) : (
-                <>
-                  {GAMEMODES[match.gamemode]} · {match.durationMin}m ·{" "}
-                  {match.playerCount}p · {Math.round(match.averageOS * 100) / 100}os
-                </>
-              )}
-            </span>
-            <span className="title-detail">
-              {loading ? <Skeleton /> : formatDateLocalTimezone(match.startTime)}
+              {formatDateLocalTimezone(match.startTime)}
             </span>
           </div>
-          {loading ? (
-            <Skeleton className="awards-show" />
-          ) : showAwards ? (
+          {showAwards ? (
             <section className="award-container">
               {activeMilestones.length > 0 ? (
                 activeMilestones.map((m) => (
@@ -137,7 +115,7 @@ export function MatchCard({
               }}
             >{`Show ${activeMilestones.length} awards >`}</div>
           )}
-          {showWinner || loading ? (
+          {showWinner ? (
             ""
           ) : (
             <div
@@ -150,15 +128,11 @@ export function MatchCard({
           )}
         </header>
         <div className="miniSparkline-container">
-          {loading ? (
-            <Skeleton className="miniSparkline-skeleton" />
-          ) : (
-            <MiniSparkline
-              series={match.series}
-              winner={showWinner ? match.winner : null}
-              flipped={flipGraphs}
-            />
-          )}
+          <MiniSparkline
+            series={match.series}
+            winner={showWinner ? match.winner : null}
+            flipped={flipGraphs}
+          />
           {expanded ? (
             <ChevronDown size={16} color={COLORS.muted} />
           ) : (

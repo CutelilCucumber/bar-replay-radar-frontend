@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Loader2, RefreshCw, Search } from "lucide-react";
 import { MatchCard } from "./components/MatchCard/MatchCard.jsx";
+import Skeleton from 'react-loading-skeleton'
+import 'react-loading-skeleton/dist/skeleton.css'
 import {
   MatchFilterSidebar,
   DEFAULT_FILTERS,
