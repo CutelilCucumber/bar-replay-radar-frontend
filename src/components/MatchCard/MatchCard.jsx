@@ -53,7 +53,7 @@ export function MatchCard({
   return (
     loading ? (
       <div className="match-container">
-        <Skeleton />
+        <Skeleton height={100} />
       </div>
     ) : (
     <article className="match-container">
