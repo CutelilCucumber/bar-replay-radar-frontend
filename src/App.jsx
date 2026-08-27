@@ -299,7 +299,7 @@ export default function App() {
 
         <footer className="scoring-tooltip">
           a tool by{" "}
-          <a href="https://github.com/CutelilCucumber">cutelilcucumber</a>
+          <a href="https://github.com/CutelilCucumber">Gldneye</a>
         </footer>
       </main>
     </div>
