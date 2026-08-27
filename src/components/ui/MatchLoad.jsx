@@ -1,70 +1,88 @@
+
+import "./MatchLoad.css";
+
 export function MatchLoad({}) {
-//   <!-- From Uiverse.io by dexter-st --> 
   return (
-<div class="wrapper-grid">
-  <div class="cube">
-    <div class="face face-front">L</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
+<div class="gearbox">
+    <div class="overlay"></div>
+ 
+    <div class="gear one">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear two large">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear three">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear four large">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear five">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear six large">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear seven">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
+    <div class="gear eight large">
+      <div class="gear-inner">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+      </div>
+    </div>
+ 
   </div>
-
-  <div class="cube">
-    <div class="face face-front">O</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-
-  <div class="cube">
-    <div class="face face-front">A</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-
-  <div class="cube">
-    <div class="face face-front">D</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-
-  <div class="cube">
-    <div class="face face-front">I</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-
-  <div class="cube">
-    <div class="face face-front">N</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-
-  <div class="cube">
-    <div class="face face-front">G</div>
-    <div class="face face-back"></div>
-    <div class="face face-right"></div>
-    <div class="face face-left"></div>
-    <div class="face face-top"></div>
-    <div class="face face-bottom"></div>
-  </div>
-</div>
 
   );
 }

@@ -25,7 +25,6 @@ export function MatchCard({
   onSave,
   onDelete,
   spoiled,
-  loading,
 }) {
   const [showWinner, setShowWinner] = useState(false);
   const [showAwards, setShowAwards] = useState(false);
@@ -50,11 +49,6 @@ export function MatchCard({
     match.gamemode === "4" || match.gamemode === "5" ? true : false;
 
   return (
-    loading ? (
-      <div className="match-container loading-container">
-        <MatchLoad />
-      </div>
-    ) : (
     <article className="match-container">
       {unsupported ? (
         <output className="warning-container">
@@ -148,7 +142,6 @@ export function MatchCard({
       </button>
       {expanded && <MatchDetail match={match} analysis={analysis} flipGraphs={flipGraphs} />}
     </article>
-    )
   );
 }
 

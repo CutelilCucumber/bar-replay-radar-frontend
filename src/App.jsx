@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
 import { Loader2, RefreshCw, Search } from "lucide-react";
 import { MatchCard } from "./components/MatchCard/MatchCard.jsx";
+import { MatchLoad } from "./components/ui/MatchLoad.jsx";
 import {
   MatchFilterSidebar,
   DEFAULT_FILTERS,
@@ -275,7 +276,12 @@ export default function App() {
             )
           )}
 
-          {(mode === "find" ? matches : filtered).map((m) => (
+          {loading ? (
+            <MatchLoad />
+        ) : (
+          
+          (mode === "find" ? matches : filtered).map((m) => (
+            
             <MatchCard
               key={m.id}
               match={m}
@@ -286,9 +292,9 @@ export default function App() {
               onSave={() => handleSave(m)}
               onDelete={() => handleDelete(m.id)}
               spoiled={spoiled}
-              loading={loading}
             />
-          ))}
+          ))
+        )}
         </section>
 
         <footer className="scoring-tooltip">

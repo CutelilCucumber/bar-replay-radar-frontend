@@ -1,0 +1,153 @@
+  @keyframes clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+ 
+  @keyframes counter-clockwise {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(-360deg); }
+  }
+ 
+  .gearbox {
+    background: #111;
+    min-height: 180px;
+    max-width: 900px;
+    position: relative;
+    border: none;
+    overflow: hidden;
+    border-radius: 6px;
+    box-shadow: 0px 0px 0px 1px rgba(255, 255, 255, 0.1);
+  }
+ 
+  .gearbox .overlay {
+    border-radius: 6px;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 10;
+    box-shadow: inset 0px 0px 20px black;
+    transition: background 0.2s;
+    background: transparent;
+  }
+ 
+  /* base (small) gear: 70px diameter */
+  .gear {
+    position: absolute;
+    height: 70px;
+    width: 70px;
+    box-shadow: 0px -1px 0px 0px #888888, 0px 1px 0px 0px black;
+    border-radius: 35px;
+  }
+ 
+  /* large gear: 140px diameter, tangent to neighboring small gears */
+  .gear.large {
+    height: 140px;
+    width: 140px;
+    border-radius: 70px;
+  }
+ 
+  .gear.large:after {
+    height: 112px;
+    width: 112px;
+    border-radius: 56px;
+    margin-left: -56px;
+    margin-top: -56px;
+  }
+ 
+  /* row of 8 gears, alternating small/large, tangent spacing (touching, no gap/overlap) */
+  .gear.one   { top: 95px;  left: 26px; }
+  .gear.two   { top: -50px;  left: -50px; }
+  .gear.three { top: -10px;  left: 238px; }
+  .gear.four  { top: 15px;  left: 100px; }
+  .gear.five  { top: 72px;  left: 455px; }
+  .gear.six   { top: 15px;  left: 305px; }
+  .gear.seven { top: 55px;  left: 760px; }
+  .gear.eight { top: -22px;  left: 522px; }
+
+  /* gear colors */
+  .gear.two .gear-inner,
+    .gear.two .gear-inner .bar {
+      background: var(--color-combat);
+    }
+ .gear.four .gear-inner,
+    .gear.four .gear-inner .bar {
+      background: var(--color-combat);
+    }
+      .gear.five .gear-inner,
+    .gear.five .gear-inner .bar {
+      background: var(--color-close);
+    }
+ .gear.eight .gear-inner,
+    .gear.eight .gear-inner .bar {
+      background: var(--color-close);
+    }
+.gear.seven .gear-inner,
+    .gear.seven .gear-inner .bar {
+      background: var(--color-eco);
+    }
+ 
+  .gear:after {
+    content: "";
+    position: absolute;
+    height: 42px;
+    width: 42px;
+    border-radius: 42px;
+    background: #111;
+    top: 50%;
+    left: 50%;
+    margin-left: -21px;
+    margin-top: -21px;
+    z-index: 3;
+    box-shadow: 0px 0px 10px rgba(255, 255, 255, 0.1), inset 0px 0px 10px rgba(0, 0, 0, 0.1), inset 0px 2px 0px 0px #090909, inset 0px -1px 0px 0px #888888;
+  }
+ 
+  .gear-inner {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    background: #555;
+    border-radius: 35px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+ 
+  .large .gear-inner {
+    border-radius: 70px;
+  }
+ 
+  /* alternate spin direction so adjacent, tangent gears "mesh"; period scales with radius (large = 2x period of small) */
+  .gear.one .gear-inner   { animation: counter-clockwise 3s infinite linear; }
+  .gear.two .gear-inner   { animation: clockwise 6s infinite linear; }
+  .gear.three .gear-inner { animation: counter-clockwise 3s infinite linear; }
+  .gear.four .gear-inner  { animation: clockwise 6s infinite linear; }
+  .gear.five .gear-inner  { animation: counter-clockwise 3s infinite linear; }
+  .gear.six .gear-inner   { animation: clockwise 6s infinite linear; }
+  .gear.seven .gear-inner { animation: clockwise 2s infinite linear; }
+  .gear.eight .gear-inner { animation: clockwise 6s infinite linear; }
+ 
+  .gear-inner .bar {
+    background: #555;
+    height: 19px;
+    width: 90px;
+    position: absolute;
+    left: 50%;
+    margin-left: -45px;
+    top: 50%;
+    margin-top: -9.5px;
+    border-radius: 2px;
+    border-left: 1px solid rgba(255, 255, 255, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.1);
+  }
+ 
+  .large .gear-inner .bar {
+    margin-left: -80px;
+    width: 160px;
+  }
+ 
+  .gear-inner .bar:nth-child(2) { transform: rotate(60deg); }
+  .gear-inner .bar:nth-child(3) { transform: rotate(120deg); }
+  .gear-inner .bar:nth-child(4) { transform: rotate(90deg); }
+  .gear-inner .bar:nth-child(5) { transform: rotate(30deg); }
+  .gear-inner .bar:nth-child(6) { transform: rotate(150deg); }
