@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { COLORS } from "../../utils/globalVars.js";
-import { MILESTONES } from "../../utils/awards.js";
+import { MILESTONES, MILESTONE_CATEGORIES } from "../../utils/awards.js";
 import { MAPLIST } from "../../utils/matchList.js";
 import {
   SlidersHorizontal,
@@ -306,32 +306,37 @@ export function MatchFilterSidebar({
             <h4 className="filter-section-title">
               Milestones
             </h4>
-            <div className="badge-container">
-              {MILESTONES.map((m) => {
-                const state = filters.milestones?.[m.key]; // true | false | undefined
-                const Icon = m.icon;
-                const style =
-                  state === true
-                    ? { border: `1px solid var(${m.color})`, color: `var(${m.color})` }
-                    : state === false
-                      ? { border: `1px solid var(--color-upset)`, color: `var(--color-upset)`, opacity: 0.7 }
-                      : { border: "1px solid var(--color-line)", color: "var(--color-faint)" };
+            {MILESTONE_CATEGORIES.map((cat) => (
+              <div key={cat.key} className="milestone-category">
+                <h5 className="milestone-category-title">{cat.label}</h5>
+                <div className="badge-container">
+                  {MILESTONES.filter((m) => m.category === cat.key).map((m) => {
+                    const state = filters.milestones?.[m.key];
+                    const Icon = m.icon;
+                    const style =
+                      state === true
+                        ? { border: `1px solid var(${m.color})`, color: `var(${m.color})` }
+                        : state === false
+                          ? { border: `1px solid var(--color-upset)`, color: `var(--color-upset)`, opacity: 0.7 }
+                          : { border: "1px solid var(--color-line)", color: "var(--color-faint)" };
 
-                return (
-                  <button
-                    key={m.key}
-                    onClick={() => cycleMilestone(m.key)}
-                    className="milestone-button"
-                    title={state === false ? `Exclude: ${m.description}` : m.description}
-                    style={style}
-                  >
-                    <Icon size={12.5} />
-                    {m.label}
-                    {state === false && " (excluded)"}
-                  </button>
-                );
-              })}
-            </div>
+                    return (
+                      <button
+                        key={m.key}
+                        onClick={() => cycleMilestone(m.key)}
+                        className="milestone-button"
+                        title={state === false ? `Exclude: ${m.description}` : m.description}
+                        style={style}
+                      >
+                        <Icon size={12.5} />
+                        {m.label}
+                        {state === false && " (excluded)"}
+                      </button>
+                    );
+                  })}
+                </div>
+              </div>
+            ))}
           </section>
 
           <section className="filter-section">
