@@ -9,9 +9,20 @@ import {
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, BarChart3, Trophy, Map, Medal } from "lucide-react";
 import { Stat } from "../ui/Stat.jsx";
+import { Tabs } from "../ui/Tabs.jsx";
+import { AwardsPanel } from "./AwardsPanel.jsx";
+import { MedalsPanel } from "./MedalsPanel.jsx";
+import { PositionsPanel } from "./PositionsPanel.jsx";
 import "./MatchDetail.css";
+
+const TABS = [
+  { key: "details", label: "Details", icon: BarChart3 },
+  { key: "awards", label: "Awards", icon: Trophy },
+  { key: "positions", label: "Positions", icon: Map },
+  { key: "medals", label: "Medals", icon: Medal },
+];
 
 const CHARTS = [
   {
@@ -41,6 +52,7 @@ const CHARTS = [
 ];
 
 export function MatchDetail({ match, analysis, flipGraphs }) {
+  const [activeTab, setActiveTab] = useState("details");
   const [diffData, setDiffData] = useState(
     match.series.map((p) => ({
       t: p.t,
@@ -52,7 +64,6 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
   );
   const { details } = analysis;
 
-  // one shared array of per-minute diffs, feeding all 4 charts below
   useEffect(() => {
     if (flipGraphs) {
       setDiffData(
@@ -79,115 +90,120 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
 
   return (
     <div className="detail-container">
-      <div
-        className="chart-grid"
-        style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
-      >
-        {CHARTS.map((chart) => (
-          <DiffChart
-            key={chart.key}
-            id={`${match.id}-${chart.key}`}
-            title={chart.title}
-            data={diffData}
-            dataKey={chart.key}
-            color={chart.color}
-            unit={chart.unit}
-          />
-        ))}
-      </div>
-      <section className="stat-container">
-        <Stat
-          label="Biggest comeback:"
-          value={`${Math.round(details.worstDeficit)}m army value`}
-          color={COLORS.eco}
-        />
-        <Stat
-          label="Final Damage gap:"
-          value={`${Math.round(details.finalDmgGap)} damage`}
-          color={COLORS.combat}
-        />
-        <Stat
-          label="Team skill gap:"
-          value={`${details.skillGap.toFixed(2)} OS`}
-          color={COLORS.upset}
-        />
-        <Stat
-          label="Highest Damage Moment:"
-          value={`${details.highestDamageMinute} minutes`}
-          color={COLORS.combat}
-        />
-        <Stat
-          label="surviving Commanders:"
-          value={`${details.commandersLeft}`}
-          color={COLORS.close}
-        />
-        <Stat
-          label="Unit type diversity:"
-          value={`${details.uniqueUnits} types`}
-          color={COLORS.close}
-        />
-        <Stat
-          label="First AFUS Timing:"
-          value={
-            details.firstAfus
-              ? `${details.firstAfus.toFixed(2)} minutes`
-              : "none"
-          }
-          color={COLORS.close}
-        />
-        <Stat
-          label="First Gantry Timing:"
-          value={
-            details.firstT3Minute
-              ? `${details.firstT3Minute.toFixed(2)} minutes`
-              : "none"
-          }
-          color={COLORS.combat}
-        />
-        <Stat
-          label="First Nuke Timing:"
-          value={
-            details.firstNuke
-              ? `${details.firstNuke.toFixed(2)} minutes`
-              : "none"
-          }
-          color={COLORS.combat}
-        />
-        <Stat
-          label="First RFLRPC Timing:"
-          value={
-            details.firstRFLRPC
-              ? `${details.firstRFLRPC.toFixed(2)} minutes`
-              : "none"
-          }
-          color={COLORS.close}
-        />
-      </section>
-      <a
-        href={`https://gex.honu.pw/match/${match.id}`}
-        target="_blank"
-        rel="noreferrer"
-        className="link"
-      >
-        Open in Gex <ExternalLink size={13} />
-      </a>
-      <a
-        href={`https://www.beyondallreason.info/replays?gameId=${match.id}`}
-        target="_blank"
-        rel="noreferrer"
-        className="link"
-      >
-        Replay Page <ExternalLink size={13} />
-      </a>
+      <Tabs tabs={TABS} activeKey={activeTab} onChange={setActiveTab} />
+
+      {activeTab === "details" && (
+        <>
+          <div
+            className="chart-grid"
+            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
+          >
+            {CHARTS.map((chart) => (
+              <DiffChart
+                key={chart.key}
+                id={`${match.id}-${chart.key}`}
+                title={chart.title}
+                data={diffData}
+                dataKey={chart.key}
+                color={chart.color}
+                unit={chart.unit}
+              />
+            ))}
+          </div>
+          <section className="stat-container">
+            <Stat
+              label="Biggest comeback:"
+              value={`${Math.round(details.worstDeficit)}m army value`}
+              color={COLORS.eco}
+            />
+            <Stat
+              label="Final Damage gap:"
+              value={`${Math.round(details.finalDmgGap)} damage`}
+              color={COLORS.combat}
+            />
+            <Stat
+              label="Team skill gap:"
+              value={`${details.skillGap.toFixed(2)} OS`}
+              color={COLORS.upset}
+            />
+            <Stat
+              label="Highest Damage Moment:"
+              value={`${details.highestDamageMinute} minutes`}
+              color={COLORS.combat}
+            />
+            <Stat
+              label="surviving Commanders:"
+              value={`${details.commandersLeft}`}
+              color={COLORS.close}
+            />
+            <Stat
+              label="Unit type diversity:"
+              value={`${details.uniqueUnits} types`}
+              color={COLORS.close}
+            />
+            <Stat
+              label="First AFUS Timing:"
+              value={
+                details.firstAfus
+                  ? `${details.firstAfus.toFixed(2)} minutes`
+                  : "none"
+              }
+              color={COLORS.close}
+            />
+            <Stat
+              label="First Gantry Timing:"
+              value={
+                details.firstT3Minute
+                  ? `${details.firstT3Minute.toFixed(2)} minutes`
+                  : "none"
+              }
+              color={COLORS.combat}
+            />
+            <Stat
+              label="First Nuke Timing:"
+              value={
+                details.firstNuke
+                  ? `${details.firstNuke.toFixed(2)} minutes`
+                  : "none"
+              }
+              color={COLORS.combat}
+            />
+            <Stat
+              label="First RFLRPC Timing:"
+              value={
+                details.firstRFLRPC
+                  ? `${details.firstRFLRPC.toFixed(2)} minutes`
+                  : "none"
+              }
+              color={COLORS.close}
+            />
+          </section>
+          <a
+            href={`https://gex.honu.pw/match/${match.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="link"
+          >
+            Open in Gex <ExternalLink size={13} />
+          </a>
+          <a
+            href={`https://www.beyondallreason.info/replays?gameId=${match.id}`}
+            target="_blank"
+            rel="noreferrer"
+            className="link"
+          >
+            Replay Page <ExternalLink size={13} />
+          </a>
+        </>
+      )}
+
+      {activeTab === "awards" && <AwardsPanel medals={match.medals} />}
+      {activeTab === "positions" && <PositionsPanel match={match} />}
+      {activeTab === "medals" && <MedalsPanel medals={match.medals} />}
     </div>
   );
 }
 
-/**
- * One small comparative chart: a single `dataKey` diff series (team A minus
- * team B), drawn symmetrically around a zero midline so "who's ahead" reads
- * as above/below center rather than needing a legend.
- */
 function DiffChart({ id, title, data, dataKey, color, unit }) {
   const maxAbs = Math.max(1, ...data.map((p) => Math.abs(p[dataKey])));
 

@@ -73,7 +73,7 @@
   font-size: 14px;
   color: var(--color-muted);
 }
-.awards-show {
+.milestones-show {
   margin-top: -10px;
   font-size: 14px;
   font-family: "Roboto mono", sans-serif;
@@ -84,7 +84,7 @@
   border-radius: 7px;
   width: fit-content;
 }
-.awards-show:hover {
+.milestones-show:hover {
   color: var(--color-eco);
   background-color: var(--color-panel);
 }
@@ -103,7 +103,7 @@
   color: var(--color-upset);
   background-color: var(--color-panel);
 }
-.award-container {
+.milestone-container {
   display: flex;
   gap: 6px;
   margin-top: 7px;

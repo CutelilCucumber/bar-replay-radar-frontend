@@ -8,7 +8,6 @@ import {
   Wind,
   Mouse,
   TrendingUp,
-  Radio,
   Swords,
   Crown,
   Zap,
@@ -21,6 +20,7 @@ import {
   Scale,
   SquareArrowUp,
   Popcorn,
+  Users,
 } from "lucide-react";
 
 export const MILESTONE_CATEGORIES = [
@@ -80,6 +80,15 @@ export const MILESTONES = [
     weight: 0,
     category: "lobby",
     description: "Legion faction detected in this game, worth no points.",
+  },
+  {
+    key: "pve",
+    label: "PvE",
+    icon: Users,
+    color: "--color-close",
+    weight: 0,
+    category: "lobby",
+    description: "Co-op vs AI match — all players on the same team.",
   },
   {
     key: "earlyBombing",

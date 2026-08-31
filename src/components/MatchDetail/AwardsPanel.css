@@ -1,0 +1,67 @@
+.awards-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.awards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+}
+.award-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+}
+.award-card.golden-cow {
+  border: 2px solid var(--color-upset);
+  background: linear-gradient(135deg, var(--color-panel) 0%, rgba(217, 164, 65, 0.08) 100%);
+}
+.award-icon-slot {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--color-panel2);
+  flex-shrink: 0;
+}
+.award-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+.award-label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-ink);
+  font-family: "Space Grotesk", sans-serif;
+}
+.award-player {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-eco);
+  font-family: "Space Grotesk", sans-serif;
+}
+.award-value {
+  font-size: 11px;
+  color: var(--color-muted);
+  font-family: "JetBrains Mono", monospace;
+}
+.award-hint {
+  font-size: 10px;
+  color: var(--color-upset);
+  font-style: italic;
+}
+.panel-empty {
+  padding: 24px;
+  text-align: center;
+  color: var(--color-muted);
+  font-size: 13px;
+}

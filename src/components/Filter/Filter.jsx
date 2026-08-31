@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { COLORS } from "../../utils/globalVars.js";
-import { MILESTONES, MILESTONE_CATEGORIES } from "../../utils/awards.js";
+import { MILESTONES, MILESTONE_CATEGORIES } from "../../utils/milestones.js";
 import { MAPLIST } from "../../utils/matchList.js";
 import {
   SlidersHorizontal,
@@ -349,9 +349,9 @@ export function MatchFilterSidebar({
                 className="field-filter"
               >
                 <option value={false}>Spoil: none</option>
-                <option value="award">Spoil: awards</option>
+                <option value="milestone">Spoil: milestones</option>
                 <option value="winner">Spoil: winner</option>
-                <option value="both">Spoil: awards and winner</option>
+                <option value="both">Spoil: milestones and winner</option>
               </select>
             </label>
           </section>

@@ -8,7 +8,7 @@ import {
   FileWarningIcon,
 } from "lucide-react";
 
-import { MILESTONES } from "../../utils/awards.js";
+import { MILESTONES } from "../../utils/milestones.js";
 import { COLORS, GAMEMODES } from "../../utils/globalVars.js";
 import { MatchDetail } from "../MatchDetail/MatchDetail.jsx";
 import { ScoreDial } from "../ui/ScoreDial.jsx";
@@ -27,12 +27,12 @@ export function MatchCard({
   spoiled,
 }) {
   const [showWinner, setShowWinner] = useState(false);
-  const [showAwards, setShowAwards] = useState(false);
+  const [showMilestones, setShowMilestones] = useState(false);
   const [flipGraphs, setFlipGraphs] = useState(true);
 
   useEffect(() => {
     setShowWinner(spoiled === "winner" || spoiled === "both");
-    setShowAwards(spoiled === "award" || spoiled === "both");
+    setShowMilestones(spoiled === "milestone" || spoiled === "both");
   }, [spoiled]);
 
   useEffect(() => {
@@ -92,8 +92,8 @@ export function MatchCard({
               {formatDateLocalTimezone(match.startTime)}
             </span>
           </div>
-          {showAwards ? (
-            <section className="award-container">
+          {showMilestones ? (
+            <section className="milestone-container">
               {activeMilestones.length > 0 ? (
                 activeMilestones.map((m) => (
                   <Badge
@@ -108,12 +108,12 @@ export function MatchCard({
             </section>
           ) : (
             <div
-              className="awards-show"
+              className="milestones-show"
               onClick={(e) => {
-                setShowAwards(true);
+                setShowMilestones(true);
                 e.stopPropagation();
               }}
-            >{`Show ${activeMilestones.length} awards >`}</div>
+            >{`Show ${activeMilestones.length} milestones >`}</div>
           )}
           {showWinner ? (
             ""

@@ -2,15 +2,15 @@
 
 Live site can be found here: [https://gex-game-finder.vercel.app/](https://bar-replay-radar.vercel.app/)
 
-Scans recent Beyond All Reason matches and scores them on how worth watching they are with awards like comebacks, big fights, close finishes, etc — using data pulled live from [gex](https://github.com/Varunda/gex)'s public API.
+Scans recent Beyond All Reason matches and scores them on how worth watching they are with milestones like comebacks, big fights, close finishes, etc — using data pulled live from [gex](https://github.com/Varunda/gex)'s public API.
 
 ## What it does
 
 1. Pulls recent ranked matches from `gex.honu.pw`.
 2. For each match, fetches per-frame team stats and analyzes the course of the game.
-3. Scores each match 0–100 and tags it with various milestones found in /`src/utils/awards.js`, each with different weights
+3. Scores each match 0–100 and tags it with various milestones found in /`src/utils/milestones.js`, each with different weights
 4. Filters by milestones and sorts them by user choice.
-5. the user has the option to spoil awards and winners globally or per match.
+5. the user has the option to spoil milestones and winners globally or per match.
 
 
 ## Known limits
@@ -27,4 +27,4 @@ npm run dev
 
 ## WIP
 
--tweak award threshholds and weights by watching real games
+-tweak milestone threshholds and weights by watching real games
