@@ -8,7 +8,7 @@ import {
 } from "./components/Filter/Filter.jsx";
 import { listMatches, lookupMatch } from "./utils/api.js";
 import { COLORS } from "./utils/globalVars.js";
-import { preloadImages, extractImageUrls } from "./utils/mapImages.js";
+import { preloadImages, extractImageUrls, getAwardImageUrls } from "./utils/mapImages.js";
 import "./App.css";
 import {
   deleteSavedMatch,
@@ -47,6 +47,11 @@ export default function App() {
 
   useEffect(() => {
     runLiveSearch();
+  }, []);
+
+  // Preload award images once at app startup (static assets, same for all matches)
+  useEffect(() => {
+    preloadImages(getAwardImageUrls());
   }, []);
 
   const filtered = useMemo(() => {

@@ -1,3 +1,5 @@
+import awardDetails from "./awardDetails.json";
+
 /**
  * Constructs the map background (texture) image URL for a given map via the gex proxy.
  * Uses mapName (internal filename) if available; falls back to a snake_case
@@ -15,6 +17,13 @@ export function getMapImageUrl(mapName, displayName) {
  */
 export function getUnitImageUrl(definitionName) {
   return `https://gex.honu.pw/image-proxy/UnitPic?defName=${encodeURIComponent(definitionName)}`;
+}
+
+/**
+ * Returns all award image URLs from awardDetails.json for preloading.
+ */
+export function getAwardImageUrls() {
+  return Object.values(awardDetails).map((a) => a.imgurl);
 }
 
 /**
