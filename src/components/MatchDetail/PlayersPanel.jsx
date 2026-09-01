@@ -29,7 +29,7 @@ export function PlayersPanel({ match }) {
   const allPositions = teams.flatMap((t) => t.positions);
 
   if (allPositions.length === 0) {
-    return <div className="panel-empty">No start position data available for this match.</div>;
+    return <div className="panel-empty">Roster data not available for this match.</div>;
   }
 
   const xs = allPositions.map((p) => p.x);
@@ -46,6 +46,8 @@ export function PlayersPanel({ match }) {
   const mapImageUrl = getMapImageUrl(match.mapName, match.map);
 
   return (
+    <>
+    
     <div className="players-panel">
       <div className="players-map-side">
         <div className="players-map-container">
@@ -121,5 +123,6 @@ export function PlayersPanel({ match }) {
         )}
       </div>
     </div>
+    </>
   );
 }

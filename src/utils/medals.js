@@ -5,14 +5,16 @@ export function frameToTime(frame) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-const UNIT_PREFIXES = {
-  cor: "Cortex",
-  arm: "Armada",
-  leg: "Legion",
-};
+import unitData from "./units.json";
+
+const FACTIONS = unitData.units.factions;
+const UNIT_NAMES = unitData.units.names;
 
 export function formatUnitName(definitionName) {
-  for (const [prefix, faction] of Object.entries(UNIT_PREFIXES)) {
+  if (UNIT_NAMES[definitionName]) {
+    return UNIT_NAMES[definitionName];
+  }
+  for (const [prefix, faction] of Object.entries(FACTIONS)) {
     if (definitionName.startsWith(prefix)) {
       return `${faction} ${definitionName.slice(prefix.length)}`;
     }

@@ -58,7 +58,7 @@ export function extractImageUrls(matches) {
     // Unit portraits from medals
     const medals = match.medals;
     if (medals) {
-      for (const section of ["veteranUnits", "killEfficiency", "damageTaken"]) {
+      for (const section of ["damageEfficiency", "damageDealt", "damageTaken", "veteranUnits"]) {
         for (const entry of medals[section] ?? []) {
           if (entry.definitionName) {
             urls.push(getUnitImageUrl(entry.definitionName));
