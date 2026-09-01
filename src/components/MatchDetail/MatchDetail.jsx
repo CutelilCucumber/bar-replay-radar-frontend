@@ -178,28 +178,31 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
               color={COLORS.close}
             />
           </section>
-          <a
-            href={`https://gex.honu.pw/match/${match.id}`}
-            target="_blank"
-            rel="noreferrer"
-            className="link"
-          >
-            Open in Gex <ExternalLink size={13} />
-          </a>
-          <a
-            href={`https://www.beyondallreason.info/replays?gameId=${match.id}`}
-            target="_blank"
-            rel="noreferrer"
-            className="link"
-          >
-            Replay Page <ExternalLink size={13} />
-          </a>
         </>
       )}
 
       {activeTab === "awards" && <AwardsPanel medals={match.medals} />}
       {activeTab === "players" && <PlayersPanel match={match} />}
       {activeTab === "medals" && <MedalsPanel medals={match.medals} />}
+
+      <div className="detail-footer">
+        <a
+          href={`https://gex.honu.pw/match/${match.id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="link"
+        >
+          Open in Gex <ExternalLink size={13} />
+        </a>
+        <a
+          href={`https://www.beyondallreason.info/replays?gameId=${match.id}`}
+          target="_blank"
+          rel="noreferrer"
+          className="link"
+        >
+          Replay Page <ExternalLink size={13} />
+        </a>
+      </div>
     </div>
   );
 }

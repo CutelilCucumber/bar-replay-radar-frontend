@@ -39,7 +39,7 @@ export function AwardsPanel({ medals }) {
     <div className="awards-panel">
       <div className="awards-head">
         <span className="awards-title">Awards</span>
-        <span className="awards-score-head">Damage</span>
+        <span className="awards-score-head">Score</span>
       </div>
 
       <div className="awards-list">
