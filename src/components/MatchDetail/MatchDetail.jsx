@@ -14,13 +14,13 @@ import { Stat } from "../ui/Stat.jsx";
 import { Tabs } from "../ui/Tabs.jsx";
 import { AwardsPanel } from "./AwardsPanel.jsx";
 import { MedalsPanel } from "./MedalsPanel.jsx";
-import { PositionsPanel } from "./PositionsPanel.jsx";
+import { PlayersPanel } from "./PlayersPanel.jsx";
 import "./MatchDetail.css";
 
 const TABS = [
   { key: "details", label: "Details", icon: BarChart3 },
+  { key: "players", label: "Players", icon: Map },
   { key: "awards", label: "Awards", icon: Trophy },
-  { key: "positions", label: "Positions", icon: Map },
   { key: "medals", label: "Medals", icon: Medal },
 ];
 
@@ -198,7 +198,7 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
       )}
 
       {activeTab === "awards" && <AwardsPanel medals={match.medals} />}
-      {activeTab === "positions" && <PositionsPanel match={match} />}
+      {activeTab === "players" && <PlayersPanel match={match} />}
       {activeTab === "medals" && <MedalsPanel medals={match.medals} />}
     </div>
   );

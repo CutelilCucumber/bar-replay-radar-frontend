@@ -1,0 +1,141 @@
+.players-panel {
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+}
+
+.players-map-side {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  flex: 1 1 500px;
+  min-width: 0;
+  max-width: max-content;
+}
+
+.players-map-container {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 500px;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid var(--color-line);
+  background: var(--color-panel2);
+}
+.players-map-bg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+.players-map-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-muted);
+  font-size: 14px;
+  font-family: "Space Grotesk", sans-serif;
+  background:
+    linear-gradient(var(--color-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--color-line) 1px, transparent 1px);
+  background-size: 10% 10%;
+}
+.players-map-name {
+  font-size: 11px;
+  color: var(--color-muted);
+  font-family: "JetBrains Mono", monospace;
+  text-align: center;
+}
+
+.player-dot {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 2px solid;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  cursor: default;
+}
+.player-dot-label {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 10px;
+  font-weight: 700;
+  font-family: "Space Grotesk", sans-serif;
+  white-space: nowrap;
+  pointer-events: none;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.players-roster {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  flex: 0 1 220px;
+  min-width: 180px;
+}
+
+.roster-team {
+  background: var(--color-panel);
+  border: 1px solid var(--color-line);
+  border-radius: 10px;
+  padding: 10px 12px;;
+}
+.roster-team-header {
+  font-family: "Space Grotesk", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-ink);
+  border-left: 3px solid var(--color-line);
+  padding-left: 8px;
+  margin-bottom: 8px;
+}
+.roster-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.roster-entry {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}
+.roster-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.roster-name {
+  font-size: 13px;
+  font-weight: 600;
+  font-family: "Space Grotesk", sans-serif;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (max-width: 760px) {
+  .players-panel {
+    flex-direction: column;
+  }
+  .players-roster {
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    flex: 1 1 auto;
+  }
+  .roster-team {
+    flex: 1 1 200px;
+  }
+}
