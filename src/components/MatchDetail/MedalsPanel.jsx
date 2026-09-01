@@ -1,5 +1,6 @@
 import { frameToTime, formatUnitName } from "../../utils/medals.js";
 import { COLORS } from "../../utils/globalVars.js";
+import { getUnitImageUrl } from "../../utils/mapImages.js";
 import "./MedalsPanel.css";
 
 const SECTIONS = [
@@ -41,14 +42,18 @@ export function MedalsPanel({ medals }) {
 
 function MedalEntryRow({ entry, metric, rank }) {
   const destroyed = entry.destroyedFrame != null;
+  const unitImageUrl = getUnitImageUrl(entry.definitionName);
 
   return (
     <div className="medal-entry">
       <span className="medal-rank">#{rank}</span>
       <div className="medal-unit-icon">
-        <span className="medal-unit-letter">
-          {entry.definitionName.charAt(0).toUpperCase()}
-        </span>
+        <img
+          src={unitImageUrl}
+          alt={entry.definitionName}
+          className="medal-unit-image"
+          loading="lazy"
+        />
       </div>
       <div className="medal-info">
         <span className="medal-unit-name">{formatUnitName(entry.definitionName)}</span>

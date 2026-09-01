@@ -1,0 +1,22 @@
+{
+   "resource-destroyer" : {
+        "description": "Destroying enemy resource production",
+        "imgurl": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/master/luarules/images/fuscup.png?raw=true"
+    },
+    "combat-master" : {
+        "description": "Destroying enemy units and defences",
+        "imgurl": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/master/luarules/images/bullcup.png?raw=true"
+    },
+    "damageEfficiency" : {
+        "description": "Efficient use of resources",
+        "imgurl": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/master/luarules/images/comwreath.png?raw=true"
+    },
+    "traitor" : {
+        "description": "The Traitor - Destroying allied units and defences",
+        "imgurl": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/master/luarules/images/traitor.png?raw=true"
+    },
+    "golden-cow" : {
+        "description": "Doing everything",
+        "imgurl": "https://github.com/beyond-all-reason/Beyond-All-Reason/blob/master/luarules/images/cow.png?raw=true"
+    }
+}

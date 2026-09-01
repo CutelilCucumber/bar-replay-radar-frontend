@@ -8,6 +8,7 @@ import {
 } from "./components/Filter/Filter.jsx";
 import { listMatches, lookupMatch } from "./utils/api.js";
 import { COLORS } from "./utils/globalVars.js";
+import { preloadImages, extractImageUrls } from "./utils/mapImages.js";
 import "./App.css";
 import {
   deleteSavedMatch,
@@ -85,6 +86,9 @@ export default function App() {
       if (results.length === 0) {
         setError("Connected, but no matches were found with this criteria.");
       }
+      // Preload images before showing results
+      const imageUrls = extractImageUrls(results);
+      await preloadImages(imageUrls);
       setFetchedMatches(results);
       setResultTotal(total);
       setMode("scan"); // otherwise the "saved" mode effect immediately overwrites these results
@@ -108,6 +112,11 @@ export default function App() {
       setError(null);
       try {
         const result = await lookupMatch(id, { forceRefresh });
+        // Preload images for the looked-up match
+        if (result.status === "ready" && result.match) {
+          const imageUrls = extractImageUrls([result.match]);
+          await preloadImages(imageUrls);
+        }
         setLookupResult(result);
       } catch (e) {
         setLookupResult({ status: "error", error: e.message ?? String(e) });

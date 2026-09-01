@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { COLORS } from "../../utils/globalVars.js";
+import { getMapImageUrl } from "../../utils/mapImages.js";
 import "./PositionsPanel.css";
 
 export function PositionsPanel({ match }) {
@@ -27,8 +28,10 @@ export function PositionsPanel({ match }) {
   const maxZ = Math.max(...zs);
   const rangeX = maxX - minX || 1;
   const rangeZ = maxZ - minZ || 1;
+  // Pad so the outermost dot + its label stay inside the clipped container.
+  const PAD = 8;
 
-  const mapImageUrl = `https://maps.beyondallreason.info/assets/maps/${encodeURIComponent(match.map)}/minimap.png`;
+  const mapImageUrl = getMapImageUrl(match.mapName, match.map);
 
   return (
     <div className="positions-panel">
@@ -46,9 +49,10 @@ export function PositionsPanel({ match }) {
           </div>
         )}
         {allPositions.map((p, i) => {
-          const left = ((p.x - minX) / rangeX) * 100;
-          const top = ((p.z - minZ) / rangeZ) * 100;
-          const color = p.team === "A" ? COLORS.close : COLORS.combat;
+          const left = PAD + ((p.x - minX) / rangeX) * (100 - 2 * PAD);
+          const top = PAD + ((p.z - minZ) / rangeZ) * (100 - 2 * PAD);
+          const teamColor = p.team === "A" ? COLORS.close : COLORS.combat;
+          const color = p.color ?? teamColor;
 
           return (
             <div

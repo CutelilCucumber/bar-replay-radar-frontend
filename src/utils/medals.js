@@ -5,15 +5,6 @@ export function frameToTime(frame) {
   return `${minutes}:${seconds.toString().padStart(2, "0")}`;
 }
 
-export const AWARD_LABELS = {
-  resourceDestroyer: "Resource Destroyer",
-  unitKiller: "Unit Killer",
-  defenseDestroyer: "Defense Destroyer",
-  damageEfficiency: "Damage Efficiency",
-  traitor: "Traitor",
-  goldenCow: "Golden Cow",
-};
-
 const UNIT_PREFIXES = {
   cor: "Cortex",
   arm: "Armada",

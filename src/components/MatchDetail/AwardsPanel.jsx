@@ -1,64 +1,140 @@
-import { AWARD_LABELS } from "../../utils/medals.js";
-import { Trophy, Swords } from "lucide-react";
 import { COLORS } from "../../utils/globalVars.js";
+import awardDetails from "../../utils/awardDetails.json";
 import "./AwardsPanel.css";
 
 const AWARD_ORDER = [
-  "resourceDestroyer",
-  "unitKiller",
-  "defenseDestroyer",
-  "damageEfficiency",
-  "traitor",
+  { key: "resourceDestroyer", meta: awardDetails["resource-destroyer"] },
+  { key: "combatMaster", meta: awardDetails["combat-master"] },
+  { key: "damageEfficiency", meta: awardDetails["damageEfficiency"] },
+  { key: "traitor", meta: awardDetails["traitor"] },
 ];
 
+const GOLDEN_COW_META = awardDetails["golden-cow"];
+
+// Score formatting per award. Counts and damage/resources use thousands
+// separators; efficiency is a small ratio.
+function formatScore(key, value) {
+  if (value == null) return "—";
+  if (key === "damageEfficiency") return value.toFixed(2);
+  return Math.round(value).toLocaleString();
+}
+
+// Prefer the baked-in player color; fall back to the team's flat color so
+// records without color data still render.
+function displayColor(entry) {
+  if (entry?.color) return entry.color;
+  return entry?.allyTeam === "A" ? COLORS.close : COLORS.combat;
+}
+
 export function AwardsPanel({ medals }) {
-  if (!medals) {
-    return <div className="panel-empty">No medal data available for this match.</div>;
+  if (!medals?.awards) {
+    return <div className="panel-empty">No award data available for this match.</div>;
   }
 
   const { awards } = medals;
   const goldenCow = awards.goldenCow;
+  const sub = awards.subAwards ?? {};
 
   return (
     <div className="awards-panel">
-      {goldenCow && (
-        <div className="award-card golden-cow">
-          <div className="award-icon-slot golden-cow-icon">
-            <Trophy size={28} color={COLORS.upset} />
-          </div>
-          <div className="award-info">
-            <span className="award-label">{AWARD_LABELS.goldenCow}</span>
-            <span className="award-player">{goldenCow.playerName}</span>
-            <span className="award-hint">Swept all combat awards</span>
-          </div>
-        </div>
-      )}
+      <div className="awards-head">
+        <span className="awards-title">Awards</span>
+        <span className="awards-score-head">Score</span>
+      </div>
 
-      <div className="awards-grid">
-        {AWARD_ORDER.map((key) => {
+      <div className="awards-list">
+        {AWARD_ORDER.map(({ key, meta }) => {
           const award = awards[key];
-          if (!award || award.playerName === null) return null;
-
-          return (
-            <div key={key} className="award-card">
-              <div className="award-icon-slot">
-                <Swords size={20} color={COLORS.combat} />
-              </div>
-              <div className="award-info">
-                <span className="award-label">{AWARD_LABELS[key]}</span>
-                <span className="award-player">{award.playerName}</span>
-                <span className="award-value">{formatAwardValue(key, award.value)}</span>
-              </div>
-            </div>
-          );
+          if (!award || !award.winner) return null;
+          return <AwardRow key={key} awardKey={key} award={award} meta={meta} />;
         })}
+
+        {goldenCow && (
+          <div className="award-row golden-cow">
+            <div className="award-img-slot">
+              <img src={GOLDEN_COW_META.imgurl} alt="Golden Cow" loading="lazy" />
+            </div>
+            <div className="award-name-col">
+              <span className="award-player" style={{ color: displayColor(goldenCow) }}>
+                {goldenCow.playerName}
+              </span>
+              <span className="award-desc">{GOLDEN_COW_META.description}</span>
+            </div>
+          </div>
+        )}
+      </div>
+
+      <div className="awards-sub">
+        {sub.mostResources && (
+          <div className="sub-award">
+            <span style={{ color: displayColor(sub.mostResources) }}>
+              {sub.mostResources.playerName}
+            </span>{" "}
+            produced the most resources (
+            {Math.round(sub.mostResources.value).toLocaleString()})
+          </div>
+        )}
+        {sub.mostDamageTaken && (
+          <div className="sub-award">
+            <span style={{ color: displayColor(sub.mostDamageTaken) }}>
+              {sub.mostDamageTaken.playerName}
+            </span>{" "}
+            took the most damage (
+            {Math.round(sub.mostDamageTaken.value).toLocaleString()})
+          </div>
+        )}
       </div>
     </div>
   );
 }
 
-function formatAwardValue(key, value) {
-  if (key === "damageEfficiency") return `${value.toFixed(2)}x efficiency`;
-  if (key === "traitor") return `${value} friendly kills`;
-  return `${value} destroyed`;
+function AwardRow({ awardKey, award, meta }) {
+  const { winner, runnersUp } = award;
+  const second = runnersUp?.[0];
+  const third = runnersUp?.[1];
+
+  return (
+    <div className="award-row">
+      <div className="award-img-slot">
+        <img src={meta.imgurl} alt={meta.description} loading="lazy" />
+      </div>
+
+      <div className="award-name-col">
+        <span className="award-player" style={{ color: displayColor(winner) }}>
+          {winner.playerName}
+        </span>
+        <span className="award-desc">{meta.description}</span>
+      </div>
+
+      <div className="award-runners">
+        <span className="runners-label">Runners up:</span>
+        {second && (
+          <span className="runner-name" style={{ color: displayColor(second) }}>
+            {second.playerName}
+          </span>
+        )}
+        {third && (
+          <span className="runner-name" style={{ color: displayColor(third) }}>
+            {third.playerName}
+          </span>
+        )}
+      </div>
+
+      <div className="award-scores">
+        <span style={{ color: displayColor(winner) }}>
+          {formatScore(awardKey, winner.value)}
+        </span>
+        {second && (
+          <span style={{ color: displayColor(second) }}>
+            {formatScore(awardKey, second.value)}
+          </span>
+        )}
+        {third && (
+          <span style={{ color: displayColor(third) }}>
+            {formatScore(awardKey, third.value)}
+          </span>
+        )}
+      </div>
+    </div>
+  );
 }
