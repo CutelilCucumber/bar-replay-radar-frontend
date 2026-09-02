@@ -1,0 +1,4787 @@
+{
+  "armaak": {
+    "cost": 613.33,
+    "hp": 2200,
+    "dam": 150
+  },
+  "armaap": {
+    "cost": 3383.33,
+    "hp": 3750,
+    "dam": 0
+  },
+  "armaas": {
+    "cost": 1200.0,
+    "hp": 3900,
+    "dam": 200
+  },
+  "armaca": {
+    "cost": 540.0,
+    "hp": 200,
+    "dam": 0
+  },
+  "armack": {
+    "cost": 545.0,
+    "hp": 930,
+    "dam": 0
+  },
+  "armacsub": {
+    "cost": 850.0,
+    "hp": 1110,
+    "dam": 0
+  },
+  "armacv": {
+    "cost": 663.33,
+    "hp": 2050,
+    "dam": 0
+  },
+  "armadvsol": {
+    "cost": 433.33,
+    "hp": 1130,
+    "dam": 0
+  },
+  "armafus": {
+    "cost": 10850.0,
+    "hp": 8300,
+    "dam": 0
+  },
+  "armafust3": {
+    "cost": 99166.67,
+    "hp": 7900,
+    "dam": 0
+  },
+  "armageo": {
+    "cost": 2050.0,
+    "hp": 3600,
+    "dam": 0
+  },
+  "armah": {
+    "cost": 305.0,
+    "hp": 1070,
+    "dam": 62
+  },
+  "armalab": {
+    "cost": 2850.0,
+    "hp": 4250,
+    "dam": 0
+  },
+  "armamb": {
+    "cost": 2783.33,
+    "hp": 4000,
+    "dam": 350
+  },
+  "armamd": {
+    "cost": 2133.33,
+    "hp": 3300,
+    "dam": 1500
+  },
+  "armamex": {
+    "cost": 225.0,
+    "hp": 1610,
+    "dam": 0
+  },
+  "armamph": {
+    "cost": 305.0,
+    "hp": 1170,
+    "dam": 90
+  },
+  "armamsub": {
+    "cost": 1291.67,
+    "hp": 2650,
+    "dam": 0
+  },
+  "armanac": {
+    "cost": 310.0,
+    "hp": 1530,
+    "dam": 98
+  },
+  "armanavaldefturret": {
+    "cost": 2183.33,
+    "hp": 6200,
+    "dam": 2500
+  },
+  "armanni": {
+    "cost": 4733.33,
+    "hp": 6100,
+    "dam": 10800
+  },
+  "armannit3": {
+    "cost": 21000.0,
+    "hp": 28000,
+    "dam": 48000
+  },
+  "armantiship": {
+    "cost": 1600.0,
+    "hp": 5000,
+    "dam": 1500
+  },
+  "armap": {
+    "cost": 668.33,
+    "hp": 2050,
+    "dam": 0
+  },
+  "armapt3": {
+    "cost": 9500.0,
+    "hp": 11100,
+    "dam": 0
+  },
+  "armarad": {
+    "cost": 633.33,
+    "hp": 500,
+    "dam": 0
+  },
+  "armart": {
+    "cost": 171.67,
+    "hp": 620,
+    "dam": 182
+  },
+  "armaser": {
+    "cost": 101.33,
+    "hp": 340,
+    "dam": 0
+  },
+  "armason": {
+    "cost": 213.33,
+    "hp": 2350,
+    "dam": 0
+  },
+  "armassimilator": {
+    "cost": 3316.67,
+    "hp": 7500,
+    "dam": 100
+  },
+  "armassistdrone": {
+    "cost": 1.02,
+    "hp": 335,
+    "dam": 0
+  },
+  "armassistdrone_land": {
+    "cost": 1.02,
+    "hp": 2000,
+    "dam": 0
+  },
+  "armasy": {
+    "cost": 3061.67,
+    "hp": 6000,
+    "dam": 0
+  },
+  "armatl": {
+    "cost": 1141.67,
+    "hp": 2800,
+    "dam": 780
+  },
+  "armatlas": {
+    "cost": 89.67,
+    "hp": 265,
+    "dam": 0
+  },
+  "armavp": {
+    "cost": 2833.33,
+    "hp": 4750,
+    "dam": 0
+  },
+  "armawac": {
+    "cost": 318.33,
+    "hp": 890,
+    "dam": 0
+  },
+  "armbanth": {
+    "cost": 18266.67,
+    "hp": 69000,
+    "dam": 6000
+  },
+  "armbats": {
+    "cost": 3666.67,
+    "hp": 9800,
+    "dam": 300
+  },
+  "armbeamer": {
+    "cost": 215.0,
+    "hp": 1430,
+    "dam": 40
+  },
+  "armbeaver": {
+    "cost": 201.67,
+    "hp": 1030,
+    "dam": 0
+  },
+  "armblade": {
+    "cost": 1616.67,
+    "hp": 3000,
+    "dam": 190
+  },
+  "armbotrail": {
+    "cost": 16700.0,
+    "hp": 4450,
+    "dam": 150
+  },
+  "armbrawl": {
+    "cost": 413.33,
+    "hp": 1780,
+    "dam": 16
+  },
+  "armbrtha": {
+    "cost": 5566.67,
+    "hp": 4450,
+    "dam": 1625
+  },
+  "armbull": {
+    "cost": 1166.67,
+    "hp": 4650,
+    "dam": 270
+  },
+  "armca": {
+    "cost": 145.0,
+    "hp": 156,
+    "dam": 0
+  },
+  "armcarry": {
+    "cost": 1600.0,
+    "hp": 5000,
+    "dam": 1500
+  },
+  "armch": {
+    "cost": 245.0,
+    "hp": 1440,
+    "dam": 0
+  },
+  "armcir": {
+    "cost": 871.67,
+    "hp": 4450,
+    "dam": 250
+  },
+  "armck": {
+    "cost": 136.67,
+    "hp": 760,
+    "dam": 0
+  },
+  "armckfus": {
+    "cost": 3916.67,
+    "hp": 3800,
+    "dam": 0
+  },
+  "armclaw": {
+    "cost": 366.67,
+    "hp": 1330,
+    "dam": 27
+  },
+  "armcom": {
+    "cost": 3133.33,
+    "hp": 3700,
+    "dam": 99999
+  },
+  "armcomboss": {
+    "cost": 10166666.67,
+    "hp": 2800000,
+    "dam": 999999
+  },
+  "armcomcon": {
+    "cost": 3133.33,
+    "hp": 3350,
+    "dam": 99999
+  },
+  "armcomlvl10": {
+    "cost": 12833.33,
+    "hp": 13200,
+    "dam": 99999
+  },
+  "armcomlvl2": {
+    "cost": 3500.0,
+    "hp": 6000,
+    "dam": 99999
+  },
+  "armcomlvl3": {
+    "cost": 4666.67,
+    "hp": 6900,
+    "dam": 99999
+  },
+  "armcomlvl4": {
+    "cost": 5833.33,
+    "hp": 7800,
+    "dam": 99999
+  },
+  "armcomlvl5": {
+    "cost": 7000.0,
+    "hp": 8700,
+    "dam": 99999
+  },
+  "armcomlvl6": {
+    "cost": 8166.67,
+    "hp": 9600,
+    "dam": 99999
+  },
+  "armcomlvl7": {
+    "cost": 9333.33,
+    "hp": 10500,
+    "dam": 99999
+  },
+  "armcomlvl8": {
+    "cost": 10500.0,
+    "hp": 11400,
+    "dam": 99999
+  },
+  "armcomlvl9": {
+    "cost": 11666.67,
+    "hp": 12300,
+    "dam": 99999
+  },
+  "armcomnew": {
+    "cost": 3133.33,
+    "hp": 3700,
+    "dam": 99999
+  },
+  "armconsul": {
+    "cost": 321.67,
+    "hp": 1080,
+    "dam": 0
+  },
+  "armcroc": {
+    "cost": 1000.0,
+    "hp": 5000,
+    "dam": 225
+  },
+  "armcrus": {
+    "cost": 1200.0,
+    "hp": 5600,
+    "dam": 225
+  },
+  "armcs": {
+    "cost": 233.33,
+    "hp": 1040,
+    "dam": 0
+  },
+  "armcsa": {
+    "cost": 233.33,
+    "hp": 405,
+    "dam": 0
+  },
+  "armcv": {
+    "cost": 167.5,
+    "hp": 1380,
+    "dam": 0
+  },
+  "armdecade": {
+    "cost": 200.0,
+    "hp": 970,
+    "dam": 9
+  },
+  "armdecadet3": {
+    "cost": 10666.67,
+    "hp": 14400,
+    "dam": 210
+  },
+  "armdecom": {
+    "cost": 970.0,
+    "hp": 3700,
+    "dam": 75
+  },
+  "armdf": {
+    "cost": 271.67,
+    "hp": 3800,
+    "dam": 0
+  },
+  "armdfly": {
+    "cost": 486.67,
+    "hp": 1170,
+    "dam": 10500
+  },
+  "armdl": {
+    "cost": 276.67,
+    "hp": 2200,
+    "dam": 225
+  },
+  "armdrag": {
+    "cost": 8.0,
+    "hp": 2800,
+    "dam": 0
+  },
+  "armdrone": {
+    "cost": 35.0,
+    "hp": 450,
+    "dam": 11
+  },
+  "armdronecarry": {
+    "cost": 1983.33,
+    "hp": 3500,
+    "dam": 138
+  },
+  "armdronecarryland": {
+    "cost": 1983.33,
+    "hp": 3500,
+    "dam": 0
+  },
+  "armdroneold": {
+    "cost": 73.33,
+    "hp": 400,
+    "dam": 100
+  },
+  "armemp": {
+    "cost": 2083.33,
+    "hp": 3350,
+    "dam": 50000
+  },
+  "armepoch": {
+    "cost": 23166.67,
+    "hp": 50000,
+    "dam": 500
+  },
+  "armestor": {
+    "cost": 198.33,
+    "hp": 1890,
+    "dam": 0
+  },
+  "armexcalibur": {
+    "cost": 1166.67,
+    "hp": 1200,
+    "dam": 800
+  },
+  "armeyes": {
+    "cost": 46.17,
+    "hp": 280,
+    "dam": 0
+  },
+  "armfark": {
+    "cost": 260.0,
+    "hp": 335,
+    "dam": 0
+  },
+  "armfast": {
+    "cost": 223.33,
+    "hp": 690,
+    "dam": 12
+  },
+  "armfatf": {
+    "cost": 921.67,
+    "hp": 1610,
+    "dam": 0
+  },
+  "armfav": {
+    "cost": 37.17,
+    "hp": 105,
+    "dam": 35
+  },
+  "armfboy": {
+    "cost": 1733.33,
+    "hp": 7800,
+    "dam": 800
+  },
+  "armfdrag": {
+    "cost": 15.0,
+    "hp": 4450,
+    "dam": 0
+  },
+  "armfepocht4": {
+    "cost": 29166.67,
+    "hp": 67000,
+    "dam": 500
+  },
+  "armferret": {
+    "cost": 425.0,
+    "hp": 1600,
+    "dam": 125
+  },
+  "armfflak": {
+    "cost": 1036.67,
+    "hp": 1750,
+    "dam": 250
+  },
+  "armfgate": {
+    "cost": 5100.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "armfhlt": {
+    "cost": 573.33,
+    "hp": 4250,
+    "dam": 300
+  },
+  "armfhp": {
+    "cost": 703.33,
+    "hp": 3350,
+    "dam": 0
+  },
+  "armfido": {
+    "cost": 390.0,
+    "hp": 1200,
+    "dam": 255
+  },
+  "armfify": {
+    "cost": 106.33,
+    "hp": 83,
+    "dam": 0
+  },
+  "armfig": {
+    "cost": 121.33,
+    "hp": 167,
+    "dam": 125
+  },
+  "armflak": {
+    "cost": 1036.67,
+    "hp": 1750,
+    "dam": 250
+  },
+  "armflash": {
+    "cost": 125.0,
+    "hp": 730,
+    "dam": 9
+  },
+  "armflea": {
+    "cost": 26.0,
+    "hp": 60,
+    "dam": 24
+  },
+  "armfmine3": {
+    "cost": 58.67,
+    "hp": 11,
+    "dam": 0
+  },
+  "armfmkr": {
+    "cost": 20.17,
+    "hp": 167,
+    "dam": 0
+  },
+  "armfort": {
+    "cost": 48.33,
+    "hp": 8900,
+    "dam": 0
+  },
+  "armfrad": {
+    "cost": 146.67,
+    "hp": 110,
+    "dam": 0
+  },
+  "armfrock": {
+    "cost": 455.0,
+    "hp": 1330,
+    "dam": 150
+  },
+  "armfrt": {
+    "cost": 95.0,
+    "hp": 330,
+    "dam": 115
+  },
+  "armfus": {
+    "cost": 3650.0,
+    "hp": 3800,
+    "dam": 0
+  },
+  "armgate": {
+    "cost": 3900.0,
+    "hp": 3550,
+    "dam": 0
+  },
+  "armgatet3": {
+    "cost": 15600.0,
+    "hp": 10250,
+    "dam": 100
+  },
+  "armgeo": {
+    "cost": 776.67,
+    "hp": 1940,
+    "dam": 0
+  },
+  "armgmm": {
+    "cost": 1566.67,
+    "hp": 13900,
+    "dam": 0
+  },
+  "armgplat": {
+    "cost": 125.0,
+    "hp": 760,
+    "dam": 97
+  },
+  "armgremlin": {
+    "cost": 291.67,
+    "hp": 1060,
+    "dam": 262
+  },
+  "armguard": {
+    "cost": 1458.33,
+    "hp": 3050,
+    "dam": 300
+  },
+  "armhaap": {
+    "cost": 5800.0,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armhaapuw": {
+    "cost": 2300.0,
+    "hp": 3750,
+    "dam": 0
+  },
+  "armhaca": {
+    "cost": 1520.0,
+    "hp": 1405,
+    "dam": 0
+  },
+  "armhack": {
+    "cost": 1560.0,
+    "hp": 1335,
+    "dam": 0
+  },
+  "armhacs": {
+    "cost": 1566.67,
+    "hp": 2460,
+    "dam": 0
+  },
+  "armhacv": {
+    "cost": 1613.33,
+    "hp": 2080,
+    "dam": 0
+  },
+  "armhalab": {
+    "cost": 5766.67,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armham": {
+    "cost": 151.67,
+    "hp": 1000,
+    "dam": 104
+  },
+  "armhasy": {
+    "cost": 5733.33,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armhavp": {
+    "cost": 5750.0,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armhawk": {
+    "cost": 251.67,
+    "hp": 370,
+    "dam": 750
+  },
+  "armhlt": {
+    "cost": 518.33,
+    "hp": 2600,
+    "dam": 580
+  },
+  "armhp": {
+    "cost": 703.33,
+    "hp": 3350,
+    "dam": 0
+  },
+  "armhvytrans": {
+    "cost": 256.67,
+    "hp": 630,
+    "dam": 0
+  },
+  "armjam": {
+    "cost": 133.33,
+    "hp": 510,
+    "dam": 0
+  },
+  "armjamt": {
+    "cost": 381.67,
+    "hp": 790,
+    "dam": 0
+  },
+  "armjanus": {
+    "cost": 283.33,
+    "hp": 1030,
+    "dam": 330
+  },
+  "armjeth": {
+    "cost": 143.33,
+    "hp": 630,
+    "dam": 110
+  },
+  "armjuno": {
+    "cost": 923.33,
+    "hp": 2350,
+    "dam": 1
+  },
+  "armkam": {
+    "cost": 173.33,
+    "hp": 560,
+    "dam": 9
+  },
+  "armkraken": {
+    "cost": 1216.67,
+    "hp": 4450,
+    "dam": 180
+  },
+  "armlab": {
+    "cost": 515.83,
+    "hp": 2900,
+    "dam": 0
+  },
+  "armlance": {
+    "cost": 533.33,
+    "hp": 1920,
+    "dam": 375
+  },
+  "armlatnk": {
+    "cost": 436.67,
+    "hp": 1060,
+    "dam": 90
+  },
+  "armliche": {
+    "cost": 2966.67,
+    "hp": 2300,
+    "dam": 5625
+  },
+  "armlichet4": {
+    "cost": 22000.0,
+    "hp": 10000,
+    "dam": 9500
+  },
+  "armllt": {
+    "cost": 96.33,
+    "hp": 620,
+    "dam": 112
+  },
+  "armlship": {
+    "cost": 760.0,
+    "hp": 2200,
+    "dam": 138
+  },
+  "armlun": {
+    "cost": 1533.33,
+    "hp": 5300,
+    "dam": 370
+  },
+  "armlunchbox": {
+    "cost": 4483.33,
+    "hp": 10000,
+    "dam": 1265
+  },
+  "armlwall": {
+    "cost": 1100.0,
+    "hp": 5320,
+    "dam": 64
+  },
+  "armmakr": {
+    "cost": 20.17,
+    "hp": 167,
+    "dam": 0
+  },
+  "armmanni": {
+    "cost": 1508.33,
+    "hp": 2800,
+    "dam": 2500
+  },
+  "armmar": {
+    "cost": 1320.0,
+    "hp": 4900,
+    "dam": 235
+  },
+  "armmark": {
+    "cost": 120.83,
+    "hp": 355,
+    "dam": 0
+  },
+  "armmart": {
+    "cost": 401.67,
+    "hp": 1070,
+    "dam": 260
+  },
+  "armmav": {
+    "cost": 833.33,
+    "hp": 1800,
+    "dam": 265
+  },
+  "armmeatball": {
+    "cost": 3900.0,
+    "hp": 8000,
+    "dam": 235
+  },
+  "armmercury": {
+    "cost": 2150.0,
+    "hp": 1670,
+    "dam": 750
+  },
+  "armmerl": {
+    "cost": 1028.33,
+    "hp": 1220,
+    "dam": 1900
+  },
+  "armmex": {
+    "cost": 58.33,
+    "hp": 270,
+    "dam": 0
+  },
+  "armmh": {
+    "cost": 225.0,
+    "hp": 530,
+    "dam": 300
+  },
+  "armmine1": {
+    "cost": 11.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "armmine2": {
+    "cost": 42.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "armmine3": {
+    "cost": 96.67,
+    "hp": 11,
+    "dam": 0
+  },
+  "armminivulc": {
+    "cost": 3000.0,
+    "hp": 6700,
+    "dam": 210
+  },
+  "armmls": {
+    "cost": 243.33,
+    "hp": 1460,
+    "dam": 0
+  },
+  "armmlv": {
+    "cost": 75.33,
+    "hp": 335,
+    "dam": 15
+  },
+  "armmmkr": {
+    "cost": 730.0,
+    "hp": 445,
+    "dam": 0
+  },
+  "armmmkrt3": {
+    "cost": 18166.67,
+    "hp": 1500,
+    "dam": 0
+  },
+  "armmoho": {
+    "cost": 748.33,
+    "hp": 2800,
+    "dam": 0
+  },
+  "armmship": {
+    "cost": 2166.67,
+    "hp": 3350,
+    "dam": 650
+  },
+  "armmstor": {
+    "cost": 339.5,
+    "hp": 2100,
+    "dam": 0
+  },
+  "armnanotc": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "armnanotc2plat": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "armnanotcplat": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "armnanotct2": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "armnavaldefturret": {
+    "cost": 916.67,
+    "hp": 5190,
+    "dam": 200
+  },
+  "armpb": {
+    "cost": 913.33,
+    "hp": 2800,
+    "dam": 675
+  },
+  "armpeep": {
+    "cost": 77.83,
+    "hp": 89,
+    "dam": 0
+  },
+  "armpincer": {
+    "cost": 233.33,
+    "hp": 1340,
+    "dam": 116
+  },
+  "armplat": {
+    "cost": 1533.33,
+    "hp": 2000,
+    "dam": 0
+  },
+  "armpnix": {
+    "cost": 438.33,
+    "hp": 1130,
+    "dam": 266
+  },
+  "armprowl": {
+    "cost": 1320.0,
+    "hp": 4900,
+    "dam": 235
+  },
+  "armpship": {
+    "cost": 422.5,
+    "hp": 2150,
+    "dam": 70
+  },
+  "armpshipt3": {
+    "cost": 9833.33,
+    "hp": 13900,
+    "dam": 116
+  },
+  "armpt": {
+    "cost": 166.67,
+    "hp": 780,
+    "dam": 80
+  },
+  "armptt2": {
+    "cost": 2750.0,
+    "hp": 6700,
+    "dam": 225
+  },
+  "armpw": {
+    "cost": 69.0,
+    "hp": 370,
+    "dam": 9
+  },
+  "armpwt4": {
+    "cost": 10500.0,
+    "hp": 16700,
+    "dam": 200
+  },
+  "armrad": {
+    "cost": 70.5,
+    "hp": 180,
+    "dam": 0
+  },
+  "armrattet4": {
+    "cost": 29166.67,
+    "hp": 83000,
+    "dam": 1200
+  },
+  "armraz": {
+    "cost": 4933.33,
+    "hp": 13300,
+    "dam": 105
+  },
+  "armrecl": {
+    "cost": 298.33,
+    "hp": 420,
+    "dam": 0
+  },
+  "armrectr": {
+    "cost": 153.33,
+    "hp": 220,
+    "dam": 0
+  },
+  "armrespawn": {
+    "cost": 1.02,
+    "hp": 20000,
+    "dam": 0
+  },
+  "armrl": {
+    "cost": 95.0,
+    "hp": 330,
+    "dam": 115
+  },
+  "armrock": {
+    "cost": 136.67,
+    "hp": 720,
+    "dam": 157
+  },
+  "armroy": {
+    "cost": 990.0,
+    "hp": 3700,
+    "dam": 235
+  },
+  "armsaber": {
+    "cost": 316.67,
+    "hp": 1010,
+    "dam": 60
+  },
+  "armsam": {
+    "cost": 185.0,
+    "hp": 820,
+    "dam": 160
+  },
+  "armsat": {
+    "cost": 4666.67,
+    "hp": 780,
+    "dam": 0
+  },
+  "armsb": {
+    "cost": 365.0,
+    "hp": 1170,
+    "dam": 200
+  },
+  "armscab": {
+    "cost": 1650.0,
+    "hp": 870,
+    "dam": 500
+  },
+  "armsd": {
+    "cost": 828.33,
+    "hp": 2650,
+    "dam": 0
+  },
+  "armseadragon": {
+    "cost": 9416.67,
+    "hp": 2400,
+    "dam": 9500
+  },
+  "armseap": {
+    "cost": 398.33,
+    "hp": 1300,
+    "dam": 342
+  },
+  "armseer": {
+    "cost": 158.33,
+    "hp": 980,
+    "dam": 0
+  },
+  "armsehak": {
+    "cost": 241.67,
+    "hp": 580,
+    "dam": 0
+  },
+  "armserp": {
+    "cost": 2250.0,
+    "hp": 3550,
+    "dam": 825
+  },
+  "armserpt3": {
+    "cost": 18750.0,
+    "hp": 26500,
+    "dam": 1650
+  },
+  "armsfig": {
+    "cost": 165.0,
+    "hp": 220,
+    "dam": 210
+  },
+  "armsfig2": {
+    "cost": 165.0,
+    "hp": 220,
+    "dam": 210
+  },
+  "armsh": {
+    "cost": 105.83,
+    "hp": 290,
+    "dam": 36
+  },
+  "armshltx": {
+    "cost": 8866.67,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armshltxuw": {
+    "cost": 8866.67,
+    "hp": 16000,
+    "dam": 0
+  },
+  "armshockwave": {
+    "cost": 1433.33,
+    "hp": 4200,
+    "dam": 800
+  },
+  "armsilo": {
+    "cost": 9600.0,
+    "hp": 5900,
+    "dam": 12500
+  },
+  "armsjam": {
+    "cost": 393.33,
+    "hp": 1350,
+    "dam": 0
+  },
+  "armsnipe": {
+    "cost": 1013.33,
+    "hp": 580,
+    "dam": 2500
+  },
+  "armsolar": {
+    "cost": 155.0,
+    "hp": 340,
+    "dam": 0
+  },
+  "armsonar": {
+    "cost": 27.5,
+    "hp": 56,
+    "dam": 0
+  },
+  "armspid": {
+    "cost": 333.33,
+    "hp": 1110,
+    "dam": 850
+  },
+  "armsptk": {
+    "cost": 475.0,
+    "hp": 1390,
+    "dam": 200
+  },
+  "armsptkt4": {
+    "cost": 8750.0,
+    "hp": 28000,
+    "dam": 500
+  },
+  "armspy": {
+    "cost": 285.0,
+    "hp": 300,
+    "dam": 0
+  },
+  "armstil": {
+    "cost": 1093.33,
+    "hp": 1880,
+    "dam": 6000
+  },
+  "armstump": {
+    "cost": 260.0,
+    "hp": 1800,
+    "dam": 97
+  },
+  "armsub": {
+    "cost": 491.67,
+    "hp": 840,
+    "dam": 342
+  },
+  "armsubk": {
+    "cost": 1233.33,
+    "hp": 2350,
+    "dam": 350
+  },
+  "armsy": {
+    "cost": 465.83,
+    "hp": 4100,
+    "dam": 0
+  },
+  "armtarg": {
+    "cost": 930.0,
+    "hp": 2100,
+    "dam": 0
+  },
+  "armtdrone": {
+    "cost": 42.5,
+    "hp": 300,
+    "dam": 215
+  },
+  "armthor": {
+    "cost": 13000.0,
+    "hp": 56000,
+    "dam": 80000
+  },
+  "armthund": {
+    "cost": 223.33,
+    "hp": 670,
+    "dam": 110
+  },
+  "armthundt4": {
+    "cost": 17500.0,
+    "hp": 16700,
+    "dam": 900
+  },
+  "armtide": {
+    "cost": 93.33,
+    "hp": 400,
+    "dam": 0
+  },
+  "armtl": {
+    "cost": 195.0,
+    "hp": 1300,
+    "dam": 280
+  },
+  "armtorps": {
+    "cost": 350.0,
+    "hp": 940,
+    "dam": 455
+  },
+  "armtrident": {
+    "cost": 1225.0,
+    "hp": 3400,
+    "dam": 255
+  },
+  "armuwadves": {
+    "cost": 996.67,
+    "hp": 11700,
+    "dam": 0
+  },
+  "armuwadvms": {
+    "cost": 941.67,
+    "hp": 10300,
+    "dam": 0
+  },
+  "armuwageo": {
+    "cost": 2050.0,
+    "hp": 3600,
+    "dam": 0
+  },
+  "armuwes": {
+    "cost": 198.33,
+    "hp": 1890,
+    "dam": 0
+  },
+  "armuwfus": {
+    "cost": 5758.33,
+    "hp": 5600,
+    "dam": 0
+  },
+  "armuwgeo": {
+    "cost": 776.67,
+    "hp": 1940,
+    "dam": 0
+  },
+  "armuwmme": {
+    "cost": 748.33,
+    "hp": 2800,
+    "dam": 0
+  },
+  "armuwmmm": {
+    "cost": 730.0,
+    "hp": 445,
+    "dam": 0
+  },
+  "armuwms": {
+    "cost": 339.5,
+    "hp": 3600,
+    "dam": 0
+  },
+  "armvader": {
+    "cost": 161.67,
+    "hp": 445,
+    "dam": 1000
+  },
+  "armvadert4": {
+    "cost": 17500.0,
+    "hp": 67000,
+    "dam": 20000
+  },
+  "armvang": {
+    "cost": 4483.33,
+    "hp": 8500,
+    "dam": 1265
+  },
+  "armveil": {
+    "cost": 441.67,
+    "hp": 830,
+    "dam": 0
+  },
+  "armvp": {
+    "cost": 615.83,
+    "hp": 3000,
+    "dam": 0
+  },
+  "armvulc": {
+    "cost": 83833.33,
+    "hp": 32000,
+    "dam": 1625
+  },
+  "armwar": {
+    "cost": 321.67,
+    "hp": 1590,
+    "dam": 55
+  },
+  "armwin": {
+    "cost": 42.92,
+    "hp": 196,
+    "dam": 0
+  },
+  "armwint2": {
+    "cost": 399.17,
+    "hp": 1960,
+    "dam": 0
+  },
+  "armyork": {
+    "cost": 601.67,
+    "hp": 2600,
+    "dam": 200
+  },
+  "armzapper": {
+    "cost": 100.0,
+    "hp": 150,
+    "dam": 800
+  },
+  "armzeus": {
+    "cost": 451.67,
+    "hp": 3500,
+    "dam": 22
+  },
+  "ceg_test_projectile_unit": {
+    "cost": 101.67,
+    "hp": 100000,
+    "dam": 1
+  },
+  "chip": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "coraak": {
+    "cost": 753.33,
+    "hp": 3200,
+    "dam": 300
+  },
+  "coraap": {
+    "cost": 3366.67,
+    "hp": 3900,
+    "dam": 0
+  },
+  "coraca": {
+    "cost": 543.33,
+    "hp": 205,
+    "dam": 0
+  },
+  "corack": {
+    "cost": 585.0,
+    "hp": 1000,
+    "dam": 0
+  },
+  "coracsub": {
+    "cost": 850.0,
+    "hp": 1110,
+    "dam": 0
+  },
+  "coracv": {
+    "cost": 696.67,
+    "hp": 2150,
+    "dam": 0
+  },
+  "coradvsol": {
+    "cost": 436.67,
+    "hp": 1200,
+    "dam": 0
+  },
+  "corafus": {
+    "cost": 10500.0,
+    "hp": 9800,
+    "dam": 0
+  },
+  "corafust3": {
+    "cost": 99166.67,
+    "hp": 9400,
+    "dam": 0
+  },
+  "corageo": {
+    "cost": 1950.0,
+    "hp": 4150,
+    "dam": 0
+  },
+  "corah": {
+    "cost": 328.33,
+    "hp": 1120,
+    "dam": 62
+  },
+  "corak": {
+    "cost": 56.67,
+    "hp": 280,
+    "dam": 37
+  },
+  "corakt4": {
+    "cost": 8000.0,
+    "hp": 11100,
+    "dam": 100
+  },
+  "coralab": {
+    "cost": 2866.67,
+    "hp": 4500,
+    "dam": 0
+  },
+  "coramph": {
+    "cost": 488.33,
+    "hp": 2350,
+    "dam": 250
+  },
+  "coramsub": {
+    "cost": 1293.33,
+    "hp": 2800,
+    "dam": 0
+  },
+  "coranavaldefturret": {
+    "cost": 2375.0,
+    "hp": 8000,
+    "dam": 900
+  },
+  "corantiship": {
+    "cost": 1600.0,
+    "hp": 5000,
+    "dam": 1500
+  },
+  "corap": {
+    "cost": 648.33,
+    "hp": 2150,
+    "dam": 0
+  },
+  "corape": {
+    "cost": 483.33,
+    "hp": 1560,
+    "dam": 122
+  },
+  "corapt3": {
+    "cost": 9500.0,
+    "hp": 11100,
+    "dam": 0
+  },
+  "corarad": {
+    "cost": 633.33,
+    "hp": 500,
+    "dam": 0
+  },
+  "corarch": {
+    "cost": 1200.0,
+    "hp": 3900,
+    "dam": 200
+  },
+  "corason": {
+    "cost": 200.0,
+    "hp": 2400,
+    "dam": 0
+  },
+  "corassistdrone": {
+    "cost": 1.02,
+    "hp": 335,
+    "dam": 0
+  },
+  "corassistdrone_land": {
+    "cost": 1.02,
+    "hp": 2000,
+    "dam": 0
+  },
+  "corasy": {
+    "cost": 2966.67,
+    "hp": 5900,
+    "dam": 0
+  },
+  "coratl": {
+    "cost": 1191.67,
+    "hp": 2800,
+    "dam": 1100
+  },
+  "coravp": {
+    "cost": 2866.67,
+    "hp": 5100,
+    "dam": 0
+  },
+  "corawac": {
+    "cost": 318.33,
+    "hp": 990,
+    "dam": 0
+  },
+  "corban": {
+    "cost": 1383.33,
+    "hp": 2500,
+    "dam": 1000
+  },
+  "corbats": {
+    "cost": 3783.33,
+    "hp": 12000,
+    "dam": 450
+  },
+  "corbhmth": {
+    "cost": 3683.33,
+    "hp": 8300,
+    "dam": 450
+  },
+  "corblackhy": {
+    "cost": 24166.67,
+    "hp": 53000,
+    "dam": 600
+  },
+  "corbuzz": {
+    "cost": 81333.33,
+    "hp": 33500,
+    "dam": 2000
+  },
+  "corbw": {
+    "cost": 79.67,
+    "hp": 83,
+    "dam": 600
+  },
+  "corca": {
+    "cost": 151.67,
+    "hp": 161,
+    "dam": 0
+  },
+  "corcan": {
+    "cost": 715.0,
+    "hp": 6000,
+    "dam": 275
+  },
+  "corcarry": {
+    "cost": 1683.33,
+    "hp": 5000,
+    "dam": 1500
+  },
+  "corcat": {
+    "cost": 6233.33,
+    "hp": 6100,
+    "dam": 450
+  },
+  "corch": {
+    "cost": 240.0,
+    "hp": 1490,
+    "dam": 0
+  },
+  "corck": {
+    "cost": 149.17,
+    "hp": 820,
+    "dam": 0
+  },
+  "corcom": {
+    "cost": 3133.33,
+    "hp": 3700,
+    "dam": 99999
+  },
+  "corcomboss": {
+    "cost": 350000.0,
+    "hp": 300000,
+    "dam": 999999
+  },
+  "corcomcon": {
+    "cost": 3133.33,
+    "hp": 3350,
+    "dam": 99999
+  },
+  "corcomlvl10": {
+    "cost": 12833.33,
+    "hp": 20000,
+    "dam": 99999
+  },
+  "corcomlvl2": {
+    "cost": 3500.0,
+    "hp": 6000,
+    "dam": 99999
+  },
+  "corcomlvl3": {
+    "cost": 4666.67,
+    "hp": 6000,
+    "dam": 99999
+  },
+  "corcomlvl4": {
+    "cost": 5833.33,
+    "hp": 8000,
+    "dam": 99999
+  },
+  "corcomlvl5": {
+    "cost": 7000.0,
+    "hp": 10000,
+    "dam": 99999
+  },
+  "corcomlvl6": {
+    "cost": 8166.67,
+    "hp": 12000,
+    "dam": 99999
+  },
+  "corcomlvl7": {
+    "cost": 9333.33,
+    "hp": 14000,
+    "dam": 99999
+  },
+  "corcomlvl8": {
+    "cost": 10500.0,
+    "hp": 16000,
+    "dam": 99999
+  },
+  "corcomlvl9": {
+    "cost": 11666.67,
+    "hp": 18000,
+    "dam": 99999
+  },
+  "corcrash": {
+    "cost": 143.33,
+    "hp": 640,
+    "dam": 110
+  },
+  "corcrus": {
+    "cost": 1200.0,
+    "hp": 6200,
+    "dam": 225
+  },
+  "corcrw": {
+    "cost": 6300.0,
+    "hp": 16700,
+    "dam": 250
+  },
+  "corcrwh": {
+    "cost": 6300.0,
+    "hp": 16700,
+    "dam": 250
+  },
+  "corcrwt4": {
+    "cost": 17500.0,
+    "hp": 22000,
+    "dam": 5000
+  },
+  "corcs": {
+    "cost": 233.33,
+    "hp": 1080,
+    "dam": 0
+  },
+  "corcsa": {
+    "cost": 228.33,
+    "hp": 435,
+    "dam": 0
+  },
+  "corcut": {
+    "cost": 320.0,
+    "hp": 1010,
+    "dam": 47
+  },
+  "corcv": {
+    "cost": 180.0,
+    "hp": 1430,
+    "dam": 0
+  },
+  "cordeadeye": {
+    "cost": 1508.33,
+    "hp": 2700,
+    "dam": 834
+  },
+  "cordecom": {
+    "cost": 966.67,
+    "hp": 3700,
+    "dam": 75
+  },
+  "cordemon": {
+    "cost": 7500.0,
+    "hp": 18000,
+    "dam": 150
+  },
+  "cordesolator": {
+    "cost": 10583.33,
+    "hp": 2600,
+    "dam": 11500
+  },
+  "cordl": {
+    "cost": 286.67,
+    "hp": 2350,
+    "dam": 225
+  },
+  "cordoom": {
+    "cost": 3616.67,
+    "hp": 9400,
+    "dam": 4500
+  },
+  "cordoomt3": {
+    "cost": 18666.67,
+    "hp": 39000,
+    "dam": 7500
+  },
+  "cordrag": {
+    "cost": 8.0,
+    "hp": 2800,
+    "dam": 0
+  },
+  "cordrone": {
+    "cost": 42.5,
+    "hp": 675,
+    "dam": 60
+  },
+  "cordronecarry": {
+    "cost": 1983.33,
+    "hp": 3500,
+    "dam": 138
+  },
+  "cordronecarryair": {
+    "cost": 1983.33,
+    "hp": 3500,
+    "dam": 0
+  },
+  "cordroneold": {
+    "cost": 39.83,
+    "hp": 166,
+    "dam": 80
+  },
+  "cords": {
+    "cost": 1243.33,
+    "hp": 680,
+    "dam": 100
+  },
+  "corenaa": {
+    "cost": 1083.33,
+    "hp": 1840,
+    "dam": 250
+  },
+  "corerad": {
+    "cost": 931.67,
+    "hp": 4450,
+    "dam": 250
+  },
+  "corestor": {
+    "cost": 205.0,
+    "hp": 2000,
+    "dam": 0
+  },
+  "coresupp": {
+    "cost": 116.67,
+    "hp": 480,
+    "dam": 41
+  },
+  "coresuppt3": {
+    "cost": 40000.0,
+    "hp": 89000,
+    "dam": 5500
+  },
+  "coreter": {
+    "cost": 136.67,
+    "hp": 580,
+    "dam": 0
+  },
+  "corexp": {
+    "cost": 271.67,
+    "hp": 1440,
+    "dam": 112
+  },
+  "coreyes": {
+    "cost": 46.17,
+    "hp": 280,
+    "dam": 0
+  },
+  "corfast": {
+    "cost": 273.33,
+    "hp": 830,
+    "dam": 0
+  },
+  "corfatf": {
+    "cost": 925.0,
+    "hp": 1530,
+    "dam": 0
+  },
+  "corfav": {
+    "cost": 30.5,
+    "hp": 90,
+    "dam": 35
+  },
+  "corfblackhyt4": {
+    "cost": 29166.67,
+    "hp": 67000,
+    "dam": 600
+  },
+  "corfdoom": {
+    "cost": 1450.0,
+    "hp": 6700,
+    "dam": 420
+  },
+  "corfdrag": {
+    "cost": 15.0,
+    "hp": 4450,
+    "dam": 0
+  },
+  "corfgate": {
+    "cost": 5333.33,
+    "hp": 4100,
+    "dam": 0
+  },
+  "corfhlt": {
+    "cost": 583.33,
+    "hp": 4350,
+    "dam": 350
+  },
+  "corfhp": {
+    "cost": 703.33,
+    "hp": 3750,
+    "dam": 0
+  },
+  "corfink": {
+    "cost": 75.17,
+    "hp": 100,
+    "dam": 0
+  },
+  "corflak": {
+    "cost": 1083.33,
+    "hp": 1840,
+    "dam": 250
+  },
+  "corfmd": {
+    "cost": 2166.67,
+    "hp": 3300,
+    "dam": 1500
+  },
+  "corfmine3": {
+    "cost": 58.67,
+    "hp": 11,
+    "dam": 0
+  },
+  "corfmkr": {
+    "cost": 21.83,
+    "hp": 167,
+    "dam": 0
+  },
+  "corforge": {
+    "cost": 408.33,
+    "hp": 2000,
+    "dam": 5
+  },
+  "corfort": {
+    "cost": 48.33,
+    "hp": 8900,
+    "dam": 0
+  },
+  "corfrad": {
+    "cost": 146.67,
+    "hp": 114,
+    "dam": 0
+  },
+  "corfrock": {
+    "cost": 416.67,
+    "hp": 2800,
+    "dam": 76
+  },
+  "corfrt": {
+    "cost": 94.17,
+    "hp": 335,
+    "dam": 115
+  },
+  "corfship": {
+    "cost": 786.67,
+    "hp": 2700,
+    "dam": 138
+  },
+  "corftiger": {
+    "cost": 831.67,
+    "hp": 5300,
+    "dam": 14
+  },
+  "corfus": {
+    "cost": 3966.67,
+    "hp": 4300,
+    "dam": 0
+  },
+  "corgant": {
+    "cost": 9433.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corgantuw": {
+    "cost": 9391.67,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corgarp": {
+    "cost": 263.33,
+    "hp": 1420,
+    "dam": 116
+  },
+  "corgate": {
+    "cost": 4116.67,
+    "hp": 3550,
+    "dam": 0
+  },
+  "corgatet3": {
+    "cost": 20583.33,
+    "hp": 12500,
+    "dam": 100
+  },
+  "corgator": {
+    "cost": 138.33,
+    "hp": 820,
+    "dam": 75
+  },
+  "corgatreap": {
+    "cost": 1683.33,
+    "hp": 5000,
+    "dam": 261
+  },
+  "corgeo": {
+    "cost": 756.67,
+    "hp": 2050,
+    "dam": 0
+  },
+  "corgol": {
+    "cost": 2116.67,
+    "hp": 7800,
+    "dam": 900
+  },
+  "corgolt4": {
+    "cost": 29166.67,
+    "hp": 83000,
+    "dam": 8000
+  },
+  "corgplat": {
+    "cost": 135.83,
+    "hp": 810,
+    "dam": 97
+  },
+  "corhaap": {
+    "cost": 5783.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corhaapuw": {
+    "cost": 2283.33,
+    "hp": 3900,
+    "dam": 0
+  },
+  "corhaca": {
+    "cost": 1520.0,
+    "hp": 1435,
+    "dam": 0
+  },
+  "corhack": {
+    "cost": 1640.0,
+    "hp": 1830,
+    "dam": 0
+  },
+  "corhacs": {
+    "cost": 1573.33,
+    "hp": 2600,
+    "dam": 0
+  },
+  "corhacv": {
+    "cost": 1806.67,
+    "hp": 3125,
+    "dam": 0
+  },
+  "corhal": {
+    "cost": 856.67,
+    "hp": 4350,
+    "dam": 275
+  },
+  "corhalab": {
+    "cost": 5770.0,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corhasy": {
+    "cost": 5666.67,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corhavp": {
+    "cost": 5666.67,
+    "hp": 17800,
+    "dam": 0
+  },
+  "corhllllt": {
+    "cost": 416.67,
+    "hp": 1670,
+    "dam": 100
+  },
+  "corhllt": {
+    "cost": 224.17,
+    "hp": 1670,
+    "dam": 112
+  },
+  "corhlt": {
+    "cost": 558.33,
+    "hp": 2750,
+    "dam": 392
+  },
+  "corhp": {
+    "cost": 703.33,
+    "hp": 3750,
+    "dam": 0
+  },
+  "corhrk": {
+    "cost": 696.67,
+    "hp": 610,
+    "dam": 800
+  },
+  "corhunt": {
+    "cost": 245.0,
+    "hp": 730,
+    "dam": 0
+  },
+  "corhurc": {
+    "cost": 618.33,
+    "hp": 1520,
+    "dam": 333
+  },
+  "corhvytrans": {
+    "cost": 256.67,
+    "hp": 800,
+    "dam": 0
+  },
+  "corint": {
+    "cost": 5716.67,
+    "hp": 4700,
+    "dam": 2000
+  },
+  "corjamt": {
+    "cost": 175.0,
+    "hp": 1070,
+    "dam": 0
+  },
+  "corjugg": {
+    "cost": 28550.0,
+    "hp": 335000,
+    "dam": 1200
+  },
+  "corjuno": {
+    "cost": 926.67,
+    "hp": 2500,
+    "dam": 1
+  },
+  "corkarg": {
+    "cost": 3450.0,
+    "hp": 12500,
+    "dam": 180
+  },
+  "corkarganetht4": {
+    "cost": 14000.0,
+    "hp": 50000,
+    "dam": 750
+  },
+  "corkark": {
+    "cost": 320.0,
+    "hp": 1280,
+    "dam": 190
+  },
+  "corkorg": {
+    "cost": 39250.0,
+    "hp": 149000,
+    "dam": 5500
+  },
+  "corlab": {
+    "cost": 487.5,
+    "hp": 2900,
+    "dam": 0
+  },
+  "corlevlr": {
+    "cost": 263.33,
+    "hp": 1400,
+    "dam": 190
+  },
+  "corllt": {
+    "cost": 101.67,
+    "hp": 650,
+    "dam": 112
+  },
+  "cormabm": {
+    "cost": 1783.33,
+    "hp": 870,
+    "dam": 500
+  },
+  "cormadsam": {
+    "cost": 441.67,
+    "hp": 2500,
+    "dam": 90
+  },
+  "cormakr": {
+    "cost": 21.83,
+    "hp": 167,
+    "dam": 0
+  },
+  "cormando": {
+    "cost": 1458.33,
+    "hp": 1800,
+    "dam": 100
+  },
+  "cormandot4": {
+    "cost": 8200.0,
+    "hp": 9600,
+    "dam": 2400
+  },
+  "cormart": {
+    "cost": 473.33,
+    "hp": 1200,
+    "dam": 420
+  },
+  "cormaw": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 33
+  },
+  "cormex": {
+    "cost": 58.33,
+    "hp": 275,
+    "dam": 0
+  },
+  "cormexp": {
+    "cost": 2600.0,
+    "hp": 7800,
+    "dam": 260
+  },
+  "cormh": {
+    "cost": 255.0,
+    "hp": 550,
+    "dam": 550
+  },
+  "cormine1": {
+    "cost": 11.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "cormine2": {
+    "cost": 42.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "cormine3": {
+    "cost": 96.67,
+    "hp": 11,
+    "dam": 0
+  },
+  "cormine4": {
+    "cost": 33.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "corminibuzz": {
+    "cost": 3000.0,
+    "hp": 6700,
+    "dam": 210
+  },
+  "cormist": {
+    "cost": 195.0,
+    "hp": 860,
+    "dam": 120
+  },
+  "cormls": {
+    "cost": 255.0,
+    "hp": 1600,
+    "dam": 0
+  },
+  "cormlv": {
+    "cost": 86.67,
+    "hp": 450,
+    "dam": 15
+  },
+  "cormmkr": {
+    "cost": 720.0,
+    "hp": 560,
+    "dam": 0
+  },
+  "cormmkrt3": {
+    "cost": 18166.67,
+    "hp": 1500,
+    "dam": 0
+  },
+  "cormoho": {
+    "cost": 775.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "cormort": {
+    "cost": 446.67,
+    "hp": 940,
+    "dam": 105
+  },
+  "cormship": {
+    "cost": 2166.67,
+    "hp": 3350,
+    "dam": 1100
+  },
+  "cormstor": {
+    "cost": 349.83,
+    "hp": 2100,
+    "dam": 0
+  },
+  "cormuskrat": {
+    "cost": 228.33,
+    "hp": 1110,
+    "dam": 0
+  },
+  "cormwall": {
+    "cost": 1100.0,
+    "hp": 5320,
+    "dam": 450
+  },
+  "cornanotc": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "cornanotc2plat": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "cornanotcplat": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "cornanotct2": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "cornavaldefturret": {
+    "cost": 850.0,
+    "hp": 5800,
+    "dam": 495
+  },
+  "cornecro": {
+    "cost": 153.33,
+    "hp": 220,
+    "dam": 0
+  },
+  "coronager": {
+    "cost": 1233.33,
+    "hp": 1400,
+    "dam": 360
+  },
+  "corparrow": {
+    "cost": 1400.0,
+    "hp": 6300,
+    "dam": 370
+  },
+  "corphantom": {
+    "cost": 375.0,
+    "hp": 1400,
+    "dam": 0
+  },
+  "corplat": {
+    "cost": 1491.67,
+    "hp": 2200,
+    "dam": 0
+  },
+  "corprince": {
+    "cost": 15416.67,
+    "hp": 25000,
+    "dam": 2000
+  },
+  "corprinter": {
+    "cost": 408.33,
+    "hp": 5125,
+    "dam": 0
+  },
+  "corpship": {
+    "cost": 466.67,
+    "hp": 2350,
+    "dam": 96
+  },
+  "corpt": {
+    "cost": 233.33,
+    "hp": 890,
+    "dam": 120
+  },
+  "corpun": {
+    "cost": 1525.0,
+    "hp": 3250,
+    "dam": 350
+  },
+  "corpyro": {
+    "cost": 250.0,
+    "hp": 1060,
+    "dam": 16
+  },
+  "corrad": {
+    "cost": 70.5,
+    "hp": 180,
+    "dam": 0
+  },
+  "corraid": {
+    "cost": 275.0,
+    "hp": 2000,
+    "dam": 97
+  },
+  "correap": {
+    "cost": 856.67,
+    "hp": 5300,
+    "dam": 109
+  },
+  "correcl": {
+    "cost": 298.33,
+    "hp": 420,
+    "dam": 0
+  },
+  "correspawn": {
+    "cost": 1.02,
+    "hp": 20000,
+    "dam": 0
+  },
+  "corrl": {
+    "cost": 94.17,
+    "hp": 335,
+    "dam": 115
+  },
+  "corroach": {
+    "cost": 165.67,
+    "hp": 620,
+    "dam": 1000
+  },
+  "corroy": {
+    "cost": 1080.0,
+    "hp": 3950,
+    "dam": 385
+  },
+  "corsala": {
+    "cost": 466.67,
+    "hp": 2100,
+    "dam": 18
+  },
+  "corsat": {
+    "cost": 4666.67,
+    "hp": 780,
+    "dam": 0
+  },
+  "corsb": {
+    "cost": 336.67,
+    "hp": 940,
+    "dam": 50
+  },
+  "corscavdrag": {
+    "cost": 8.0,
+    "hp": 2800,
+    "dam": 0
+  },
+  "corscavdtf": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 16
+  },
+  "corscavdtl": {
+    "cost": 366.67,
+    "hp": 1330,
+    "dam": 39
+  },
+  "corscavdtm": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 550
+  },
+  "corscavfort": {
+    "cost": 48.33,
+    "hp": 8900,
+    "dam": 0
+  },
+  "corscreamer": {
+    "cost": 2183.33,
+    "hp": 1670,
+    "dam": 750
+  },
+  "corsd": {
+    "cost": 861.67,
+    "hp": 2800,
+    "dam": 0
+  },
+  "corseah": {
+    "cost": 520.0,
+    "hp": 2200,
+    "dam": 0
+  },
+  "corseal": {
+    "cost": 631.67,
+    "hp": 2600,
+    "dam": 116
+  },
+  "corseap": {
+    "cost": 321.67,
+    "hp": 1000,
+    "dam": 342
+  },
+  "corsent": {
+    "cost": 645.0,
+    "hp": 2700,
+    "dam": 200
+  },
+  "corsentinel": {
+    "cost": 1575.0,
+    "hp": 3800,
+    "dam": 255
+  },
+  "corsfig": {
+    "cost": 166.67,
+    "hp": 220,
+    "dam": 200
+  },
+  "corsfig2": {
+    "cost": 166.67,
+    "hp": 220,
+    "dam": 200
+  },
+  "corsh": {
+    "cost": 100.0,
+    "hp": 255,
+    "dam": 36
+  },
+  "corshad": {
+    "cost": 226.67,
+    "hp": 680,
+    "dam": 112
+  },
+  "corshark": {
+    "cost": 963.33,
+    "hp": 1610,
+    "dam": 350
+  },
+  "corshiva": {
+    "cost": 1983.33,
+    "hp": 9400,
+    "dam": 750
+  },
+  "corshroud": {
+    "cost": 463.33,
+    "hp": 890,
+    "dam": 0
+  },
+  "corsiegebreaker": {
+    "cost": 1350.0,
+    "hp": 3000,
+    "dam": 4000
+  },
+  "corsilo": {
+    "cost": 9066.67,
+    "hp": 6200,
+    "dam": 15000
+  },
+  "corsjam": {
+    "cost": 350.0,
+    "hp": 1450,
+    "dam": 0
+  },
+  "corsktl": {
+    "cost": 1205.0,
+    "hp": 355,
+    "dam": 1000
+  },
+  "corslrpc": {
+    "cost": 9333.33,
+    "hp": 7200,
+    "dam": 2000
+  },
+  "corsnap": {
+    "cost": 351.67,
+    "hp": 1720,
+    "dam": 98
+  },
+  "corsok": {
+    "cost": 1266.67,
+    "hp": 4200,
+    "dam": 750
+  },
+  "corsolar": {
+    "cost": 150.0,
+    "hp": 355,
+    "dam": 0
+  },
+  "corsonar": {
+    "cost": 27.5,
+    "hp": 58,
+    "dam": 0
+  },
+  "corspec": {
+    "cost": 100.83,
+    "hp": 345,
+    "dam": 0
+  },
+  "corspy": {
+    "cost": 300.0,
+    "hp": 450,
+    "dam": 0
+  },
+  "corssub": {
+    "cost": 2383.33,
+    "hp": 3900,
+    "dam": 1650
+  },
+  "corstorm": {
+    "cost": 129.17,
+    "hp": 740,
+    "dam": 157
+  },
+  "corsub": {
+    "cost": 646.67,
+    "hp": 1060,
+    "dam": 342
+  },
+  "corsumo": {
+    "cost": 2783.33,
+    "hp": 15600,
+    "dam": 302
+  },
+  "corsy": {
+    "cost": 465.83,
+    "hp": 4300,
+    "dam": 0
+  },
+  "cortarg": {
+    "cost": 925.0,
+    "hp": 2000,
+    "dam": 0
+  },
+  "cortdrone": {
+    "cost": 56.67,
+    "hp": 450,
+    "dam": 255
+  },
+  "cortermite": {
+    "cost": 675.0,
+    "hp": 3100,
+    "dam": 265
+  },
+  "corthermite": {
+    "cost": 4500.0,
+    "hp": 15000,
+    "dam": 2000
+  },
+  "corthud": {
+    "cost": 159.17,
+    "hp": 1100,
+    "dam": 104
+  },
+  "cortide": {
+    "cost": 89.17,
+    "hp": 395,
+    "dam": 0
+  },
+  "cortitan": {
+    "cost": 546.67,
+    "hp": 1960,
+    "dam": 1200
+  },
+  "cortl": {
+    "cost": 200.0,
+    "hp": 1440,
+    "dam": 280
+  },
+  "cortoast": {
+    "cost": 2783.33,
+    "hp": 4250,
+    "dam": 420
+  },
+  "cortorch": {
+    "cost": 293.33,
+    "hp": 650,
+    "dam": 85
+  },
+  "cortrem": {
+    "cost": 2666.67,
+    "hp": 3000,
+    "dam": 200
+  },
+  "cortron": {
+    "cost": 1433.33,
+    "hp": 3550,
+    "dam": 4000
+  },
+  "coruwadves": {
+    "cost": 1023.33,
+    "hp": 12700,
+    "dam": 0
+  },
+  "coruwadvms": {
+    "cost": 943.33,
+    "hp": 11200,
+    "dam": 0
+  },
+  "coruwageo": {
+    "cost": 1950.0,
+    "hp": 4150,
+    "dam": 0
+  },
+  "coruwes": {
+    "cost": 205.0,
+    "hp": 2000,
+    "dam": 0
+  },
+  "coruwfus": {
+    "cost": 5966.67,
+    "hp": 5900,
+    "dam": 0
+  },
+  "coruwgeo": {
+    "cost": 756.67,
+    "hp": 2050,
+    "dam": 0
+  },
+  "coruwmme": {
+    "cost": 775.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "coruwmmm": {
+    "cost": 720.0,
+    "hp": 560,
+    "dam": 0
+  },
+  "coruwms": {
+    "cost": 349.83,
+    "hp": 2100,
+    "dam": 0
+  },
+  "corvac": {
+    "cost": 461.67,
+    "hp": 3000,
+    "dam": 0
+  },
+  "corvacct": {
+    "cost": 1.02,
+    "hp": 5125,
+    "dam": 0
+  },
+  "corvalk": {
+    "cost": 98.17,
+    "hp": 280,
+    "dam": 0
+  },
+  "corvamp": {
+    "cost": 230.0,
+    "hp": 290,
+    "dam": 500
+  },
+  "corveng": {
+    "cost": 119.67,
+    "hp": 156,
+    "dam": 125
+  },
+  "corves": {
+    "cost": 39166.67,
+    "hp": 100000,
+    "dam": 8000
+  },
+  "corvipe": {
+    "cost": 963.33,
+    "hp": 3000,
+    "dam": 825
+  },
+  "corvoyr": {
+    "cost": 121.5,
+    "hp": 390,
+    "dam": 0
+  },
+  "corvp": {
+    "cost": 595.83,
+    "hp": 3000,
+    "dam": 0
+  },
+  "corvrad": {
+    "cost": 113.67,
+    "hp": 570,
+    "dam": 0
+  },
+  "corvroc": {
+    "cost": 991.67,
+    "hp": 1390,
+    "dam": 1700
+  },
+  "corwin": {
+    "cost": 45.92,
+    "hp": 220,
+    "dam": 0
+  },
+  "corwint2": {
+    "cost": 479.17,
+    "hp": 1990,
+    "dam": 0
+  },
+  "corwolv": {
+    "cost": 211.67,
+    "hp": 750,
+    "dam": 300
+  },
+  "critter_ant": {
+    "cost": 0.02,
+    "hp": 11,
+    "dam": 0
+  },
+  "critter_crab": {
+    "cost": 0.02,
+    "hp": 44,
+    "dam": 0
+  },
+  "critter_duck": {
+    "cost": 0.02,
+    "hp": 17,
+    "dam": 0
+  },
+  "critter_goldfish": {
+    "cost": 0.02,
+    "hp": 11,
+    "dam": 0
+  },
+  "critter_gull": {
+    "cost": 0.02,
+    "hp": 11,
+    "dam": 0
+  },
+  "critter_penguin": {
+    "cost": 18.33,
+    "hp": 167,
+    "dam": 0
+  },
+  "critter_penguinbro": {
+    "cost": 1750.0,
+    "hp": 2200,
+    "dam": 70
+  },
+  "critter_penguinking": {
+    "cost": 26666.67,
+    "hp": 56000,
+    "dam": 2000
+  },
+  "dbg_sphere": {
+    "cost": 231.67,
+    "hp": 940,
+    "dam": 0
+  },
+  "dbg_sphere_fullmetal": {
+    "cost": 231.67,
+    "hp": 940,
+    "dam": 0
+  },
+  "dice": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "freefusion": {
+    "cost": 40.83,
+    "hp": 560,
+    "dam": 0
+  },
+  "leegmech": {
+    "cost": 13333.33,
+    "hp": 60000,
+    "dam": 500
+  },
+  "legaabot": {
+    "cost": 135.83,
+    "hp": 610,
+    "dam": 37
+  },
+  "legaap": {
+    "cost": 3366.67,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legabm": {
+    "cost": 2166.67,
+    "hp": 3650,
+    "dam": 1500
+  },
+  "legaca": {
+    "cost": 513.33,
+    "hp": 195,
+    "dam": 0
+  },
+  "legaceb": {
+    "cost": 403.33,
+    "hp": 830,
+    "dam": 0
+  },
+  "legack": {
+    "cost": 525.0,
+    "hp": 860,
+    "dam": 0
+  },
+  "legacluster": {
+    "cost": 2550.0,
+    "hp": 3700,
+    "dam": 414
+  },
+  "legacv": {
+    "cost": 640.0,
+    "hp": 1950,
+    "dam": 0
+  },
+  "legadvaabot": {
+    "cost": 860.83,
+    "hp": 2400,
+    "dam": 225
+  },
+  "legadveconv": {
+    "cost": 720.0,
+    "hp": 560,
+    "dam": 0
+  },
+  "legadveconvt3": {
+    "cost": 18166.67,
+    "hp": 1500,
+    "dam": 0
+  },
+  "legadvestore": {
+    "cost": 1023.33,
+    "hp": 12700,
+    "dam": 0
+  },
+  "legadvshipyard": {
+    "cost": 2966.67,
+    "hp": 5900,
+    "dam": 0
+  },
+  "legadvsol": {
+    "cost": 533.0,
+    "hp": 1100,
+    "dam": 0
+  },
+  "legafcv": {
+    "cost": 248.33,
+    "hp": 450,
+    "dam": 0
+  },
+  "legafigdef": {
+    "cost": 283.33,
+    "hp": 480,
+    "dam": 80
+  },
+  "legafus": {
+    "cost": 11650.0,
+    "hp": 9800,
+    "dam": 0
+  },
+  "legafust3": {
+    "cost": 99166.67,
+    "hp": 7900,
+    "dam": 0
+  },
+  "legageo": {
+    "cost": 2050.0,
+    "hp": 4150,
+    "dam": 0
+  },
+  "legah": {
+    "cost": 281.67,
+    "hp": 1120,
+    "dam": 8
+  },
+  "legaheattank": {
+    "cost": 1566.67,
+    "hp": 7700,
+    "dam": 33
+  },
+  "legajam": {
+    "cost": 441.67,
+    "hp": 830,
+    "dam": 0
+  },
+  "legajamk": {
+    "cost": 100.83,
+    "hp": 345,
+    "dam": 0
+  },
+  "legalab": {
+    "cost": 2866.67,
+    "hp": 4500,
+    "dam": 0
+  },
+  "legamcluster": {
+    "cost": 551.67,
+    "hp": 1250,
+    "dam": 300
+  },
+  "legamph": {
+    "cost": 820.0,
+    "hp": 2750,
+    "dam": 350
+  },
+  "legamphlab": {
+    "cost": 1293.33,
+    "hp": 2800,
+    "dam": 0
+  },
+  "legamphtank": {
+    "cost": 233.33,
+    "hp": 1340,
+    "dam": 116
+  },
+  "legamstor": {
+    "cost": 943.33,
+    "hp": 11200,
+    "dam": 0
+  },
+  "leganavalaaturret": {
+    "cost": 1036.67,
+    "hp": 1750,
+    "dam": 58
+  },
+  "leganavaladvgeo": {
+    "cost": 1950.0,
+    "hp": 4150,
+    "dam": 0
+  },
+  "leganavaldefturret": {
+    "cost": 1525.0,
+    "hp": 6300,
+    "dam": 30
+  },
+  "leganavaleconv": {
+    "cost": 720.0,
+    "hp": 560,
+    "dam": 0
+  },
+  "leganavalfusion": {
+    "cost": 5966.67,
+    "hp": 5900,
+    "dam": 0
+  },
+  "leganavalmex": {
+    "cost": 775.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "leganavalpinpointer": {
+    "cost": 925.0,
+    "hp": 1530,
+    "dam": 0
+  },
+  "leganavalsonarstation": {
+    "cost": 200.0,
+    "hp": 2400,
+    "dam": 0
+  },
+  "leganavaltorpturret": {
+    "cost": 1191.67,
+    "hp": 2800,
+    "dam": 1100
+  },
+  "leganavyaaship": {
+    "cost": 1200.0,
+    "hp": 3900,
+    "dam": 40
+  },
+  "leganavyantinukecarrier": {
+    "cost": 1816.67,
+    "hp": 5000,
+    "dam": 1500
+  },
+  "leganavyantiswarm": {
+    "cost": 641.67,
+    "hp": 2300,
+    "dam": 210
+  },
+  "leganavyartyship": {
+    "cost": 15083.33,
+    "hp": 22000,
+    "dam": 350
+  },
+  "leganavybattleship": {
+    "cost": 3250.0,
+    "hp": 10350,
+    "dam": 300
+  },
+  "leganavybattlesub": {
+    "cost": 1366.67,
+    "hp": 2350,
+    "dam": 150
+  },
+  "leganavyconsub": {
+    "cost": 850.0,
+    "hp": 1110,
+    "dam": 0
+  },
+  "leganavycruiser": {
+    "cost": 1080.0,
+    "hp": 5600,
+    "dam": 225
+  },
+  "leganavyengineer": {
+    "cost": 255.0,
+    "hp": 1600,
+    "dam": 0
+  },
+  "leganavyflagship": {
+    "cost": 20000.0,
+    "hp": 48000,
+    "dam": 800
+  },
+  "leganavyheavysub": {
+    "cost": 2383.33,
+    "hp": 3900,
+    "dam": 1650
+  },
+  "leganavymissileship": {
+    "cost": 2166.67,
+    "hp": 3350,
+    "dam": 450
+  },
+  "leganavyradjamship": {
+    "cost": 550.0,
+    "hp": 1700,
+    "dam": 0
+  },
+  "legap": {
+    "cost": 448.33,
+    "hp": 1780,
+    "dam": 0
+  },
+  "legapollyon": {
+    "cost": 20000.0,
+    "hp": 56000,
+    "dam": 465
+  },
+  "legapopupdef": {
+    "cost": 1000.0,
+    "hp": 2800,
+    "dam": 280
+  },
+  "legapt3": {
+    "cost": 9500.0,
+    "hp": 11100,
+    "dam": 0
+  },
+  "legarad": {
+    "cost": 633.33,
+    "hp": 500,
+    "dam": 0
+  },
+  "legaradk": {
+    "cost": 121.5,
+    "hp": 390,
+    "dam": 0
+  },
+  "legaskirmtank": {
+    "cost": 563.33,
+    "hp": 2500,
+    "dam": 70
+  },
+  "legaspy": {
+    "cost": 266.67,
+    "hp": 300,
+    "dam": 0
+  },
+  "legassistdrone": {
+    "cost": 1.02,
+    "hp": 335,
+    "dam": 0
+  },
+  "legassistdrone_land": {
+    "cost": 1.02,
+    "hp": 2000,
+    "dam": 0
+  },
+  "legatorpbomber": {
+    "cost": 638.0,
+    "hp": 1900,
+    "dam": 750
+  },
+  "legatrans": {
+    "cost": 256.67,
+    "hp": 800,
+    "dam": 0
+  },
+  "legavantinuke": {
+    "cost": 1700.0,
+    "hp": 720,
+    "dam": 500
+  },
+  "legavjam": {
+    "cost": 136.67,
+    "hp": 510,
+    "dam": 0
+  },
+  "legavp": {
+    "cost": 2766.67,
+    "hp": 5100,
+    "dam": 0
+  },
+  "legavrad": {
+    "cost": 158.33,
+    "hp": 980,
+    "dam": 0
+  },
+  "legavroc": {
+    "cost": 1028.33,
+    "hp": 1220,
+    "dam": 1900
+  },
+  "legbal": {
+    "cost": 192.0,
+    "hp": 900,
+    "dam": 250
+  },
+  "legbar": {
+    "cost": 303.33,
+    "hp": 1500,
+    "dam": 60
+  },
+  "legbart": {
+    "cost": 641.67,
+    "hp": 1780,
+    "dam": 60
+  },
+  "legbastion": {
+    "cost": 5166.67,
+    "hp": 12000,
+    "dam": 155
+  },
+  "legbombard": {
+    "cost": 1000.0,
+    "hp": 2800,
+    "dam": 375
+  },
+  "legbunk": {
+    "cost": 2550.0,
+    "hp": 9400,
+    "dam": 1500
+  },
+  "legca": {
+    "cost": 141.67,
+    "hp": 151,
+    "dam": 0
+  },
+  "legcar": {
+    "cost": 733.33,
+    "hp": 3600,
+    "dam": 40
+  },
+  "legcen": {
+    "cost": 176.67,
+    "hp": 840,
+    "dam": 75
+  },
+  "legch": {
+    "cost": 228.33,
+    "hp": 1390,
+    "dam": 0
+  },
+  "legcib": {
+    "cost": 158.33,
+    "hp": 600,
+    "dam": 1000
+  },
+  "legck": {
+    "cost": 126.67,
+    "hp": 700,
+    "dam": 0
+  },
+  "legcluster": {
+    "cost": 1033.33,
+    "hp": 2900,
+    "dam": 300
+  },
+  "legcom": {
+    "cost": 3133.33,
+    "hp": 3700,
+    "dam": 99999
+  },
+  "legcomecon": {
+    "cost": 3133.33,
+    "hp": 3350,
+    "dam": 10000
+  },
+  "legcomlvl10": {
+    "cost": 12833.33,
+    "hp": 22000,
+    "dam": 99999
+  },
+  "legcomlvl2": {
+    "cost": 3500.0,
+    "hp": 6000,
+    "dam": 99999
+  },
+  "legcomlvl3": {
+    "cost": 4666.67,
+    "hp": 8000,
+    "dam": 99999
+  },
+  "legcomlvl4": {
+    "cost": 5833.33,
+    "hp": 10000,
+    "dam": 99999
+  },
+  "legcomlvl5": {
+    "cost": 7000.0,
+    "hp": 12000,
+    "dam": 99999
+  },
+  "legcomlvl6": {
+    "cost": 8166.67,
+    "hp": 14000,
+    "dam": 99999
+  },
+  "legcomlvl7": {
+    "cost": 9333.33,
+    "hp": 16000,
+    "dam": 99999
+  },
+  "legcomlvl8": {
+    "cost": 10500.0,
+    "hp": 18000,
+    "dam": 99999
+  },
+  "legcomlvl9": {
+    "cost": 11666.67,
+    "hp": 20000,
+    "dam": 99999
+  },
+  "legcomoff": {
+    "cost": 3133.33,
+    "hp": 3350,
+    "dam": 10000
+  },
+  "legcomt2com": {
+    "cost": 3133.33,
+    "hp": 6700,
+    "dam": 10000
+  },
+  "legcomt2def": {
+    "cost": 3133.33,
+    "hp": 4450,
+    "dam": 10000
+  },
+  "legcomt2off": {
+    "cost": 3133.33,
+    "hp": 4450,
+    "dam": 10000
+  },
+  "legctl": {
+    "cost": 276.67,
+    "hp": 2200,
+    "dam": 225
+  },
+  "legcv": {
+    "cost": 160.0,
+    "hp": 1330,
+    "dam": 0
+  },
+  "legdecom": {
+    "cost": 966.67,
+    "hp": 3700,
+    "dam": 250
+  },
+  "legdeflector": {
+    "cost": 4116.67,
+    "hp": 3550,
+    "dam": 0
+  },
+  "legdrag": {
+    "cost": 8.0,
+    "hp": 2800,
+    "dam": 0
+  },
+  "legdrone": {
+    "cost": 23.33,
+    "hp": 325,
+    "dam": 12
+  },
+  "legdtf": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 16
+  },
+  "legdtl": {
+    "cost": 366.67,
+    "hp": 1330,
+    "dam": 39
+  },
+  "legdtm": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 550
+  },
+  "legdtr": {
+    "cost": 315.83,
+    "hp": 1610,
+    "dam": 375
+  },
+  "legeallterrainmech": {
+    "cost": 5250.0,
+    "hp": 9200,
+    "dam": 345
+  },
+  "legeconv": {
+    "cost": 20.17,
+    "hp": 167,
+    "dam": 0
+  },
+  "legeheatraymech": {
+    "cost": 33750.0,
+    "hp": 110000,
+    "dam": 420
+  },
+  "legeheatraymech_old": {
+    "cost": 38750.0,
+    "hp": 110000,
+    "dam": 420
+  },
+  "legehovertank": {
+    "cost": 1766.67,
+    "hp": 4900,
+    "dam": 225
+  },
+  "legelrpcmech": {
+    "cost": 13500.0,
+    "hp": 17000,
+    "dam": 600
+  },
+  "legerailtank": {
+    "cost": 9250.0,
+    "hp": 16500,
+    "dam": 800
+  },
+  "legeshotgunmech": {
+    "cost": 9000.0,
+    "hp": 22000,
+    "dam": 150
+  },
+  "legestor": {
+    "cost": 205.0,
+    "hp": 2000,
+    "dam": 0
+  },
+  "legeyes": {
+    "cost": 46.17,
+    "hp": 280,
+    "dam": 0
+  },
+  "legfdrag": {
+    "cost": 15.0,
+    "hp": 4450,
+    "dam": 0
+  },
+  "legfeconv": {
+    "cost": 21.83,
+    "hp": 167,
+    "dam": 0
+  },
+  "legfhive": {
+    "cost": 500.0,
+    "hp": 1200,
+    "dam": 0
+  },
+  "legfhp": {
+    "cost": 703.33,
+    "hp": 3750,
+    "dam": 0
+  },
+  "legfig": {
+    "cost": 66.67,
+    "hp": 220,
+    "dam": 36
+  },
+  "legflak": {
+    "cost": 1036.67,
+    "hp": 1750,
+    "dam": 58
+  },
+  "legfloat": {
+    "cost": 850.0,
+    "hp": 3500,
+    "dam": 250
+  },
+  "legfmg": {
+    "cost": 541.67,
+    "hp": 3900,
+    "dam": 18
+  },
+  "legfort": {
+    "cost": 6916.67,
+    "hp": 16700,
+    "dam": 166
+  },
+  "legforti": {
+    "cost": 48.33,
+    "hp": 8900,
+    "dam": 0
+  },
+  "legfortt4": {
+    "cost": 69166.67,
+    "hp": 167000,
+    "dam": 480
+  },
+  "legfrad": {
+    "cost": 146.67,
+    "hp": 110,
+    "dam": 0
+  },
+  "legfrl": {
+    "cost": 94.17,
+    "hp": 335,
+    "dam": 115
+  },
+  "legfus": {
+    "cost": 4416.67,
+    "hp": 4600,
+    "dam": 0
+  },
+  "leggant": {
+    "cost": 9433.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "leggantuw": {
+    "cost": 9433.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "leggat": {
+    "cost": 360.0,
+    "hp": 2550,
+    "dam": 12
+  },
+  "leggatet3": {
+    "cost": 18100.0,
+    "hp": 18000,
+    "dam": 100
+  },
+  "leggeo": {
+    "cost": 776.67,
+    "hp": 2050,
+    "dam": 0
+  },
+  "leggob": {
+    "cost": 37.0,
+    "hp": 200,
+    "dam": 12
+  },
+  "leggobt3": {
+    "cost": 7050.0,
+    "hp": 15800,
+    "dam": 224
+  },
+  "leghaap": {
+    "cost": 5733.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "leghaca": {
+    "cost": 1506.67,
+    "hp": 435,
+    "dam": 0
+  },
+  "leghack": {
+    "cost": 1613.33,
+    "hp": 830,
+    "dam": 0
+  },
+  "leghacv": {
+    "cost": 956.67,
+    "hp": 450,
+    "dam": 0
+  },
+  "leghades": {
+    "cost": 79.17,
+    "hp": 425,
+    "dam": 75
+  },
+  "leghalab": {
+    "cost": 5933.33,
+    "hp": 17800,
+    "dam": 0
+  },
+  "leghavp": {
+    "cost": 5666.67,
+    "hp": 17800,
+    "dam": 0
+  },
+  "legheavydrone": {
+    "cost": 106.67,
+    "hp": 1650,
+    "dam": 10
+  },
+  "legheavydronesmall": {
+    "cost": 106.67,
+    "hp": 1650,
+    "dam": 10
+  },
+  "leghelios": {
+    "cost": 200.0,
+    "hp": 800,
+    "dam": 160
+  },
+  "leghive": {
+    "cost": 500.0,
+    "hp": 1200,
+    "dam": 0
+  },
+  "leghp": {
+    "cost": 703.33,
+    "hp": 3750,
+    "dam": 0
+  },
+  "leghrk": {
+    "cost": 900.0,
+    "hp": 1200,
+    "dam": 150
+  },
+  "leginc": {
+    "cost": 3066.67,
+    "hp": 9000,
+    "dam": 33
+  },
+  "leginf": {
+    "cost": 2200.0,
+    "hp": 3650,
+    "dam": 60
+  },
+  "leginfestor": {
+    "cost": 336.67,
+    "hp": 1200,
+    "dam": 120
+  },
+  "legionnaire": {
+    "cost": 283.33,
+    "hp": 480,
+    "dam": 80
+  },
+  "legjam": {
+    "cost": 260.0,
+    "hp": 1070,
+    "dam": 0
+  },
+  "legjav": {
+    "cost": 1550.0,
+    "hp": 7200,
+    "dam": 12
+  },
+  "legjuno": {
+    "cost": 926.67,
+    "hp": 2500,
+    "dam": 1
+  },
+  "legkam": {
+    "cost": 98.33,
+    "hp": 160,
+    "dam": 1000
+  },
+  "legkark": {
+    "cost": 350.0,
+    "hp": 1725,
+    "dam": 160
+  },
+  "legkeres": {
+    "cost": 3550.0,
+    "hp": 21000,
+    "dam": 400
+  },
+  "leglab": {
+    "cost": 487.5,
+    "hp": 2900,
+    "dam": 0
+  },
+  "leglht": {
+    "cost": 79.17,
+    "hp": 550,
+    "dam": 270
+  },
+  "leglob": {
+    "cost": 68.33,
+    "hp": 550,
+    "dam": 75
+  },
+  "leglraa": {
+    "cost": 2200.0,
+    "hp": 1670,
+    "dam": 750
+  },
+  "leglrpc": {
+    "cost": 6466.67,
+    "hp": 4450,
+    "dam": 600
+  },
+  "leglts": {
+    "cost": 89.67,
+    "hp": 265,
+    "dam": 0
+  },
+  "leglupara": {
+    "cost": 1036.67,
+    "hp": 4000,
+    "dam": 255
+  },
+  "legmed": {
+    "cost": 1875.0,
+    "hp": 3000,
+    "dam": 500
+  },
+  "legmex": {
+    "cost": 58.33,
+    "hp": 275,
+    "dam": 0
+  },
+  "legmext15": {
+    "cost": 333.33,
+    "hp": 1110,
+    "dam": 0
+  },
+  "legmg": {
+    "cost": 471.67,
+    "hp": 2200,
+    "dam": 17
+  },
+  "legmh": {
+    "cost": 241.67,
+    "hp": 520,
+    "dam": 400
+  },
+  "legmine1": {
+    "cost": 11.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "legmine2": {
+    "cost": 42.5,
+    "hp": 11,
+    "dam": 0
+  },
+  "legmine3": {
+    "cost": 96.67,
+    "hp": 11,
+    "dam": 0
+  },
+  "legmineb": {
+    "cost": 650.0,
+    "hp": 1110,
+    "dam": 1
+  },
+  "legministarfall": {
+    "cost": 3000.0,
+    "hp": 7000,
+    "dam": 125
+  },
+  "legmlv": {
+    "cost": 67.0,
+    "hp": 210,
+    "dam": 15
+  },
+  "legmoho": {
+    "cost": 775.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legmohobp": {
+    "cost": 775.0,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legmohobpct": {
+    "cost": 1.02,
+    "hp": 5125,
+    "dam": 0
+  },
+  "legmohocon": {
+    "cost": 1301.67,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legmohoconct": {
+    "cost": 1301.67,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legmohoconin": {
+    "cost": 1301.67,
+    "hp": 3900,
+    "dam": 0
+  },
+  "legmos": {
+    "cost": 143.33,
+    "hp": 415,
+    "dam": 44
+  },
+  "legmost3": {
+    "cost": 3700.0,
+    "hp": 9000,
+    "dam": 200
+  },
+  "legmrv": {
+    "cost": 318.33,
+    "hp": 970,
+    "dam": 120
+  },
+  "legmstor": {
+    "cost": 349.83,
+    "hp": 2100,
+    "dam": 0
+  },
+  "legnanotc": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "legnanotcbase": {
+    "cost": 1.02,
+    "hp": 20000,
+    "dam": 0
+  },
+  "legnanotcplat": {
+    "cost": 283.33,
+    "hp": 560,
+    "dam": 0
+  },
+  "legnanotct2": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "legnanotct2plat": {
+    "cost": 1053.33,
+    "hp": 2200,
+    "dam": 0
+  },
+  "legnap": {
+    "cost": 770.0,
+    "hp": 2900,
+    "dam": 50
+  },
+  "legnavaldefturret": {
+    "cost": 725.0,
+    "hp": 5190,
+    "dam": 95
+  },
+  "legnavyaaship": {
+    "cost": 310.0,
+    "hp": 1200,
+    "dam": 300
+  },
+  "legnavyartyship": {
+    "cost": 1700.0,
+    "hp": 4500,
+    "dam": 300
+  },
+  "legnavyconship": {
+    "cost": 213.33,
+    "hp": 1080,
+    "dam": 0
+  },
+  "legnavydestro": {
+    "cost": 1033.33,
+    "hp": 3800,
+    "dam": 410
+  },
+  "legnavyfrigate": {
+    "cost": 431.67,
+    "hp": 2600,
+    "dam": 140
+  },
+  "legnavyrezsub": {
+    "cost": 298.33,
+    "hp": 420,
+    "dam": 0
+  },
+  "legnavyscout": {
+    "cost": 146.67,
+    "hp": 700,
+    "dam": 12
+  },
+  "legnavysub": {
+    "cost": 360.0,
+    "hp": 600,
+    "dam": 140
+  },
+  "legner": {
+    "cost": 253.33,
+    "hp": 1100,
+    "dam": 55
+  },
+  "legotter": {
+    "cost": 201.67,
+    "hp": 950,
+    "dam": 0
+  },
+  "legpede": {
+    "cost": 6833.33,
+    "hp": 28000,
+    "dam": 500
+  },
+  "legperdition": {
+    "cost": 1500.0,
+    "hp": 4000,
+    "dam": 1200
+  },
+  "legphoenix": {
+    "cost": 866.67,
+    "hp": 2000,
+    "dam": 145
+  },
+  "legrad": {
+    "cost": 70.5,
+    "hp": 180,
+    "dam": 0
+  },
+  "legrail": {
+    "cost": 300.0,
+    "hp": 1100,
+    "dam": 300
+  },
+  "legrampart": {
+    "cost": 3233.33,
+    "hp": 8600,
+    "dam": 1500
+  },
+  "legrezbot": {
+    "cost": 153.33,
+    "hp": 220,
+    "dam": 0
+  },
+  "legrhapsis": {
+    "cost": 388.33,
+    "hp": 1900,
+    "dam": 15
+  },
+  "legrl": {
+    "cost": 94.17,
+    "hp": 335,
+    "dam": 115
+  },
+  "legrwall": {
+    "cost": 1350.0,
+    "hp": 9600,
+    "dam": 1000
+  },
+  "legscout": {
+    "cost": 28.83,
+    "hp": 75,
+    "dam": 11
+  },
+  "legsd": {
+    "cost": 828.33,
+    "hp": 2650,
+    "dam": 0
+  },
+  "legsh": {
+    "cost": 80.0,
+    "hp": 220,
+    "dam": 60
+  },
+  "legshot": {
+    "cost": 553.33,
+    "hp": 3350,
+    "dam": 210
+  },
+  "legsilo": {
+    "cost": 9066.67,
+    "hp": 6200,
+    "dam": 15000
+  },
+  "legsnapper": {
+    "cost": 153.33,
+    "hp": 550,
+    "dam": 1000
+  },
+  "legsolar": {
+    "cost": 150.0,
+    "hp": 340,
+    "dam": 0
+  },
+  "legspbomber": {
+    "cost": 365.0,
+    "hp": 1170,
+    "dam": 50
+  },
+  "legspcarrier": {
+    "cost": 333.33,
+    "hp": 1500,
+    "dam": 37
+  },
+  "legspcon": {
+    "cost": 235.0,
+    "hp": 405,
+    "dam": 0
+  },
+  "legspfighter": {
+    "cost": 165.0,
+    "hp": 220,
+    "dam": 37
+  },
+  "legsplab": {
+    "cost": 1491.67,
+    "hp": 2200,
+    "dam": 0
+  },
+  "legspradarsonarplane": {
+    "cost": 241.67,
+    "hp": 580,
+    "dam": 0
+  },
+  "legspsurfacegunship": {
+    "cost": 381.67,
+    "hp": 1200,
+    "dam": 200
+  },
+  "legsptorpgunship": {
+    "cost": 273.33,
+    "hp": 900,
+    "dam": 140
+  },
+  "legsrail": {
+    "cost": 1000.0,
+    "hp": 2200,
+    "dam": 850
+  },
+  "legsrailt4": {
+    "cost": 20000.0,
+    "hp": 40000,
+    "dam": 6000
+  },
+  "legstarfall": {
+    "cost": 75000.0,
+    "hp": 26000,
+    "dam": 600
+  },
+  "legstr": {
+    "cost": 442.5,
+    "hp": 1780,
+    "dam": 8
+  },
+  "legstronghold": {
+    "cost": 766.67,
+    "hp": 2600,
+    "dam": 30
+  },
+  "legsy": {
+    "cost": 465.83,
+    "hp": 4300,
+    "dam": 0
+  },
+  "legtarg": {
+    "cost": 930.0,
+    "hp": 2100,
+    "dam": 0
+  },
+  "legtide": {
+    "cost": 89.17,
+    "hp": 395,
+    "dam": 0
+  },
+  "legtl": {
+    "cost": 195.0,
+    "hp": 1300,
+    "dam": 280
+  },
+  "leguwestore": {
+    "cost": 205.0,
+    "hp": 2000,
+    "dam": 0
+  },
+  "leguwgeo": {
+    "cost": 756.67,
+    "hp": 2050,
+    "dam": 0
+  },
+  "leguwmstore": {
+    "cost": 349.83,
+    "hp": 2100,
+    "dam": 0
+  },
+  "legvcarry": {
+    "cost": 600.0,
+    "hp": 1400,
+    "dam": 0
+  },
+  "legvenator": {
+    "cost": 163.33,
+    "hp": 210,
+    "dam": 480
+  },
+  "legvflak": {
+    "cost": 645.0,
+    "hp": 2700,
+    "dam": 40
+  },
+  "legvision": {
+    "cost": 1.02,
+    "hp": 1,
+    "dam": 0
+  },
+  "legvp": {
+    "cost": 597.5,
+    "hp": 3000,
+    "dam": 0
+  },
+  "legwhisper": {
+    "cost": 360.0,
+    "hp": 990,
+    "dam": 0
+  },
+  "legwin": {
+    "cost": 45.92,
+    "hp": 230,
+    "dam": 0
+  },
+  "legwint2": {
+    "cost": 479.17,
+    "hp": 1990,
+    "dam": 0
+  },
+  "lootboxbronze": {
+    "cost": 791.67,
+    "hp": 33500,
+    "dam": 0
+  },
+  "lootboxgold": {
+    "cost": 1916.67,
+    "hp": 56000,
+    "dam": 0
+  },
+  "lootboxplatinum": {
+    "cost": 2916.67,
+    "hp": 67000,
+    "dam": 0
+  },
+  "lootboxsilver": {
+    "cost": 1166.67,
+    "hp": 44500,
+    "dam": 0
+  },
+  "lootdroppod_gold": {
+    "cost": 816.67,
+    "hp": 2000,
+    "dam": 1
+  },
+  "lootdroppod_printer": {
+    "cost": 816.67,
+    "hp": 2000,
+    "dam": 1
+  },
+  "meteor": {
+    "cost": 1.02,
+    "hp": 2,
+    "dam": 700
+  },
+  "mission_command_tower": {
+    "cost": 11666.67,
+    "hp": 11100,
+    "dam": 0
+  },
+  "nuketest": {
+    "cost": 816.67,
+    "hp": 5900,
+    "dam": 9500
+  },
+  "nuketestcor": {
+    "cost": 816.67,
+    "hp": 6200,
+    "dam": 11500
+  },
+  "nuketestorg": {
+    "cost": 816.67,
+    "hp": 5900,
+    "dam": 9500
+  },
+  "pbr_cube": {
+    "cost": 231.67,
+    "hp": 940,
+    "dam": 0
+  },
+  "raptor_6legged_l": {
+    "cost": 187.0,
+    "hp": 2650,
+    "dam": 700
+  },
+  "raptor_air_bomber_acid_t2_v1": {
+    "cost": 50.83,
+    "hp": 835,
+    "dam": 1
+  },
+  "raptor_air_bomber_basic_t1_v1": {
+    "cost": 287.83,
+    "hp": 85,
+    "dam": 720
+  },
+  "raptor_air_bomber_basic_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 1440
+  },
+  "raptor_air_bomber_basic_t2_v2": {
+    "cost": 287.83,
+    "hp": 450,
+    "dam": 1680
+  },
+  "raptor_air_bomber_basic_t4_v1": {
+    "cost": 287.83,
+    "hp": 1500,
+    "dam": 4320
+  },
+  "raptor_air_bomber_basic_t4_v2": {
+    "cost": 287.83,
+    "hp": 1700,
+    "dam": 4320
+  },
+  "raptor_air_bomber_brood_t4_v2": {
+    "cost": 287.83,
+    "hp": 1500,
+    "dam": 1
+  },
+  "raptor_air_bomber_brood_t4_v3": {
+    "cost": 287.83,
+    "hp": 1500,
+    "dam": 1
+  },
+  "raptor_air_bomber_brood_t4_v4": {
+    "cost": 287.83,
+    "hp": 1500,
+    "dam": 1
+  },
+  "raptor_air_bomber_emp_t2_v1": {
+    "cost": 50.83,
+    "hp": 835,
+    "dam": 40000
+  },
+  "raptor_air_fighter_basic_t1_v1": {
+    "cost": 108.67,
+    "hp": 85,
+    "dam": 100
+  },
+  "raptor_air_fighter_basic_t2_v1": {
+    "cost": 108.67,
+    "hp": 350,
+    "dam": 500
+  },
+  "raptor_air_fighter_basic_t2_v2": {
+    "cost": 108.67,
+    "hp": 350,
+    "dam": 500
+  },
+  "raptor_air_fighter_basic_t2_v3": {
+    "cost": 108.67,
+    "hp": 350,
+    "dam": 500
+  },
+  "raptor_air_fighter_basic_t2_v4": {
+    "cost": 108.67,
+    "hp": 350,
+    "dam": 500
+  },
+  "raptor_air_fighter_basic_t4_v1": {
+    "cost": 108.67,
+    "hp": 1000,
+    "dam": 1250
+  },
+  "raptor_air_gunship_acid_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 160
+  },
+  "raptor_air_gunship_antiair_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 1000
+  },
+  "raptor_air_gunship_basic_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 325
+  },
+  "raptor_air_gunship_emp_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 1400
+  },
+  "raptor_air_gunship_fire_t2_v1": {
+    "cost": 287.83,
+    "hp": 350,
+    "dam": 16
+  },
+  "raptor_air_kamikaze_basic_t2_v1": {
+    "cost": 287.83,
+    "hp": 1330,
+    "dam": 0
+  },
+  "raptor_air_scout_basic_t2_v1": {
+    "cost": 50.83,
+    "hp": 500,
+    "dam": 0
+  },
+  "raptor_air_scout_basic_t3_v1": {
+    "cost": 50.83,
+    "hp": 1500,
+    "dam": 0
+  },
+  "raptor_air_scout_basic_t4_v1": {
+    "cost": 50.83,
+    "hp": 5000,
+    "dam": 0
+  },
+  "raptor_allterrain_arty_acid_t2_v1": {
+    "cost": 601.33,
+    "hp": 2000,
+    "dam": 320
+  },
+  "raptor_allterrain_arty_acid_t4_v1": {
+    "cost": 601.33,
+    "hp": 8000,
+    "dam": 320
+  },
+  "raptor_allterrain_arty_basic_t2_v1": {
+    "cost": 601.33,
+    "hp": 2000,
+    "dam": 1280
+  },
+  "raptor_allterrain_arty_basic_t4_v1": {
+    "cost": 601.33,
+    "hp": 8000,
+    "dam": 1280
+  },
+  "raptor_allterrain_arty_brood_t2_v1": {
+    "cost": 601.33,
+    "hp": 2000,
+    "dam": 200
+  },
+  "raptor_allterrain_arty_brood_t4_v1": {
+    "cost": 601.33,
+    "hp": 8000,
+    "dam": 200
+  },
+  "raptor_allterrain_arty_emp_t2_v1": {
+    "cost": 601.33,
+    "hp": 2000,
+    "dam": 3600
+  },
+  "raptor_allterrain_arty_emp_t4_v1": {
+    "cost": 601.33,
+    "hp": 8000,
+    "dam": 3600
+  },
+  "raptor_allterrain_assault_acid_t2_v1": {
+    "cost": 210.67,
+    "hp": 11100,
+    "dam": 160
+  },
+  "raptor_allterrain_assault_basic_t2_v1": {
+    "cost": 210.67,
+    "hp": 7800,
+    "dam": 1000
+  },
+  "raptor_allterrain_assault_basic_t2_v2": {
+    "cost": 210.67,
+    "hp": 8900,
+    "dam": 1000
+  },
+  "raptor_allterrain_assault_basic_t2_v3": {
+    "cost": 210.67,
+    "hp": 6700,
+    "dam": 1000
+  },
+  "raptor_allterrain_assault_basic_t4_v1": {
+    "cost": 360.67,
+    "hp": 20000,
+    "dam": 1000
+  },
+  "raptor_allterrain_assault_basic_t4_v2": {
+    "cost": 360.67,
+    "hp": 20000,
+    "dam": 1000
+  },
+  "raptor_allterrain_assault_emp_t2_v1": {
+    "cost": 210.67,
+    "hp": 22000,
+    "dam": 1400
+  },
+  "raptor_allterrain_swarmer_acid_t2_v1": {
+    "cost": 187.0,
+    "hp": 2000,
+    "dam": 80
+  },
+  "raptor_allterrain_swarmer_basic_t2_v1": {
+    "cost": 187.0,
+    "hp": 890,
+    "dam": 150
+  },
+  "raptor_allterrain_swarmer_basic_t3_v1": {
+    "cost": 187.0,
+    "hp": 1780,
+    "dam": 250
+  },
+  "raptor_allterrain_swarmer_basic_t4_v1": {
+    "cost": 187.0,
+    "hp": 2650,
+    "dam": 350
+  },
+  "raptor_allterrain_swarmer_emp_t2_v1": {
+    "cost": 187.0,
+    "hp": 2000,
+    "dam": 375
+  },
+  "raptor_allterrain_swarmer_fire_t2_v1": {
+    "cost": 187.0,
+    "hp": 2000,
+    "dam": 16
+  },
+  "raptor_antinuke": {
+    "cost": 2166.67,
+    "hp": 10000,
+    "dam": 1500
+  },
+  "raptor_hive": {
+    "cost": 816.67,
+    "hp": 50000,
+    "dam": 50000
+  },
+  "raptor_land_assault_acid_t2_v1": {
+    "cost": 210.67,
+    "hp": 11100,
+    "dam": 160
+  },
+  "raptor_land_assault_basic_t2_v1": {
+    "cost": 210.67,
+    "hp": 5600,
+    "dam": 1000
+  },
+  "raptor_land_assault_basic_t2_v2": {
+    "cost": 210.67,
+    "hp": 6700,
+    "dam": 1000
+  },
+  "raptor_land_assault_basic_t2_v3": {
+    "cost": 210.67,
+    "hp": 4450,
+    "dam": 1000
+  },
+  "raptor_land_assault_basic_t4_v1": {
+    "cost": 360.67,
+    "hp": 20000,
+    "dam": 1000
+  },
+  "raptor_land_assault_basic_t4_v2": {
+    "cost": 360.67,
+    "hp": 20000,
+    "dam": 1000
+  },
+  "raptor_land_assault_emp_t2_v1": {
+    "cost": 210.67,
+    "hp": 22000,
+    "dam": 1400
+  },
+  "raptor_land_assault_spectre_t2_v1": {
+    "cost": 210.67,
+    "hp": 2500,
+    "dam": 2000
+  },
+  "raptor_land_assault_spectre_t4_v1": {
+    "cost": 360.67,
+    "hp": 10000,
+    "dam": 2000
+  },
+  "raptor_land_kamikaze_basic_t2_v1": {
+    "cost": 178.0,
+    "hp": 890,
+    "dam": 0
+  },
+  "raptor_land_kamikaze_basic_t4_v1": {
+    "cost": 500.0,
+    "hp": 4450,
+    "dam": 0
+  },
+  "raptor_land_kamikaze_emp_t2_v1": {
+    "cost": 178.0,
+    "hp": 890,
+    "dam": 0
+  },
+  "raptor_land_kamikaze_emp_t4_v1": {
+    "cost": 500.0,
+    "hp": 4450,
+    "dam": 0
+  },
+  "raptor_land_spiker_basic_t2_v1": {
+    "cost": 176.9,
+    "hp": 910,
+    "dam": 325
+  },
+  "raptor_land_spiker_basic_t4_v1": {
+    "cost": 176.9,
+    "hp": 2780,
+    "dam": 600
+  },
+  "raptor_land_spiker_spectre_t4_v1": {
+    "cost": 176.9,
+    "hp": 1250,
+    "dam": 600
+  },
+  "raptor_land_swarmer_acids_t2_v1": {
+    "cost": 25.88,
+    "hp": 1110,
+    "dam": 80
+  },
+  "raptor_land_swarmer_basic_t1_v1": {
+    "cost": 25.88,
+    "hp": 167,
+    "dam": 75
+  },
+  "raptor_land_swarmer_basic_t2_v1": {
+    "cost": 25.88,
+    "hp": 530,
+    "dam": 100
+  },
+  "raptor_land_swarmer_basic_t2_v2": {
+    "cost": 25.88,
+    "hp": 495,
+    "dam": 80
+  },
+  "raptor_land_swarmer_basic_t2_v3": {
+    "cost": 25.88,
+    "hp": 470,
+    "dam": 90
+  },
+  "raptor_land_swarmer_basic_t2_v4": {
+    "cost": 25.88,
+    "hp": 430,
+    "dam": 120
+  },
+  "raptor_land_swarmer_basic_t3_v1": {
+    "cost": 80.32,
+    "hp": 1110,
+    "dam": 120
+  },
+  "raptor_land_swarmer_basic_t3_v2": {
+    "cost": 80.32,
+    "hp": 1080,
+    "dam": 110
+  },
+  "raptor_land_swarmer_basic_t3_v3": {
+    "cost": 80.32,
+    "hp": 1060,
+    "dam": 100
+  },
+  "raptor_land_swarmer_basic_t4_v1": {
+    "cost": 116.67,
+    "hp": 1500,
+    "dam": 300
+  },
+  "raptor_land_swarmer_basic_t4_v2": {
+    "cost": 166.67,
+    "hp": 2000,
+    "dam": 300
+  },
+  "raptor_land_swarmer_brood_t2_v1": {
+    "cost": 24.17,
+    "hp": 540,
+    "dam": 100
+  },
+  "raptor_land_swarmer_brood_t3_v1": {
+    "cost": 161.77,
+    "hp": 2000,
+    "dam": 200
+  },
+  "raptor_land_swarmer_brood_t4_v1": {
+    "cost": 337.68,
+    "hp": 6700,
+    "dam": 400
+  },
+  "raptor_land_swarmer_emp_t2_v1": {
+    "cost": 25.88,
+    "hp": 1110,
+    "dam": 375
+  },
+  "raptor_land_swarmer_fire_t2_v1": {
+    "cost": 500.0,
+    "hp": 500,
+    "dam": 16
+  },
+  "raptor_land_swarmer_fire_t4_v1": {
+    "cost": 300.0,
+    "hp": 5000,
+    "dam": 100
+  },
+  "raptor_land_swarmer_heal_t1_v1": {
+    "cost": 50.0,
+    "hp": 250,
+    "dam": 0
+  },
+  "raptor_land_swarmer_heal_t2_v1": {
+    "cost": 50.0,
+    "hp": 500,
+    "dam": 0
+  },
+  "raptor_land_swarmer_heal_t3_v1": {
+    "cost": 50.0,
+    "hp": 750,
+    "dam": 0
+  },
+  "raptor_land_swarmer_heal_t4_v1": {
+    "cost": 50.0,
+    "hp": 1000,
+    "dam": 0
+  },
+  "raptor_land_swarmer_spectre_t3_v1": {
+    "cost": 80.32,
+    "hp": 500,
+    "dam": 120
+  },
+  "raptor_land_swarmer_spectre_t4_v1": {
+    "cost": 116.67,
+    "hp": 1300,
+    "dam": 300
+  },
+  "raptor_matriarch_acid": {
+    "cost": 83333.33,
+    "hp": 60000,
+    "dam": 800
+  },
+  "raptor_matriarch_basic": {
+    "cost": 83333.33,
+    "hp": 60000,
+    "dam": 1000
+  },
+  "raptor_matriarch_electric": {
+    "cost": 83333.33,
+    "hp": 60000,
+    "dam": 9000
+  },
+  "raptor_matriarch_fire": {
+    "cost": 83333.33,
+    "hp": 30000,
+    "dam": 40
+  },
+  "raptor_matriarch_healer": {
+    "cost": 83333.33,
+    "hp": 60000,
+    "dam": 500
+  },
+  "raptor_matriarch_spectre": {
+    "cost": 83333.33,
+    "hp": 30000,
+    "dam": 2000
+  },
+  "raptor_queen_easy": {
+    "cost": 83333.33,
+    "hp": 1125000,
+    "dam": 3750
+  },
+  "raptor_queen_epic": {
+    "cost": 83333.33,
+    "hp": 1875000,
+    "dam": 10000
+  },
+  "raptor_queen_hard": {
+    "cost": 83333.33,
+    "hp": 1500000,
+    "dam": 6250
+  },
+  "raptor_queen_normal": {
+    "cost": 83333.33,
+    "hp": 1312500,
+    "dam": 5000
+  },
+  "raptor_queen_veryeasy": {
+    "cost": 83333.33,
+    "hp": 937500,
+    "dam": 2500
+  },
+  "raptor_queen_veryhard": {
+    "cost": 83333.33,
+    "hp": 1687500,
+    "dam": 7500
+  },
+  "raptor_turret_acid_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 320
+  },
+  "raptor_turret_acid_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 320
+  },
+  "raptor_turret_acid_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 320
+  },
+  "raptor_turret_acid_t4_v2": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 320
+  },
+  "raptor_turret_antiair_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 1000
+  },
+  "raptor_turret_antiair_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 1000
+  },
+  "raptor_turret_antiair_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 1000
+  },
+  "raptor_turret_antinuke_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 1500
+  },
+  "raptor_turret_antinuke_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 1500
+  },
+  "raptor_turret_basic_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 1280
+  },
+  "raptor_turret_basic_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 1280
+  },
+  "raptor_turret_basic_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 1280
+  },
+  "raptor_turret_basic_t4_v2": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 1280
+  },
+  "raptor_turret_brood_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 200
+  },
+  "raptor_turret_brood_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 200
+  },
+  "raptor_turret_brood_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 200
+  },
+  "raptor_turret_brood_t4_v2": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 200
+  },
+  "raptor_turret_burrow_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 1600
+  },
+  "raptor_turret_emp_t2_v1": {
+    "cost": 170.0,
+    "hp": 1670,
+    "dam": 3600
+  },
+  "raptor_turret_emp_t3_v1": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 3600
+  },
+  "raptor_turret_emp_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 3600
+  },
+  "raptor_turret_emp_t4_v2": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 3600
+  },
+  "raptor_turret_meteor_t4_v1": {
+    "cost": 340.0,
+    "hp": 30000,
+    "dam": 30000
+  },
+  "raptor_worm_green": {
+    "cost": 340.0,
+    "hp": 11100,
+    "dam": 1
+  },
+  "raptorartillery": {
+    "cost": 601.33,
+    "hp": 2000,
+    "dam": 1280
+  },
+  "raptorh1b": {
+    "cost": 50.0,
+    "hp": 365,
+    "dam": 0
+  },
+  "raptorh5": {
+    "cost": 337.68,
+    "hp": 8900,
+    "dam": 1
+  },
+  "resourcecheat": {
+    "cost": 1.02,
+    "hp": 7900,
+    "dam": 0
+  },
+  "scavbeacon_t1": {
+    "cost": 583.33,
+    "hp": 5000,
+    "dam": 250
+  },
+  "scavbeacon_t2": {
+    "cost": 2916.67,
+    "hp": 25000,
+    "dam": 750
+  },
+  "scavbeacon_t3": {
+    "cost": 5833.33,
+    "hp": 50000,
+    "dam": 2500
+  },
+  "scavbeacon_t4": {
+    "cost": 11666.67,
+    "hp": 100000,
+    "dam": 12500
+  },
+  "scavempspawner": {
+    "cost": 10.17,
+    "hp": 11,
+    "dam": 50000
+  },
+  "scavengerdroppod": {
+    "cost": 10.17,
+    "hp": 11,
+    "dam": 0
+  },
+  "scavengerdroppodfriendly": {
+    "cost": 10.17,
+    "hp": 11,
+    "dam": 0
+  },
+  "scavsafeareabeacon": {
+    "cost": 11666.67,
+    "hp": 2800,
+    "dam": 0
+  },
+  "scavtacnukespawner": {
+    "cost": 10.17,
+    "hp": 11,
+    "dam": 2500
+  },
+  "volcano_projectile_unit": {
+    "cost": 101.67,
+    "hp": 1000000,
+    "dam": 100
+  },
+  "xmasball1_1": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball1_2": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball1_3": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball1_4": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball1_5": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball1_6": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_1": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_2": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_3": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_4": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_5": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  },
+  "xmasball2_6": {
+    "cost": 0.02,
+    "hp": 560000,
+    "dam": 0
+  }
+}
