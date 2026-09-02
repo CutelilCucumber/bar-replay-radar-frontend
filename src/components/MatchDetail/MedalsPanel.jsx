@@ -103,6 +103,9 @@ const RANK_META = {
   3: { color: "#d18a54" },
 };
 
+const DEFAULT_UNIT_IMAGE =
+  "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect fill='%23333' width='64' height='64'/%3E%3Ctext x='32' y='38' font-size='10' fill='%23666' text-anchor='middle' font-family='monospace'%3E?%3C/text%3E%3C/svg%3E";
+
 // Prefer the baked-in player color; fall back to the team's flat color so
 // records without color data still render (mirrors AwardsPanel).
 function displayColor(entry) {
@@ -238,6 +241,11 @@ function EntryMedia({ entry, rank }) {
         alt={entry.definitionName}
         className="medal-card-image"
         loading="lazy"
+        onError={(e) => {
+          if (e.currentTarget.dataset.fallback === "1") return;
+          e.currentTarget.dataset.fallback = "1";
+          e.currentTarget.src = DEFAULT_UNIT_IMAGE;
+        }}
       />
       <span className="medal-card-rank" style={{ color: rankColor }}>
         #{rank}

@@ -60,7 +60,7 @@ export function PlayersPanel({ match }) {
             />
           ) : (
             <div className="players-map-placeholder">
-              <span>{match.map}</span>
+              <span>Map not found</span>
             </div>
           )}
           {allPositions.map((p, i) => {
