@@ -17,6 +17,14 @@ import "./MedalsPanel.css";
 // fractional dmg from the source event data.
 const roundDamage = (v) => Math.round(v).toLocaleString();
 
+// Round a value up to 2 significant digits with trailing zeros so the bar
+// axis max is a clean number (e.g. 4005 -> 4100, 3778 -> 3800).
+const ceilTo2Sig = (v) => {
+  if (!v) return 0;
+  const place = Math.pow(10, Math.floor(Math.log10(v)) - 1);
+  return Number((Math.ceil(v / place) * place).toPrecision(6));
+};
+
 // Config-driven sections. Each section has ONE primary metric that drives the
 // single center bar chart (dmg/cost, dmg, dmg taken, dmg), plus the stats
 // that fill the right-hand table columns.
@@ -129,9 +137,10 @@ function MedalSection({ section, entries }) {
   const rows = entries.length;
 
   const max = Math.max(1, ...entries.map((e) => primary.value(e)));
+  const chartMax = ceilTo2Sig(max);
   const chartData = entries.map((entry) => {
     const raw = primary.value(entry);
-    return { entry, key: entry.unitID, value: raw / max, display: primary.format(raw) };
+    return { entry, key: entry.unitID, value: raw, display: primary.format(raw) };
   });
 
   const tableColumns = `minmax(70px, 1.2fr) repeat(${section.stats.length}, minmax(64px, 1fr))`;
@@ -194,7 +203,8 @@ function MedalSection({ section, entries }) {
               layout="vertical"
               margin={{ top: 4, right: 64, bottom: 4, left: 0 }}
             >
-              <XAxis type="number" domain={[0, 1]} hide />
+              
+              <XAxis type="number" domain={[0, chartMax]} orientation="top" />
               <YAxis type="category" dataKey="key" hide />
               <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={26}>
                 {chartData.map((d) => (

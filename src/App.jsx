@@ -28,6 +28,14 @@ export default function App() {
   const [expandedId, setExpandedId] = useState(null);
   const [spoiled, setSpoiled] = useState(false);
   const [loadCount, setLoadCount] = useState(0);
+  const [activeTab, setActiveTab] = useState(
+    () => localStorage.getItem("matchDetailTab") || "details",
+  );
+
+  const handleTabChange = useCallback((tab) => {
+    setActiveTab(tab);
+    localStorage.setItem("matchDetailTab", tab);
+  }, []);
 
   // --- single match lookup by ID ("find" mode) ---
   const [lookupId, setLookupId] = useState("");
@@ -76,7 +84,8 @@ export default function App() {
       if (filters.sortBy === "startTime") {
         return (new Date(a.startTime) - new Date(b.startTime)) * dir;
       }
-      if (filters.sortBy === "duration") return (a.durationMin - b.durationMin) * dir;
+      if (filters.sortBy === "durationMinutes")
+        return (a.durationMin - b.durationMin) * dir;
       return 0;
     });
 
@@ -164,7 +173,7 @@ export default function App() {
       return dir === "desc" ? "Highest Scored Games" : "Lowest Scored Games";
     case "startTime":
       return dir === "desc" ? "Recent Games" : "Oldest Games";
-    case "duration":
+    case "durationMinutes":
       return dir === "desc" ? "Longest Games" : "Shortest Games";
     default:
       return "Unknown Sorting";
@@ -306,6 +315,8 @@ export default function App() {
               onSave={() => handleSave(m)}
               onDelete={() => handleDelete(m.id)}
               spoiled={spoiled}
+              activeTab={activeTab}
+              onTabChange={handleTabChange}
             />
           ))
         )}

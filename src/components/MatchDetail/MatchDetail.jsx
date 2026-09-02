@@ -51,8 +51,13 @@ const CHARTS = [
   },
 ];
 
-export function MatchDetail({ match, analysis, flipGraphs }) {
-  const [activeTab, setActiveTab] = useState("details");
+export function MatchDetail({
+  match,
+  analysis,
+  flipGraphs,
+  activeTab,
+  onTabChange,
+}) {
   const [diffData, setDiffData] = useState(
     match.series.map((p) => ({
       t: p.t,
@@ -90,7 +95,7 @@ export function MatchDetail({ match, analysis, flipGraphs }) {
 
   return (
     <div className="detail-container">
-      <Tabs tabs={TABS} activeKey={activeTab} onChange={setActiveTab} />
+      <Tabs tabs={TABS} activeKey={activeTab} onChange={onTabChange} />
 
       {activeTab === "details" && (
         <>

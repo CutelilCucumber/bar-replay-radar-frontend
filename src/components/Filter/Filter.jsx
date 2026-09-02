@@ -273,7 +273,7 @@ export function MatchFilterSidebar({
                 >
                   <option value="score">Spectate score</option>
                   <option value="startTime">Most recent</option>
-                  <option value="duration">Longest game</option>
+                  <option value="durationMinutes">Longest game</option>
                 </select>
               </label>
               <label className="filter-field">

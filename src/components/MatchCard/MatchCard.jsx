@@ -25,6 +25,8 @@ export function MatchCard({
   onSave,
   onDelete,
   spoiled,
+  activeTab,
+  onTabChange,
 }) {
   const [showWinner, setShowWinner] = useState(false);
   const [showMilestones, setShowMilestones] = useState(false);
@@ -140,7 +142,15 @@ export function MatchCard({
           )}
         </div>
       </button>
-      {expanded && <MatchDetail match={match} analysis={analysis} flipGraphs={flipGraphs} />}
+      {expanded && (
+        <MatchDetail
+          match={match}
+          analysis={analysis}
+          flipGraphs={flipGraphs}
+          activeTab={activeTab}
+          onTabChange={onTabChange}
+        />
+      )}
     </article>
   );
 }
