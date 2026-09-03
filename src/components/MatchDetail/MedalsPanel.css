@@ -22,7 +22,6 @@
   border: 1px solid var(--color-line);
   border-radius: 10px;
   padding: 16px;
-  overflow-x: auto;
 }
 
 .medal-section-title {
@@ -35,19 +34,40 @@
   color: var(--color-ink);
 }
 
-/* Three columns: [image] [single center bar chart] [stat table]. Row height
-   is a single var so the chart can be sized to exactly rows * row-h and stay
-   inline with the adjacent image and table rows. */
+/* Three columns: [image] [mini bar] [stat table]. Every entry is a single
+   .medal-row grid item spanning all columns, pulling in the parent's tracks
+   via subgrid — so all three cells share exact column boundaries and a
+   hover background can cover the whole row band at once. */
 .medal-section-body {
   display: grid;
-  grid-template-columns: minmax(96px, auto) minmax(180px, 1.2fr) minmax(280px, 1.7fr);
-  column-gap: 24px;
+  grid-template-columns: minmax(0, auto) minmax(80px, 1.1fr) minmax(0, 1.9fr);
+  column-gap: 16px;
   --medal-row-h: 112px;
-  min-width: 640px;
+}
+
+.medal-row {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: subgrid;
+  align-items: center;
+  border-radius: 8px;
+}
+
+.medal-row:not(.medal-head-row) {
+  height: var(--medal-row-h);
+}
+
+.medal-head-row {
+  height: 28px;
+  align-items: stretch;
+}
+
+.medal-row:not(.medal-head-row):hover {
+  background: var(--color-panel2);
 }
 
 /* ---------------------------------------------------------------------
-   Column headers (row 1) — the chart and table headers cap their columns.
+   Column headers (head row) — the chart and table headers cap their columns.
 --------------------------------------------------------------------- */
 .medal-col-head {
   display: flex;
@@ -65,8 +85,6 @@
   text-transform: uppercase;
   color: var(--color-muted);
   border-bottom: 1px solid var(--color-line);
-  padding-top: -15px;
-  padding-bottom: -12px;
 }
 
 /* ---------------------------------------------------------------------
@@ -82,6 +100,7 @@
 .medal-card-media {
   position: relative;
   width: calc(var(--medal-row-h) - 12px);
+  max-width: 100%;
   height: calc(var(--medal-row-h) - 12px);
   border-radius: 10px;
   overflow: hidden;
@@ -143,25 +162,42 @@
 }
 
 /* ---------------------------------------------------------------------
-   Center bar chart (column 2) — one bar per entry, player-colored, with a
-   value + unit label at the bar end. Height is set inline to rows * row-h.
+   Mini bar column (column 2) — one CSS bar per entry, value label in a
+   fixed-width track so every bar's track starts and ends at the same x.
 --------------------------------------------------------------------- */
-.medal-chart {
+.medal-bar-cell {
+  display: grid;
+  grid-template-columns: 1fr 72px;
+  align-items: center;
+  gap: 8px;
   min-width: 0;
+}
+.medal-bar-track {
+  height: 26px;
+  min-width: 0;
+}
+.medal-bar-fill {
+  height: 100%;
+  border-radius: 0 4px 4px 0;
+}
+.medal-bar-value {
+  font-family: "Roboto Mono";
+  font-size: 10px;
+  color: var(--color-muted);
+  white-space: nowrap;
 }
 
 /* ---------------------------------------------------------------------
    Stat table (column 3) — one header row, one row per entry, numbers
-   right-aligned so columns read easily. Every row shares the same column
-   template so values line up across entries.
+   right-aligned so columns read easily. Grid (not flex) with a shared
+   --table-cols template so header titles align with every cell below.
 --------------------------------------------------------------------- */
 .medal-table-row {
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: var(--table-cols);
   align-items: center;
-  gap: 10px;
-  padding: 4px 8px;
-  border-radius: 6px;
+  gap: 8px;
+  min-width: 0;
 }
 .medal-table-head {
   width: 100%;
@@ -177,6 +213,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 .medal-table-head .medal-table-player,
 .medal-table-head .medal-table-stat {
@@ -190,11 +227,14 @@
 
 .medal-table-stat {
   font-family: "Roboto Mono";
-  font-size: 12px;
+  font-size: 11px;
   font-weight: 600;
   color: var(--color-ink);
   text-align: right;
   white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* Narrower screens: keep the 3-column layout but shrink rows a touch; the

@@ -1,13 +1,3 @@
-import { Fragment } from "react";
-import {
-  BarChart,
-  Bar,
-  Cell,
-  XAxis,
-  YAxis,
-  LabelList,
-  ResponsiveContainer,
-} from "recharts";
 import { COLORS } from "../../utils/globalVars.js";
 import { frameToTime, formatUnitName } from "../../utils/medals.js";
 import { getUnitImageUrl } from "../../utils/mapImages.js";
@@ -17,17 +7,10 @@ import "./MedalsPanel.css";
 // fractional dmg from the source event data.
 const roundDamage = (v) => Math.round(v).toLocaleString();
 
-// Round a value up to 2 significant digits with trailing zeros so the bar
-// axis max is a clean number (e.g. 4005 -> 4100, 3778 -> 3800).
-const ceilTo2Sig = (v) => {
-  if (!v) return 0;
-  const place = Math.pow(10, Math.floor(Math.log10(v)) - 1);
-  return Number((Math.ceil(v / place) * place).toPrecision(6));
-};
-
 // Config-driven sections. Each section has ONE primary metric that drives the
-// single center bar chart (dmg/cost, dmg, dmg taken, dmg), plus the stats
-// that fill the right-hand table columns.
+// center mini-bar column (dmg/cost, dmg, dmg taken, dmg), plus the stats that
+// fill the right-hand table. Units live in the column labels, not the cell
+// values, so the table stays narrow enough to fit without horizontal scroll.
 const SECTIONS = [
   {
     key: "damageEfficiency",
@@ -39,12 +22,12 @@ const SECTIONS = [
         const dmg = Number(e.damageDealt ?? 0);
         return cost > 0 ? dmg / cost : dmg;
       },
-      format: (v) => `${v.toFixed(1)} dmg/cost`,
+      format: (v) => `${v.toFixed(1)} dmg/c`,
     },
     stats: [
-      { key: "kills", label: "Kills", format: (v) => `${v}`, unit: "" },
-      { key: "metalCost", label: "Cost", format: (v) => v.toLocaleString(), unit: "m" },
-      { key: "damageDealt", label: "Damage", format: (v) => roundDamage(v), unit: "" },
+      { key: "kills", label: "Kills", format: (v) => `${v}` },
+      { key: "metalCost", label: "Cost (m)", format: (v) => v.toLocaleString() },
+      { key: "damageDealt", label: "Damage", format: (v) => roundDamage(v) },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
       { key: "destroyedFrame", label: "Died", format: (v) => frameToTime(v), fallback: "--:--" },
     ],
@@ -58,8 +41,8 @@ const SECTIONS = [
       format: (v) => `${roundDamage(v)} dmg`,
     },
     stats: [
-      { key: "kills", label: "Kills", format: (v) => `${v}`, unit: "kills" },
-      { key: "metalCost", label: "Cost", format: (v) => v.toLocaleString(), unit: "m" },
+      { key: "kills", label: "Kills", format: (v) => `${v}` },
+      { key: "metalCost", label: "Cost (m)", format: (v) => v.toLocaleString() },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
       { key: "destroyedFrame", label: "Died", format: (v) => frameToTime(v), fallback: "--:--" },
     ],
@@ -73,8 +56,8 @@ const SECTIONS = [
       format: (v) => roundDamage(v),
     },
     stats: [
-      { key: "totalDamageTaken", label: "Taken", format: (v) => roundDamage(v), unit: "dmg" },
-      { key: "damageDealt", label: "Dealt", format: (v) => roundDamage(v), unit: "dmg" },
+      { key: "totalDamageTaken", label: "Taken (dmg)", format: (v) => roundDamage(v) },
+      { key: "damageDealt", label: "Dealt (dmg)", format: (v) => roundDamage(v) },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
       { key: "destroyedFrame", label: "Died", format: (v) => frameToTime(v), fallback: "--:--" },
     ],
@@ -88,8 +71,8 @@ const SECTIONS = [
       format: (v) => `${roundDamage(v)} dmg`,
     },
     stats: [
-      { key: "kills", label: "Kills", format: (v) => `${v}`, unit: "kills" },
-      { key: "damageDealt", label: "Damage", format: (v) => roundDamage(v), unit: "" },
+      { key: "kills", label: "Kills", format: (v) => `${v}` },
+      { key: "damageDealt", label: "Damage", format: (v) => roundDamage(v) },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
       { key: "destroyedFrame", label: "Died", format: (v) => frameToTime(v), fallback: "--:--" },
     ],
@@ -115,7 +98,7 @@ function displayColor(entry) {
 
 function formatStatValue(stat, raw) {
   if (raw == null) return stat.fallback ?? "—";
-  return `${stat.format(raw)}${stat.unit ? ` ${stat.unit}` : ""}`;
+  return stat.format(raw);
 }
 
 export function MedalsPanel({ medals }) {
@@ -136,94 +119,67 @@ export function MedalsPanel({ medals }) {
 
 function MedalSection({ section, entries }) {
   const { primary } = section;
-  const rowHeight = "var(--medal-row-h)";
-  const rows = entries.length;
-
-  const max = Math.max(1, ...entries.map((e) => primary.value(e)));
-  const chartMax = ceilTo2Sig(max);
-  const chartData = entries.map((entry) => {
-    const raw = primary.value(entry);
-    return { entry, key: entry.unitID, value: raw, display: primary.format(raw) };
-  });
-
-  const tableColumns = `minmax(70px, 1.2fr) repeat(${section.stats.length}, minmax(64px, 1fr))`;
+  const barMax = Math.max(1, ...entries.map((e) => primary.value(e)));
+  const tableColumns = `minmax(48px, 1.1fr) repeat(${section.stats.length}, minmax(50px, 1fr))`;
 
   return (
     <section className="medal-section">
       <h5 className="medal-section-title">{section.label}</h5>
       {/*
-        Three columns: image column (1), ONE center bar chart (2) spanning all
-        entry rows, and the stat table (3). Every grid row is --medal-row-h tall
-        (except the 28px header row), and the chart is exactly rows * row-h so
-        its bars sit inline with the adjacent image and table rows.
+        Each row is one grid item spanning all three columns, using `subgrid`
+        to share the parent's column tracks. Image, mini bar, and stat cells
+        therefore stay pixel-aligned across every row, and hovering a row
+        highlights all three cells together.
       */}
-      <div
-        className="medal-section-body"
-        style={{ gridTemplateRows: `28px repeat(${rows}, ${rowHeight})` }}
-      >
-        <div className="medal-col-head medal-col-head-empty" style={{ gridColumn: 1, gridRow: 1 }} />
-        <div className="medal-col-head medal-chart-head" style={{ gridColumn: 2, gridRow: 1 }}>
-          {primary.label}
-        </div>
-        <div className="medal-col-head" style={{ gridColumn: 3, gridRow: 1 }}>
-          <div className="medal-table-row medal-table-head" style={{ gridTemplateColumns: tableColumns }}>
-            <span className="medal-table-player">Player</span>
-            {section.stats.map((s) => (
-              <span key={s.key} className="medal-table-stat">{s.label}</span>
-            ))}
-          </div>
-        </div>
-
-        {entries.map((entry, i) => (
-          <Fragment key={entry.unitID}>
-            <div className="medal-media" style={{ gridColumn: 1, gridRow: i + 2 }}>
-              <EntryMedia entry={entry} rank={i + 1} />
-            </div>
-            <div className="medal-table-row" style={{ gridColumn: 3, gridRow: i + 2 }}>
-              <span className="medal-table-player" style={{ color: displayColor(entry) }}>
-                {entry.playerName}
-              </span>
+      <div className="medal-section-body" style={{ "--table-cols": tableColumns }}>
+        <div className="medal-row medal-head-row">
+          <div className="medal-col-head medal-col-head-empty" />
+          <div className="medal-col-head medal-chart-head">{primary.label}</div>
+          <div className="medal-col-head">
+            <div className="medal-table-row medal-table-head">
+              <span className="medal-table-player">Player</span>
               {section.stats.map((s) => (
                 <span key={s.key} className="medal-table-stat">
-                  {formatStatValue(s, entry[s.key])}
+                  {s.label}
                 </span>
               ))}
             </div>
-          </Fragment>
-        ))}
-
-        <div
-          className="medal-chart"
-          style={{
-            gridColumn: 2,
-            gridRow: `2 / span ${rows}`,
-            height: `calc(${rowHeight} * ${rows})`,
-          }}
-        >
-          <ResponsiveContainer width="100%" height="100%">
-            <BarChart
-              data={chartData}
-              layout="vertical"
-              margin={{ top: 4, right: 64, bottom: 4, left: 0 }}
-            >
-              
-              <XAxis type="number" domain={[0, chartMax]} orientation="top" />
-              <YAxis type="category" dataKey="key" hide />
-              <Bar dataKey="value" radius={[0, 4, 4, 0]} barSize={26}>
-                {chartData.map((d) => (
-                  <Cell key={d.key} fill={displayColor(d.entry)} />
-                ))}
-                <LabelList
-                  dataKey="display"
-                  position="right"
-                  fill={COLORS.muted}
-                  fontSize={10}
-                  fontFamily="Roboto Mono"
-                />
-              </Bar>
-            </BarChart>
-          </ResponsiveContainer>
+          </div>
         </div>
+
+        {entries.map((entry, i) => {
+          const raw = primary.value(entry);
+          const pct = Math.max(1.5, (raw / barMax) * 100);
+          return (
+            <div className="medal-row" key={entry.unitID}>
+              <div className="medal-media">
+                <EntryMedia entry={entry} rank={i + 1} />
+              </div>
+              <div className="medal-bar-cell">
+                <div className="medal-bar-track">
+                  <div
+                    className="medal-bar-fill"
+                    style={{ width: `${pct}%`, background: displayColor(entry) }}
+                  />
+                </div>
+                <span className="medal-bar-value">{primary.format(raw)}</span>
+              </div>
+              <div className="medal-table-row">
+                <span
+                  className="medal-table-player"
+                  style={{ color: displayColor(entry) }}
+                >
+                  {entry.playerName}
+                </span>
+                {section.stats.map((s) => (
+                  <span key={s.key} className="medal-table-stat">
+                    {formatStatValue(s, entry[s.key])}
+                  </span>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
     </section>
   );

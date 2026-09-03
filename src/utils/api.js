@@ -1,6 +1,6 @@
 import { sessionCacheSet, findCachedMatch } from "./storage.js";
 
-const API_BASE_URL = "https://p01--bar-replay-radar--x27hr2kwdwcv.code.run";
+const API_BASE_URL = "https://replay.briansonderen.com";
 
 const LIST_FILTER_KEYS = [
   "limit",
