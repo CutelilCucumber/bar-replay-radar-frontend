@@ -32,16 +32,34 @@ export function PlayersPanel({ match }) {
     return <div className="panel-empty">Roster data not available for this match.</div>;
   }
 
-  const xs = allPositions.map((p) => p.x);
-  const zs = allPositions.map((p) => p.z);
-  const minX = Math.min(...xs);
-  const maxX = Math.max(...xs);
-  const minZ = Math.min(...zs);
-  const maxZ = Math.max(...zs);
-  const rangeX = maxX - minX || 1;
-  const rangeZ = maxZ - minZ || 1;
-  // Pad so the outermost dot + its label stay inside the clipped container.
-  const PAD = 8;
+  // Use map dimensions for normalization if available (mapWidth/mapHeight in elmos).
+  // This correctly positions commanders on the full map image.
+  // Fallback: normalize to the actual commander position range (old behavior).
+  const mapWidth = match.mapWidth;
+  const mapHeight = match.mapHeight;
+  const useMapDimensions = mapWidth && mapHeight && mapWidth > 0 && mapHeight > 0;
+
+  let minX, maxX, minZ, maxZ, rangeX, rangeZ, PAD;
+
+  if (useMapDimensions) {
+    minX = 0;
+    maxX = mapWidth;
+    minZ = 0;
+    maxZ = mapHeight;
+    rangeX = mapWidth;
+    rangeZ = mapHeight;
+    PAD = 2; // Smaller pad since we're using full map bounds
+  } else {
+    const xs = allPositions.map((p) => p.x);
+    const zs = allPositions.map((p) => p.z);
+    minX = Math.min(...xs);
+    maxX = Math.max(...xs);
+    minZ = Math.min(...zs);
+    maxZ = Math.max(...zs);
+    rangeX = maxX - minX || 1;
+    rangeZ = maxZ - minZ || 1;
+    PAD = 8;
+  }
 
   const mapImageUrl = getMapImageUrl(match.mapName, match.map);
 
