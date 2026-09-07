@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useMemo, useCallback } from "react";
-import { Loader2, RefreshCw, Search } from "lucide-react";
+import { Loader2, RefreshCw, Search, ChevronLeft, SlidersHorizontal } from "lucide-react";
 import { MatchCard } from "./components/MatchCard/MatchCard.jsx";
 import { MatchLoad } from "./components/ui/MatchLoad.jsx";
+import { InfoSidebar } from "./components/InfoSideBar/InfoSideBar.jsx";
 import {
   MatchFilterSidebar,
   DEFAULT_FILTERS,
@@ -26,6 +27,9 @@ export default function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [expandedId, setExpandedId] = useState(null);
+  const [scrollReq, setScrollReq] = useState(null); // { id, n } — n bumps so re-clicking the same match re-scrolls
+  const [infoOpen, setInfoOpen] = useState(false);
+  const [filterOpen, setFilterOpen] = useState(false);
   const [spoiled, setSpoiled] = useState(false);
   const [loadCount, setLoadCount] = useState(0);
   const [activeTab, setActiveTab] = useState(
@@ -167,6 +171,21 @@ export default function App() {
     }
   };
 
+  const handleSelectMatch = useCallback((matchId, tab) => {
+    if (!matchId) return;
+    setExpandedId(matchId);
+    if (tab) setActiveTab(tab);
+    setScrollReq((prev) => ({ id: matchId, n: (prev?.n ?? 0) + 1 }));
+  }, []);
+
+  useEffect(() => {
+    if (!scrollReq) return;
+    document
+      .getElementById(`match-${scrollReq.id}`)
+      ?.scrollIntoView({ behavior: "smooth", block: "center" });
+    setScrollReq(null);
+  }, [scrollReq]);
+
   const getTitle = (by, dir) => {
   switch (by) {
     case "score":
@@ -179,6 +198,24 @@ export default function App() {
       return "Unknown Sorting";
   }
 }
+
+  const ModeSwitch = ({ value, onChange }) => (
+    <div className="mode-switch">
+      {["saved", "scan", "find"].map((m) => (
+        <button
+          key={m}
+          onClick={() => onChange(m)}
+          className="mode-switch-button"
+          style={{
+            background: value === m ? COLORS.eco : "transparent",
+            color: value === m ? COLORS.bg : COLORS.ink,
+          }}
+        >
+          {m.toUpperCase()}
+        </button>
+      ))}
+    </div>
+  );
 
   return (
     <div className="page-container">
@@ -197,130 +234,138 @@ export default function App() {
           </div>
         </header>
 
-        <aside>
-          <MatchFilterSidebar
-            filters={filters}
-            onFiltersChange={setFilters}
-            onSearch={runLiveSearch}
-            loading={loading}
-            resultTotal={resultTotal}
-            spoiled={spoiled}
-            onSpoiledChange={setSpoiled}
-          />
-        </aside>
-
-        <div className="mode-switch">
-          {["saved", "scan", "find"].map((m) => (
-            <button
-              key={m}
-              onClick={() => setMode(m)}
-              className="mode-switch-button"
-              style={{
-                background: mode === m ? COLORS.eco : "transparent",
-                color: mode === m ? COLORS.bg : COLORS.ink,
-              }}
-            >
-              {m.toUpperCase()}
-            </button>
-          ))}
+        <div className="mobile-control-bar">
+          <button className="info-sidebar-toggle" onClick={() => setInfoOpen(true)}>
+            <ChevronLeft size={14} />
+            Overview
+          </button>
+          <ModeSwitch value={mode} onChange={setMode} />
+          <button className="filter-sidebar-toggle" onClick={() => setFilterOpen(true)}>
+            <SlidersHorizontal size={14} />
+            Filters
+          </button>
         </div>
 
-        {mode === "find" && (
-          <div className="option-container">
-            <input
-              type="text"
-              placeholder="Match ID"
-              value={lookupId}
-              onChange={(e) => setLookupId(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && runLookup()}
-              className="field-filter"
-              style={{ width: 280 }}
-            />
-            <button
-              onClick={() => runLookup()}
-              disabled={lookupLoading || !lookupId.trim()}
-              className="scan-button"
-            >
-              {lookupLoading ? (
-                <Loader2 size={14} className="spin" style={{ animation: "spin 1s linear infinite" }} />
-              ) : (
-                <Search size={14} />
-              )}
-              {lookupLoading ? "looking up…" : "Look up"}
-            </button>
-          </div>
-        )}
+        <div className="layout-grid">
+          <InfoSidebar
+            matches={filtered}
+            onSelectMatch={handleSelectMatch}
+            open={infoOpen}
+            onOpenChange={setInfoOpen}
+          />
 
-        {/* sort title */}
-        
-        {/* results */}
-        <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-          {error && <div className="no-matches">{error}</div>}
+          <div className="main-column">
+            <ModeSwitch value={mode} onChange={setMode} />
 
-          {matches.length > 0 &&mode !== "find" && (
-          <h2>{getTitle(filters.sortBy, filters.sortDir)}</h2>
-        )}
-
-          {mode === "find" ? (
-            <>
-              {lookupResult?.status === "processing" && (
-                <div className="no-matches">
-                  {lookupResult.message}
-                  <button
-                    onClick={() => runLookup(true)}
-                    className="scan-button"
-                    style={{ marginLeft: 10 }}
-                  >
-                    <RefreshCw size={14} /> Retry
-                  </button>
-                </div>
-              )}
-              {lookupResult?.status === "notFound" && (
-                <div className="no-matches">No match found with id "{lookupId}".</div>
-              )}
-              {(lookupResult?.status === "insufficientData" || lookupResult?.status === "error") && (
-                <div className="no-matches">
-                <a href={`https://gex.honu.pw/match/${lookupId}`} target="_blank">
-                  {lookupResult.error}. prioritize gex processing here
-                </a>
-                </div>
-              )}
-              {!lookupResult && !lookupLoading && (
-                <div className="no-matches">Enter a match ID above and click Look up.</div>
-              )}
-            </>
-          ) : (
-            filtered.length === 0 &&
-            !loading &&
-            !error && (
-              <div className="no-matches">
-                No matches to display — scan for matches or loosen filter settings
+            {mode === "find" && (
+              <div className="option-container">
+                <input
+                  type="text"
+                  placeholder="Match ID"
+                  value={lookupId}
+                  onChange={(e) => setLookupId(e.target.value)}
+                  onKeyDown={(e) => e.key === "Enter" && runLookup()}
+                  className="field-filter"
+                  style={{ width: 280 }}
+                />
+                <button
+                  onClick={() => runLookup()}
+                  disabled={lookupLoading || !lookupId.trim()}
+                  className="scan-button"
+                >
+                  {lookupLoading ? (
+                    <Loader2 size={14} className="spin" style={{ animation: "spin 1s linear infinite" }} />
+                  ) : (
+                    <Search size={14} />
+                  )}
+                  {lookupLoading ? "looking up…" : "Look up"}
+                </button>
               </div>
-            )
-          )}
+            )}
 
-          {loading ? (
-            <MatchLoad />
-        ) : (
-          
-          (mode === "find" ? matches : filtered).map((m) => (
-            
-            <MatchCard
-              key={m.id}
-              match={m}
-              analysis={m.analysis}
-              expanded={expandedId === m.id}
-              onToggle={() => setExpandedId(expandedId === m.id ? null : m.id)}
-              isSaved={isMatchSaved(m.id)}
-              onSave={() => handleSave(m)}
-              onDelete={() => handleDelete(m.id)}
+            <section style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+              {error && <div className="no-matches">{error}</div>}
+
+              {matches.length > 0 && mode !== "find" && (
+              <h2>{getTitle(filters.sortBy, filters.sortDir)}</h2>
+            )}
+
+              {mode === "find" ? (
+                <>
+                  {lookupResult?.status === "processing" && (
+                    <div className="no-matches">
+                      {lookupResult.message}
+                      <button
+                        onClick={() => runLookup(true)}
+                        className="scan-button"
+                        style={{ marginLeft: 10 }}
+                      >
+                        <RefreshCw size={14} /> Retry
+                      </button>
+                    </div>
+                  )}
+                  {lookupResult?.status === "notFound" && (
+                    <div className="no-matches">No match found with id "{lookupId}".</div>
+                  )}
+                  {(lookupResult?.status === "insufficientData" || lookupResult?.status === "error") && (
+                    <div className="no-matches">
+                    <a href={`https://gex.honu.pw/match/${lookupId}`} target="_blank">
+                      {lookupResult.error}. prioritize gex processing here
+                    </a>
+                    </div>
+                  )}
+                  {!lookupResult && !lookupLoading && (
+                    <div className="no-matches">Enter a match ID above and click Look up.</div>
+                  )}
+                </>
+              ) : (
+                filtered.length === 0 &&
+                !loading &&
+                !error && (
+                  <div className="no-matches">
+                    No matches to display — scan for matches or loosen filter settings
+                  </div>
+                )
+              )}
+
+              {loading ? (
+                <MatchLoad />
+            ) : (
+              
+              (mode === "find" ? matches : filtered).map((m) => (
+                <div id={`match-${m.id}`} key={m.id}>
+                  <MatchCard
+                    match={m}
+                    analysis={m.analysis}
+                    expanded={expandedId === m.id}
+                    onToggle={() => setExpandedId(expandedId === m.id ? null : m.id)}
+                    isSaved={isMatchSaved(m.id)}
+                    onSave={() => handleSave(m)}
+                    onDelete={() => handleDelete(m.id)}
+                    spoiled={spoiled}
+                    activeTab={activeTab}
+                    onTabChange={handleTabChange}
+                  />
+                </div>
+              ))
+            )}
+            </section>
+          </div>
+
+          <aside className="filter-sidebar-slot">
+            <MatchFilterSidebar
+              filters={filters}
+              onFiltersChange={setFilters}
+              onSearch={runLiveSearch}
+              loading={loading}
+              resultTotal={resultTotal}
               spoiled={spoiled}
-              activeTab={activeTab}
-              onTabChange={handleTabChange}
+              onSpoiledChange={setSpoiled}
+              open={filterOpen}
+              onOpenChange={setFilterOpen}
             />
-          ))
-        )}
-        </section>
+          </aside>
+        </div>
 
         <footer className="scoring-tooltip">
           a tool by{" "}

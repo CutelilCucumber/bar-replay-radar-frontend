@@ -3,10 +3,10 @@
   min-height: 100%;
   color: var(--color-ink);
   font-family: "Roboto Mono", "Inter", sans-serif;
-  padding: 0px 20px;
+  padding: 0;
 }
 .page {
-  max-width: 900px;
+  max-width: none;
   min-height: 100vh;
   margin: 0 auto;
   display: flex;
@@ -87,7 +87,6 @@ a {
   border-radius: 8px;
   padding: 3px;
   width: fit-content;
-  margin-bottom: 16px;
   font-family: "Share Tech Mono";
 }
 .mode-switch:hover {
@@ -101,4 +100,58 @@ a {
   font-size: 14px;
   font-weight: 600;
   letter-spacing: 0.03em;
+}
+
+/* mobile-only control bar: overview | mode | filters, space-between */
+.mobile-control-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 20px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--color-bg);
+}
+
+.layout-grid {
+  display: grid;
+  grid-template-columns: 360px 1fr 360px;
+  align-items: start;
+  gap: 20px;
+  padding: 0 20px;
+  flex: 1;
+}
+
+.main-column {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.filter-sidebar-slot {
+  position: sticky;
+  top: 20px;
+}
+
+/* [BREAKPOINT: 1024px] — must match the value in Filter.css and InfoSideBar.css */
+@media (max-width: 1024px) {
+  .mobile-control-bar {
+    display: flex;
+  }
+
+  .layout-grid {
+    grid-template-columns: 1fr;
+    padding: 0 20px;
+  }
+
+  .main-column .mode-switch {
+    display: none;
+  }
+
+  .filter-sidebar-slot {
+    position: static;
+  }
 }

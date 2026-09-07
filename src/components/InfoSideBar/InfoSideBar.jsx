@@ -1,7 +1,7 @@
 import { useMemo } from "react";
-import { MILESTONES } from "../../utils/awards.js";
-import { Trophy, Users, Award, Boxes } from "lucide-react";
-import "./InfoSidebar.css";
+import { MILESTONES } from "../../utils/milestones.js";
+import { Trophy, Users, Award, Boxes, X } from "lucide-react";
+import "./InfoSideBar.css";
 
 const TOP_N = 6;
 const MEDAL_RANK_POINTS = [3, 2, 1]; // 1st / 2nd / 3rd place weighting
@@ -12,42 +12,45 @@ const MEDAL_RANK_POINTS = [3, 2, 1]; // 1st / 2nd / 3rd place weighting
  * onSelectMatch(matchId) with a representative example match for that stat,
  * so clicking "Comeback ×5" jumps to the highest-scoring match that had it.
  */
-export function InfoSidebar({ matches, onSelectMatch }) {
+export function InfoSidebar({ matches, onSelectMatch, open, onOpenChange }) {
   const awardCounts = useMemo(() => summarizeAwards(matches), [matches]);
   const topPlayers = useMemo(() => summarizePlayerGames(matches), [matches]);
   const topAwardedPlayers = useMemo(() => summarizePlayerAwards(matches), [matches]);
   const topUnits = useMemo(() => summarizeUnitMedals(matches), [matches]);
 
-  const hasPlayerData = matches.some(
-    (m) => (m.teamA?.players?.length ?? 0) + (m.teamB?.players?.length ?? 0) > 0,
-  );
+  const hasPlayerData = matches.some((m) => getPlayers(m).length > 0);
   const hasMedalData = matches.some((m) => m.medals);
 
   return (
-    <aside className="info-sidebar">
-      <div className="info-sidebar-header">
-        <span>Batch Overview</span>
-        <span className="info-sidebar-count">{matches.length} matches</span>
-      </div>
+    <>
+      {open && <div className="info-sidebar-scrim" onClick={() => onOpenChange(false)} />}
 
-      <InfoSection icon={Trophy} title="Most common awards">
+      <aside className={`info-sidebar ${open ? "open" : ""}`}>
+        <div className="info-sidebar-header">
+          <span>Batch Overview</span>
+          <button className="info-sidebar-close" onClick={() => onOpenChange(false)} aria-label="Close batch overview">
+            <X size={16} />
+          </button>
+          <span className="info-sidebar-count">{matches.length} matches</span>
+        </div>
+
+      <InfoSection title="Most common Milestones">
         {awardCounts.length === 0 ? (
           <EmptyRow text="No matches loaded." />
         ) : (
           awardCounts.map((row) => (
             <InfoRow
               key={row.key}
-              icon={row.icon}
               color={row.color}
               label={row.label}
               value={`${row.count}×`}
-              onClick={row.exampleMatchId ? () => onSelectMatch(row.exampleMatchId) : null}
+              onClick={row.exampleMatchId ? () => onSelectMatch(row.exampleMatchId, "awards") : null}
             />
           ))
         )}
       </InfoSection>
 
-      <InfoSection icon={Users} title="Most games played">
+      <InfoSection title="Most games played">
         {!hasPlayerData ? (
           <EmptyRow text="Player roster data isn't available yet." />
         ) : topPlayers.length === 0 ? (
@@ -58,13 +61,13 @@ export function InfoSidebar({ matches, onSelectMatch }) {
               key={row.name}
               label={row.name}
               value={`${row.count} games`}
-              onClick={() => onSelectMatch(row.exampleMatchId)}
+              onClick={() => onSelectMatch(row.exampleMatchId, "players")}
             />
           ))
         )}
       </InfoSection>
 
-      <InfoSection icon={Award} title="Most awarded players">
+      <InfoSection title="Most awarded players">
         {!hasPlayerData ? (
           <EmptyRow text="Player roster data isn't available yet." />
         ) : topAwardedPlayers.length === 0 ? (
@@ -75,13 +78,13 @@ export function InfoSidebar({ matches, onSelectMatch }) {
               key={row.name}
               label={row.name}
               value={`${row.count} awards`}
-              onClick={() => onSelectMatch(row.exampleMatchId)}
+              onClick={() => onSelectMatch(row.exampleMatchId, "awards")}
             />
           ))
         )}
       </InfoSection>
 
-      <InfoSection icon={Boxes} title="Best-medaled units">
+      <InfoSection title="Best-medaled units">
         {!hasMedalData ? (
           <EmptyRow text="Medal data isn't available for these matches yet." />
         ) : topUnits.length === 0 ? (
@@ -92,20 +95,21 @@ export function InfoSidebar({ matches, onSelectMatch }) {
               key={row.definitionName}
               label={row.definitionName}
               value={`${row.points} pts`}
-              onClick={() => onSelectMatch(row.exampleMatchId)}
+              onClick={() => onSelectMatch(row.exampleMatchId, "medals")}
             />
           ))
         )}
       </InfoSection>
     </aside>
+  </>
   );
 }
 
-function InfoSection({ icon: Icon, title, children }) {
+function InfoSection({ title, children }) {
   return (
     <section className="info-section">
       <h5 className="info-section-title">
-        <Icon size={13} /> {title}
+         {title}
       </h5>
       <div className="info-section-rows">{children}</div>
     </section>
@@ -160,9 +164,8 @@ function summarizeAwards(matches) {
 function summarizePlayerGames(matches) {
   const tally = new Map(); // playerName -> { count, exampleMatchId }
   for (const m of matches) {
-    const players = [...(m.teamA?.players ?? []), ...(m.teamB?.players ?? [])];
-    for (const p of players) {
-      const name = p.name ?? p.username;
+    for (const p of getPlayers(m)) {
+      const name = p.playerName;
       if (!name) continue;
       const entry = tally.get(name) ?? { count: 0, exampleMatchId: m.id };
       entry.count += 1;
@@ -185,30 +188,94 @@ function summarizePlayerGames(matches) {
  * that's decided — see agent instructions doc.
  */
 function summarizePlayerAwards(matches) {
-  const tally = new Map();
+  // Prefer real per-player award wins (same source as the Awards tab) so each
+  // player's row jumps to the match where they personally earned the most
+  // awards. Fall back to placeholder match-level milestone attribution only
+  // when no award data is present at all.
+  if (matches.some((m) => m.medals?.awards)) {
+    return summarizePlayerAwardWins(matches);
+  }
+  return summarizePlayerAwardsMilestones(matches);
+}
+
+const AWARD_KEYS = ["resourceDestroyer", "combatMaster", "damageEfficiency", "traitor"];
+const SUB_AWARD_KEYS = ["mostResources", "mostDamageTaken"];
+
+function summarizePlayerAwardWins(matches) {
+  const tally = new Map(); // name -> { count, bestMatch: { id, count } }
   for (const m of matches) {
-    const awardCount = MILESTONES.reduce((sum, ms) => sum + (m[ms.key] ? 1 : 0), 0);
-    if (awardCount === 0) continue;
-    const players = [...(m.teamA?.players ?? []), ...(m.teamB?.players ?? [])];
-    for (const p of players) {
-      const name = p.name ?? p.username;
-      if (!name) continue;
-      const entry = tally.get(name) ?? { count: 0, exampleMatchId: m.id };
-      entry.count += awardCount;
+    const awards = m.medals?.awards;
+    if (!awards) continue;
+    const perPlayer = new Map(); // name -> awards won in THIS match
+    const credit = (entry) => {
+      const name = entry?.playerName;
+      if (name) perPlayer.set(name, (perPlayer.get(name) ?? 0) + 1);
+    };
+    if (awards.goldenCow) credit(awards.goldenCow);
+    for (const key of AWARD_KEYS) credit(awards[key]?.winner);
+    for (const key of SUB_AWARD_KEYS) credit(awards.subAwards?.[key]);
+    for (const [name, count] of perPlayer) {
+      const entry = tally.get(name) ?? { count: 0, bestMatch: null };
+      entry.count += count;
+      if (!entry.bestMatch || count > entry.bestMatch.count) {
+        entry.bestMatch = { id: m.id, count };
+      }
       tally.set(name, entry);
     }
   }
   return [...tally.entries()]
-    .map(([name, entry]) => ({ name, count: entry.count, exampleMatchId: entry.exampleMatchId }))
+    .map(([name, entry]) => ({ name, count: entry.count, exampleMatchId: entry.bestMatch?.id }))
     .sort((a, b) => b.count - a.count)
     .slice(0, TOP_N);
 }
 
+/**
+ * PLACEHOLDER ATTRIBUTION: milestones are computed per MATCH, not per
+ * player, so this credits every flagged milestone in a match to every player
+ * who played in it (both teams). Only used when no per-player award data
+ * exists.
+ */
+function summarizePlayerAwardsMilestones(matches) {
+  const tally = new Map();
+  for (const m of matches) {
+    const awardCount = MILESTONES.reduce((sum, ms) => sum + (m[ms.key] ? 1 : 0), 0);
+    if (awardCount === 0) continue;
+    for (const p of getPlayers(m)) {
+      const name = p.playerName;
+      if (!name) continue;
+      const entry = tally.get(name) ?? { count: 0, bestMatch: null };
+      entry.count += awardCount;
+      if (!entry.bestMatch || awardCount > entry.bestMatch.awardCount) {
+        entry.bestMatch = { id: m.id, awardCount };
+      }
+      tally.set(name, entry);
+    }
+  }
+  return [...tally.entries()]
+    .map(([name, entry]) => ({ name, count: entry.count, exampleMatchId: entry.bestMatch?.id }))
+    .sort((a, b) => b.count - a.count)
+    .slice(0, TOP_N);
+}
+
+/**
+ * Roster comes from each team's start positions (same source as the Players
+ * tab) rather than a baked-in `players` array, which is empty on list
+ * responses.
+ */
+function getPlayers(match) {
+  const a = match.teamA?.facts?.startPositions ?? [];
+  const b = match.teamB?.facts?.startPositions ?? [];
+  return [...a, ...b];
+}
+
 function summarizeUnitMedals(matches) {
   const tally = new Map(); // definitionName -> { points, exampleMatchId, bestRank }
+  const medalSections = ["damageEfficiency", "damageDealt", "damageTaken", "veteranUnits"];
   for (const m of matches) {
     if (!m.medals) continue;
-    for (const section of Object.values(m.medals)) {
+    for (const sectionKey of medalSections) {
+      const section = m.medals[sectionKey];
+      if (!Array.isArray(section)) continue;
       section.forEach((entry, i) => {
         const points = MEDAL_RANK_POINTS[i] ?? 0;
         if (points === 0) return;

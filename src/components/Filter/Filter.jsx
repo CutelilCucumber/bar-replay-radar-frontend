@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { COLORS } from "../../utils/globalVars.js";
 import { MILESTONES, MILESTONE_CATEGORIES } from "../../utils/milestones.js";
 import { MAPLIST } from "../../utils/matchList.js";
 import {
-  SlidersHorizontal,
   X,
   RefreshCw,
   Loader2,
@@ -51,11 +49,9 @@ export function MatchFilterSidebar({
   resultTotal = null,
   spoiled,
   onSpoiledChange,
+  open,
+  onOpenChange,
 }) {
-  const [open, setOpen] = useState(false);
-
-  const activeFilterCount = countActiveFilters(filters);
-
   function updateFilter(key, value) {
     onFiltersChange({ ...filters, [key]: value });
   }
@@ -76,27 +72,17 @@ export function MatchFilterSidebar({
 
   function handleSearch() {
     onSearch();
-    setOpen(false);
+    onOpenChange(false);
   }
 
   return (
     <>
-      <button
-        className="filter-sidebar-toggle"
-        onClick={() => setOpen(true)}
-        aria-expanded={open}
-      >
-        <SlidersHorizontal size={14} />
-        Filters
-        {activeFilterCount > 0 && <span className="filter-count-badge">{activeFilterCount}</span>}
-      </button>
-
-      {open && <div className="filter-sidebar-scrim" onClick={() => setOpen(false)} />}
+      {open && <div className="filter-sidebar-scrim" onClick={() => onOpenChange(false)} />}
 
       <aside className={`filter-sidebar ${open ? "open" : ""}`}>
         <div className="filter-sidebar-header">
           <span>Search Filters</span>
-          <button className="filter-sidebar-close" onClick={() => setOpen(false)}>
+          <button className="filter-sidebar-close" onClick={() => onOpenChange(false)}>
             <X size={16} />
           </button>
         </div>
@@ -381,16 +367,6 @@ export function MatchFilterSidebar({
       </aside>
     </>
   );
-}
-
-function countActiveFilters(filters) {
-  let count = 0;
-  for (const key of Object.keys(DEFAULT_FILTERS)) {
-    if (key === "milestones" || key === "sortBy" || key === "sortDir" || key === "limit" || key === "offset") continue;
-    if (filters[key] !== undefined) count++;
-  }
-  count += Object.keys(filters.milestones ?? {}).length;
-  return count;
 }
 
 const GAMEMODES = [
