@@ -29,6 +29,10 @@
   --color-combat: #e2543d;
   --color-upset: #d9a441;
   --color-close: #6fa8dc;
+
+  /* Height of the page title/header bar (image 100px + 22px bottom margin)
+     so the sidebars can size themselves as: title + sidebar = 100vh. */
+  --titlebar-h: 122px;
 }
 
 html,

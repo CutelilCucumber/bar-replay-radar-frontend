@@ -87,9 +87,30 @@ export function MatchFilterSidebar({
           </button>
         </div>
 
+        <div className="filter-sidebar-actions filter-sidebar-actions-top">
+          <button onClick={handleReset} className="filter-reset-button" disabled={loading}>
+            <RotateCcw size={13} />
+            Reset
+          </button>
+          <button onClick={handleSearch} disabled={loading} className="scan-button">
+            {loading ? (
+              <Loader2 size={14} className="spin" style={{ animation: "spin 1s linear infinite" }} />
+            ) : (
+              <RefreshCw size={14} />
+            )}
+            {loading ? "working…" : "Search"}
+          </button>
+        </div>
+
         <div className="filter-sidebar-body">
           <section className="filter-section">
-            <h4 className="filter-section-title">Match criteria</h4>
+            {resultTotal != null ? (
+              <h4 className="filter-section-title" style={{ color: COLORS.eco }}>
+                {resultTotal} matches with this criteria
+              </h4>
+            ) : (
+              <h4 className="filter-section-title">Match criteria</h4>
+            )}
 
             <label className="filter-field">
               Gamemode
@@ -341,28 +362,6 @@ export function MatchFilterSidebar({
               </select>
             </label>
           </section>
-        </div>
-
-        <div className="filter-sidebar-footer">
-          {resultTotal != null && (
-            <span className="filter-result-count" style={{ color: COLORS.eco }}>
-              {resultTotal} matches match this criteria
-            </span>
-          )}
-          <div className="filter-sidebar-actions">
-            <button onClick={handleReset} className="filter-reset-button" disabled={loading}>
-              <RotateCcw size={13} />
-              Reset
-            </button>
-            <button onClick={handleSearch} disabled={loading} className="scan-button">
-              {loading ? (
-                <Loader2 size={14} className="spin" style={{ animation: "spin 1s linear infinite" }} />
-              ) : (
-                <RefreshCw size={14} />
-              )}
-              {loading ? "working…" : "Search"}
-            </button>
-          </div>
         </div>
       </aside>
     </>

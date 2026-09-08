@@ -1,22 +1,91 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { MILESTONES } from "../../utils/milestones.js";
-import { Trophy, Users, Award, Boxes, X } from "lucide-react";
+import { formatUnitName } from "../../utils/medals.js";
+import {
+  Flag,
+  Users,
+  Medal,
+  ChevronRight,
+  ChevronDown,
+  X,
+} from "lucide-react";
 import "./InfoSideBar.css";
 
 const TOP_N = 6;
 const MEDAL_RANK_POINTS = [3, 2, 1]; // 1st / 2nd / 3rd place weighting
 
+const AWARD_KEYS = ["resourceDestroyer", "combatMaster", "damageEfficiency", "traitor"];
+const SUB_AWARD_KEYS = ["mostResources", "mostDamageTaken"];
+
+// The three "Best awards" leaves map to a single AwardsPanel award each. The
+// description comes from awardDetails.json; the award key drives aggregation.
+const BEST_AWARD_SECTIONS = [
+  { awardKey: "resourceDestroyer", label: "Destroying enemy eco" },
+  { awardKey: "combatMaster", label: "Destroying enemy units & defences" },
+  { awardKey: "damageEfficiency", label: "Efficient use of resources" },
+];
+
+// Mirrors MedalsPanel.SECTIONS primary metrics so each "Best medals" leaf
+// compares the same value shown in the match detail panel.
+const BEST_MEDAL_SECTIONS = [
+  {
+    key: "damageEfficiency",
+    label: "Damage Efficiency",
+    value: (e) => {
+      const cost = Number(e.metalCost ?? 0);
+      const dmg = Number(e.damageDealt ?? 0);
+      return cost > 0 ? dmg / cost : dmg;
+    },
+    format: (v) => `${v.toFixed(1)} dmg/c`,
+  },
+  {
+    key: "damageDealt",
+    label: "Damage Dealt",
+    value: (e) => Number(e.damageDealt ?? 0),
+    format: (v) => `${Math.round(v).toLocaleString()} dmg`,
+  },
+  {
+    key: "damageTaken",
+    label: "Damage Taken",
+    value: (e) => Number(e.totalDamageTaken ?? 0),
+    format: (v) => Math.round(v).toLocaleString(),
+  },
+  {
+    key: "veteranUnits",
+    label: "Veteran Units",
+    value: (e) => Number(e.damageDealt ?? 0),
+    format: (v) => `${Math.round(v).toLocaleString()} dmg`,
+  },
+];
+
 /**
  * Left-docked, always-visible aggregate panel over whatever match list is
- * currently filtered/displayed. Every row is clickable and calls
- * onSelectMatch(matchId) with a representative example match for that stat,
- * so clicking "Comeback ×5" jumps to the highest-scoring match that had it.
+ * currently filtered/displayed. Categories are collapsible and nest. Leaf rows
+ * call onSelectMatch(matchId) with a representative example match for that
+ * stat, so clicking a row jumps to the match where it happened.
  */
 export function InfoSidebar({ matches, onSelectMatch, open, onOpenChange }) {
   const awardCounts = useMemo(() => summarizeAwards(matches), [matches]);
   const topPlayers = useMemo(() => summarizePlayerGames(matches), [matches]);
   const topAwardedPlayers = useMemo(() => summarizePlayerAwards(matches), [matches]);
   const topUnits = useMemo(() => summarizeUnitMedals(matches), [matches]);
+  const bestAwards = useMemo(
+    () =>
+      Object.fromEntries(
+        BEST_AWARD_SECTIONS.map((s) => [
+          s.awardKey,
+          summarizeBestAward(matches, s.awardKey),
+        ]),
+      ),
+    [matches],
+  );
+  const bestMedals = useMemo(
+    () =>
+      Object.fromEntries(
+        BEST_MEDAL_SECTIONS.map((s) => [s.key, summarizeBestMedalSection(matches, s)]),
+      ),
+    [matches],
+  );
 
   const hasPlayerData = matches.some((m) => getPlayers(m).length > 0);
   const hasMedalData = matches.some((m) => m.medals);
@@ -34,84 +103,151 @@ export function InfoSidebar({ matches, onSelectMatch, open, onOpenChange }) {
           <span className="info-sidebar-count">{matches.length} matches</span>
         </div>
 
-      <InfoSection title="Most common Milestones">
-        {awardCounts.length === 0 ? (
-          <EmptyRow text="No matches loaded." />
-        ) : (
-          awardCounts.map((row) => (
-            <InfoRow
-              key={row.key}
-              color={row.color}
-              label={row.label}
-              value={`${row.count}×`}
-              onClick={row.exampleMatchId ? () => onSelectMatch(row.exampleMatchId, "awards") : null}
-            />
-          ))
-        )}
-      </InfoSection>
+        <Collapsible title="Milestones" icon={<Flag size={13} />} defaultOpen>
+          {awardCounts.length === 0 ? (
+            <EmptyRow text="No matches loaded." />
+          ) : (
+            awardCounts.map((row) => (
+              <InfoRow
+                key={row.key}
+                color={row.color}
+                label={row.label}
+                value={`${row.count}×`}
+                onClick={row.exampleMatchId ? () => onSelectMatch(row.exampleMatchId, "awards") : null}
+              />
+            ))
+          )}
+        </Collapsible>
 
-      <InfoSection title="Most games played">
-        {!hasPlayerData ? (
-          <EmptyRow text="Player roster data isn't available yet." />
-        ) : topPlayers.length === 0 ? (
-          <EmptyRow text="No player data in this batch." />
-        ) : (
-          topPlayers.map((row) => (
-            <InfoRow
-              key={row.name}
-              label={row.name}
-              value={`${row.count} games`}
-              onClick={() => onSelectMatch(row.exampleMatchId, "players")}
-            />
-          ))
-        )}
-      </InfoSection>
+        <Collapsible title="Players" icon={<Users size={13} />}>
+          <Collapsible nested title="Most played games">
+            {!hasPlayerData ? (
+              <EmptyRow text="Player roster data isn't available yet." />
+            ) : topPlayers.length === 0 ? (
+              <EmptyRow text="No player data in this batch." />
+            ) : (
+              topPlayers.map((row) => (
+                <InfoRow
+                  key={row.name}
+                  label={row.name}
+                  value={`${row.count} games`}
+                  onClick={() => onSelectMatch(row.exampleMatchId, "players")}
+                />
+              ))
+            )}
+          </Collapsible>
 
-      <InfoSection title="Most awarded players">
-        {!hasPlayerData ? (
-          <EmptyRow text="Player roster data isn't available yet." />
-        ) : topAwardedPlayers.length === 0 ? (
-          <EmptyRow text="No awards in this batch." />
-        ) : (
-          topAwardedPlayers.map((row) => (
-            <InfoRow
-              key={row.name}
-              label={row.name}
-              value={`${row.count} awards`}
-              onClick={() => onSelectMatch(row.exampleMatchId, "awards")}
-            />
-          ))
-        )}
-      </InfoSection>
+          <Collapsible nested title="Most awarded players">
+            {!hasPlayerData ? (
+              <EmptyRow text="Player roster data isn't available yet." />
+            ) : topAwardedPlayers.length === 0 ? (
+              <EmptyRow text="No awards in this batch." />
+            ) : (
+              topAwardedPlayers.map((row) => (
+                <InfoRow
+                  key={row.name}
+                  label={row.name}
+                  value={`${row.count} awards`}
+                  onClick={() => onSelectMatch(row.exampleMatchId, "awards")}
+                />
+              ))
+            )}
+          </Collapsible>
 
-      <InfoSection title="Best-medaled units">
-        {!hasMedalData ? (
-          <EmptyRow text="Medal data isn't available for these matches yet." />
-        ) : topUnits.length === 0 ? (
-          <EmptyRow text="No medals in this batch." />
-        ) : (
-          topUnits.map((row) => (
-            <InfoRow
-              key={row.definitionName}
-              label={row.definitionName}
-              value={`${row.points} pts`}
-              onClick={() => onSelectMatch(row.exampleMatchId, "medals")}
-            />
-          ))
-        )}
-      </InfoSection>
-    </aside>
-  </>
+          <Collapsible nested title="Best awards">
+            {BEST_AWARD_SECTIONS.map((section) => (
+              <Collapsible key={section.awardKey} nested title={section.label}>
+                <AwardSectionRows
+                  rows={bestAwards[section.awardKey]}
+                  awardKey={section.awardKey}
+                  hasPlayerData={hasPlayerData}
+                  onSelectMatch={onSelectMatch}
+                />
+              </Collapsible>
+            ))}
+          </Collapsible>
+        </Collapsible>
+
+        <Collapsible title="Medals" icon={<Medal size={13} />}>
+          <Collapsible nested title="Most medaled">
+            {!hasMedalData ? (
+              <EmptyRow text="Medal data isn't available for these matches yet." />
+            ) : topUnits.length === 0 ? (
+              <EmptyRow text="No medals in this batch." />
+            ) : (
+              topUnits.map((row) => (
+                <InfoRow
+                  key={row.definitionName}
+                  label={formatUnitName(row.definitionName)}
+                  value={`${row.points} pts`}
+                  onClick={() => onSelectMatch(row.exampleMatchId, "medals")}
+                />
+              ))
+            )}
+          </Collapsible>
+
+          <Collapsible nested title="Best medals">
+            {BEST_MEDAL_SECTIONS.map((section) => (
+              <Collapsible key={section.key} nested title={section.label}>
+                {!hasMedalData ? (
+                  <EmptyRow text="Medal data isn't available for these matches yet." />
+                ) : bestMedals[section.key].length === 0 ? (
+                  <EmptyRow text="No medals in this batch." />
+                ) : (
+                  bestMedals[section.key].map((row) => (
+                    <InfoRow
+                      key={row.key}
+                      label={formatUnitName(row.definitionName)}
+                      value={row.value}
+                      onClick={() => onSelectMatch(row.exampleMatchId, "medals")}
+                    />
+                  ))
+                )}
+              </Collapsible>
+            ))}
+          </Collapsible>
+        </Collapsible>
+
+        {/* TODO(factions): Faction data isn't tracked against players yet, so the
+            Factions category stays hidden. Once player->faction is available,
+            add a <Collapsible title="Factions" icon={<Boxes size={13} />}>
+            here with most-common faction + per-player faction breakdown. */}
+      </aside>
+    </>
   );
 }
 
-function InfoSection({ title, children }) {
+function AwardSectionRows({ rows, awardKey, hasPlayerData, onSelectMatch }) {
+  if (!hasPlayerData) {
+    return <EmptyRow text="Player roster data isn't available yet." />;
+  }
+  if (rows.length === 0) {
+    return <EmptyRow text="No awards in this batch." />;
+  }
+  return rows.map((row) => (
+    <InfoRow
+      key={row.name}
+      label={row.name}
+      value={formatAwardValue(awardKey, row.value)}
+      onClick={() => onSelectMatch(row.exampleMatchId, "awards")}
+    />
+  ));
+}
+
+function Collapsible({ title, icon, children, nested = false, defaultOpen = false }) {
+  const [open, setOpen] = useState(defaultOpen);
   return (
-    <section className="info-section">
-      <h5 className="info-section-title">
-         {title}
-      </h5>
-      <div className="info-section-rows">{children}</div>
+    <section className={`info-section ${nested ? "info-section-nested" : ""}`}>
+      <button
+        className="info-collapse-toggle"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        {icon}
+        <span className="info-collapse-label">{title}</span>
+        {open ? <ChevronDown size={14} /> : <ChevronRight size={14} />}
+      </button>
+      {open && <div className="info-section-rows">{children}</div>}
     </section>
   );
 }
@@ -128,6 +264,12 @@ function InfoRow({ icon: Icon, color, label, value, onClick }) {
 
 function EmptyRow({ text }) {
   return <div className="info-row-empty">{text}</div>;
+}
+
+function formatAwardValue(awardKey, value) {
+  if (value == null) return "—";
+  if (awardKey === "damageEfficiency") return value.toFixed(2);
+  return Math.round(value).toLocaleString();
 }
 
 // --- aggregation helpers -------------------------------------------------
@@ -188,18 +330,11 @@ function summarizePlayerGames(matches) {
  * that's decided — see agent instructions doc.
  */
 function summarizePlayerAwards(matches) {
-  // Prefer real per-player award wins (same source as the Awards tab) so each
-  // player's row jumps to the match where they personally earned the most
-  // awards. Fall back to placeholder match-level milestone attribution only
-  // when no award data is present at all.
   if (matches.some((m) => m.medals?.awards)) {
     return summarizePlayerAwardWins(matches);
   }
   return summarizePlayerAwardsMilestones(matches);
 }
-
-const AWARD_KEYS = ["resourceDestroyer", "combatMaster", "damageEfficiency", "traitor"];
-const SUB_AWARD_KEYS = ["mostResources", "mostDamageTaken"];
 
 function summarizePlayerAwardWins(matches) {
   const tally = new Map(); // name -> { count, bestMatch: { id, count } }
@@ -255,6 +390,54 @@ function summarizePlayerAwardsMilestones(matches) {
     .map(([name, entry]) => ({ name, count: entry.count, exampleMatchId: entry.bestMatch?.id }))
     .sort((a, b) => b.count - a.count)
     .slice(0, TOP_N);
+}
+
+/**
+ * Best single performance for one award across the batch (winner only).
+ * Ranks players by their best value for that award; each row jumps to the
+ * match where that best value happened.
+ */
+function summarizeBestAward(matches, awardKey) {
+  const tally = new Map(); // playerName -> { value, exampleMatchId }
+  for (const m of matches) {
+    const winner = m.medals?.awards?.[awardKey]?.winner;
+    if (!winner?.playerName) continue;
+    const name = winner.playerName;
+    const value = Number(winner.value ?? 0);
+    const entry = tally.get(name) ?? { value: -Infinity, exampleMatchId: m.id };
+    if (value > entry.value) {
+      entry.value = value;
+      entry.exampleMatchId = m.id;
+    }
+    tally.set(name, entry);
+  }
+  return [...tally.entries()]
+    .map(([name, entry]) => ({ name, value: entry.value, exampleMatchId: entry.exampleMatchId }))
+    .sort((a, b) => b.value - a.value)
+    .slice(0, TOP_N);
+}
+
+/**
+ * Best entries for one medal section across the batch, ranked by that
+ * section's primary metric. Rows are labeled by unit display name.
+ */
+function summarizeBestMedalSection(matches, section) {
+  const rows = [];
+  for (const m of matches) {
+    const entries = m.medals?.[section.key];
+    if (!Array.isArray(entries)) continue;
+    for (const entry of entries) {
+      const raw = section.value(entry);
+      rows.push({
+        key: `${m.id}:${entry.unitID ?? entry.definitionName}`,
+        definitionName: entry.definitionName,
+        value: section.format(raw),
+        raw,
+        exampleMatchId: m.id,
+      });
+    }
+  }
+  return rows.sort((a, b) => b.raw - a.raw).slice(0, TOP_N);
 }
 
 /**

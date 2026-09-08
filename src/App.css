@@ -16,6 +16,7 @@
   display: flex;
   align-items: center;
   gap: 12px;
+  height: 100px;
   margin-bottom: 22px;
   background: var(--color-panel2);
   border: 1px solid var(--color-line);
@@ -133,7 +134,7 @@ a {
 
 .filter-sidebar-slot {
   position: sticky;
-  top: 20px;
+  top: var(--titlebar-h);
 }
 
 /* [BREAKPOINT: 1024px] — must match the value in Filter.css and InfoSideBar.css */
@@ -153,5 +154,15 @@ a {
 
   .filter-sidebar-slot {
     position: static;
+  }
+}
+
+/* On desktop, keep the title bar pinned so the sidebars can always fill the
+   space from below it to the bottom of the viewport (no gap while scrolling). */
+@media (min-width: 1024px) {
+  .header-container {
+    position: sticky;
+    top: 0;
+    z-index: 15;
   }
 }

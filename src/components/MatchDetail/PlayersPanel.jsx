@@ -61,6 +61,21 @@ export function PlayersPanel({ match }) {
     PAD = 8;
   }
 
+  console.log("[PlayersPanel diagnostics]", {
+    matchId: match.id,
+    map: match.map,
+    mapDataWidth: match.mapData?.width ?? "n/a",
+    mapDataHeight: match.mapData?.height ?? "n/a",
+    mapWidth,
+    mapHeight,
+    useMapDimensions,
+    branch: useMapDimensions ? "map-dimensions" : "fallback",
+    nPlayers: allPositions.length,
+    posExtentX: useMapDimensions ? null : { minX, maxX },
+    posExtentZ: useMapDimensions ? null : { minZ, maxZ },
+    positions: allPositions.map((p) => ({ name: p.playerName, x: p.x, z: p.z })),
+  });
+
   const mapImageUrl = getMapImageUrl(match.mapName, match.map);
 
   return (
@@ -68,7 +83,13 @@ export function PlayersPanel({ match }) {
     
     <div className="players-panel">
       <div className="players-map-side">
-        <div className="players-map-container">
+        <div
+          className="players-map-container"
+          style={{
+            aspectRatio:
+              mapWidth && mapHeight ? `${mapWidth} / ${mapHeight}` : undefined,
+          }}
+        >
           {!imgError ? (
             <img
               src={mapImageUrl}
