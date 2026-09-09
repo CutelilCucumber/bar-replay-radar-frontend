@@ -1,6 +1,7 @@
 import { COLORS } from "../../utils/globalVars.js";
 import { frameToTime, formatUnitName } from "../../utils/medals.js";
 import { getUnitImageUrl } from "../../utils/mapImages.js";
+import unitStats from "../../utils/unit-stats.json";
 import "./MedalsPanel.css";
 
 // Damage values are rounded to the nearest integer so the page never shows
@@ -41,6 +42,7 @@ const SECTIONS = [
       format: (v) => `${roundDamage(v)} dmg`,
     },
     stats: [
+      { key: "attackDmg", label: "Attack Dmg", value: (e) => unitStats[e.definitionName]?.dam, format: (v) => v?.toLocaleString() ?? "—" },
       { key: "kills", label: "Kills", format: (v) => `${v}` },
       { key: "metalCost", label: "Cost (m)", format: (v) => v.toLocaleString() },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
@@ -56,6 +58,7 @@ const SECTIONS = [
       format: (v) => roundDamage(v),
     },
     stats: [
+      { key: "hp", label: "HP", value: (e) => unitStats[e.definitionName]?.hp, format: (v) => v?.toLocaleString() ?? "—" },
       { key: "totalDamageTaken", label: "Taken (dmg)", format: (v) => roundDamage(v) },
       { key: "damageDealt", label: "Dealt (dmg)", format: (v) => roundDamage(v) },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
@@ -71,6 +74,7 @@ const SECTIONS = [
       format: (v) => `${roundDamage(v)} dmg`,
     },
     stats: [
+      { key: "hp", label: "HP", value: (e) => unitStats[e.definitionName]?.hp, format: (v) => v?.toLocaleString() ?? "—" },
       { key: "kills", label: "Kills", format: (v) => `${v}` },
       { key: "damageDealt", label: "Damage", format: (v) => roundDamage(v) },
       { key: "buildFrame", label: "Built", format: (v) => frameToTime(v) },
@@ -173,7 +177,7 @@ function MedalSection({ section, entries }) {
                 </span>
                 {section.stats.map((s) => (
                   <span key={s.key} className="medal-table-stat">
-                    {formatStatValue(s, entry[s.key])}
+                    {formatStatValue(s, s.value ? s.value(entry) : entry[s.key])}
                   </span>
                 ))}
               </div>
