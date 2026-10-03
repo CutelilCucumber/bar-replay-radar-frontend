@@ -83,6 +83,11 @@ const SECTIONS = [
   },
 ];
 
+// Stat columns dropped first on narrow viewports. Both are frame timestamps
+// that are pure context — nothing else in the panel references them, so the
+// table stays readable as a scroller instead of a 6-column squeeze.
+const HIDDEN_ON_NARROW = new Set(["buildFrame", "destroyedFrame"]);
+
 // Rank color, not opacity: #1 gold, #2 silver, #3 bronze.
 const RANK_META = {
   1: { color: "#f2c94c" },
@@ -125,6 +130,11 @@ function MedalSection({ section, entries }) {
   const { primary } = section;
   const barMax = Math.max(1, ...entries.map((e) => primary.value(e)));
   const tableColumns = `minmax(48px, 1.1fr) repeat(${section.stats.length}, minmax(50px, 1fr))`;
+  // Math.max guards repeat() against a negative count, which would invalidate
+  // the whole grid-template-columns if a section ever had fewer stats than
+  // HIDDEN_ON_NARROW drops.
+  const narrowStats = Math.max(0, section.stats.length - HIDDEN_ON_NARROW.size);
+  const compactColumns = `minmax(40px, 1.1fr) repeat(${narrowStats}, minmax(46px, 1fr))`;
 
   return (
     <section className="medal-section">
@@ -134,56 +144,80 @@ function MedalSection({ section, entries }) {
         to share the parent's column tracks. Image, mini bar, and stat cells
         therefore stay pixel-aligned across every row, and hovering a row
         highlights all three cells together.
-      */}
-      <div className="medal-section-body" style={{ "--table-cols": tableColumns }}>
-        <div className="medal-row medal-head-row">
-          <div className="medal-col-head medal-col-head-empty" />
-          <div className="medal-col-head medal-chart-head">{primary.label}</div>
-          <div className="medal-col-head">
-            <div className="medal-table-row medal-table-head">
-              <span className="medal-table-player">Player</span>
-              {section.stats.map((s) => (
-                <span key={s.key} className="medal-table-stat">
-                  {s.label}
-                </span>
-              ))}
-            </div>
-          </div>
-        </div>
 
-        {entries.map((entry, i) => {
-          const raw = primary.value(entry);
-          const pct = Math.max(1.5, (raw / barMax) * 100);
-          return (
-            <div className="medal-row" key={entry.unitID}>
-              <div className="medal-media">
-                <EntryMedia entry={entry} rank={i + 1} />
-              </div>
-              <div className="medal-bar-cell">
-                <div className="medal-bar-track">
-                  <div
-                    className="medal-bar-fill"
-                    style={{ width: `${pct}%`, background: displayColor(entry) }}
-                  />
-                </div>
-                <span className="medal-bar-value">{primary.format(raw)}</span>
-              </div>
-              <div className="medal-table-row">
-                <span
-                  className="medal-table-player"
-                  style={{ color: displayColor(entry) }}
-                >
-                  {entry.playerName}
-                </span>
+        Because alignment comes from shared tracks rather than repeated
+        per-row markup, the whole grid can sit in one horizontal scroller:
+        .medal-section-body is floored at its own min-content width, so it
+        overflows the wrapper rather than compressing its track minimums.
+        Rows scroll together, so columns stay aligned at every scroll offset.
+      */}
+      <div className="medal-section-scroll">
+        <div
+          className="medal-section-body"
+          style={{
+            "--table-cols": tableColumns,
+            "--table-cols-compact": compactColumns,
+          }}
+        >
+          <div className="medal-row medal-head-row">
+            <div className="medal-col-head medal-col-head-empty" />
+            <div className="medal-col-head medal-chart-head">{primary.label}</div>
+            <div className="medal-col-head">
+              <div className="medal-table-row medal-table-head">
+                <span className="medal-table-player">Player</span>
                 {section.stats.map((s) => (
-                  <span key={s.key} className="medal-table-stat">
-                    {formatStatValue(s, s.value ? s.value(entry) : entry[s.key])}
+                  <span
+                    key={s.key}
+                    className={`medal-table-stat${
+                      HIDDEN_ON_NARROW.has(s.key) ? " medal-stat-narrow-hide" : ""
+                    }`}
+                  >
+                    {s.label}
                   </span>
                 ))}
               </div>
             </div>
-          );
-        })}
+          </div>
+
+          {entries.map((entry, i) => {
+            const raw = primary.value(entry);
+            const pct = Math.max(1.5, (raw / barMax) * 100);
+            return (
+              <div className="medal-row" key={entry.unitID}>
+                <div className="medal-media">
+                  <EntryMedia entry={entry} rank={i + 1} />
+                </div>
+                <div className="medal-bar-cell">
+                  <div className="medal-bar-track">
+                    <div
+                      className="medal-bar-fill"
+                      style={{ width: `${pct}%`, background: displayColor(entry) }}
+                    />
+                  </div>
+                  <span className="medal-bar-value">{primary.format(raw)}</span>
+                </div>
+                <div className="medal-table-row">
+                  <span
+                    className="medal-table-player"
+                    style={{ color: displayColor(entry) }}
+                  >
+                    {entry.playerName}
+                  </span>
+                  {section.stats.map((s) => (
+                    <span
+                      key={s.key}
+                      className={`medal-table-stat${
+                        HIDDEN_ON_NARROW.has(s.key) ? " medal-stat-narrow-hide" : ""
+                      }`}
+                    >
+                      {formatStatValue(s, s.value ? s.value(entry) : entry[s.key])}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

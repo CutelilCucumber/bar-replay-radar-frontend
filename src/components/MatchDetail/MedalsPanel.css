@@ -37,12 +37,37 @@
 /* Three columns: [image] [mini bar] [stat table]. Every entry is a single
    .medal-row grid item spanning all columns, pulling in the parent's tracks
    via subgrid — so all three cells share exact column boundaries and a
-   hover background can cover the whole row band at once. */
+   hover background can cover the whole row band at once.
+
+   This grid is wider than a phone viewport: the stat table alone floors out
+   at ~338px (six tracks with minmax() minimums plus gaps) before the image
+   and bar columns are added. Rather than let it clip, the grid sits in a
+   horizontal scroller and is floored at its own min-content width, so it
+   overflows the wrapper instead of squeezing those track minimums. Scrolling
+   the wrapper moves every row at once, so the subgrid alignment holds. */
+.medal-section-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+}
+
 .medal-section-body {
   display: grid;
-  grid-template-columns: minmax(0, auto) minmax(80px, 1.1fr) minmax(0, 1.9fr);
+  /* Columns 1 and 3 are floored so neither can collapse to zero width in the
+     narrow centre column of the 3-up desktop layout (~1024-1400px): col 3
+     floors the stat table, col 1 floors the unit portrait (a bare `auto`
+     track, since minmax(0, auto) lets it shrink to nothing and take the
+     portrait with it). Column 2 keeps an 80px floor for the bar + value.
+     Past the sum of the floors the wrapper scrolls. */
+  grid-template-columns: auto minmax(80px, 1.1fr) minmax(190px, 1.9fr);
   column-gap: 16px;
   --medal-row-h: 112px;
+
+  /* Without this the grid would stretch to the wrapper width and overflow
+     invisibly inside its own tracks (its min-content is larger than any
+     phone viewport). min-content keeps it self-sizing, so the wrapper
+     actually gets a scroll range to offer. */
+  min-width: min-content;
 }
 
 .medal-row {
@@ -237,10 +262,25 @@
   text-overflow: ellipsis;
 }
 
-/* Narrower screens: keep the 3-column layout but shrink rows a touch; the
-   section scrolls horizontally rather than losing column alignment. */
+/* Narrower screens: shrink the portrait a touch. The table keeps all its
+   columns and scrolls horizontally rather than losing column alignment —
+   see .medal-section-scroll above. Below 620px the two frame-timestamp
+   columns drop out (they're pure context) so the scroll range stays short. */
 @media (max-width: 760px) {
   .medal-section-body {
     --medal-row-h: 96px;
+  }
+}
+
+@media (max-width: 620px) {
+  .medal-stat-narrow-hide {
+    display: none;
+  }
+
+  /* Swapped in on .medal-table-row rather than .medal-section-body: the full
+     template is an inline style on the parent, so only the rows (which carry
+     no inline custom property) can be overridden here. */
+  .medal-table-row {
+    --table-cols: var(--table-cols-compact);
   }
 }

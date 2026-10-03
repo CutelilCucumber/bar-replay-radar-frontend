@@ -65,8 +65,20 @@ a {
 }
 .option-container {
   display: flex;
+  flex-wrap: wrap;
   gap: 10px;
   margin-bottom: 10px;
+}
+/* The ID input is the only elastic child: it takes the slack on a wide
+   screen and wraps to its own line on a narrow one, instead of its old fixed
+   280px width pushing the Look up button off-screen. */
+.option-container .field-filter {
+  flex: 1 1 180px;
+  min-width: 0;
+  width: auto;
+}
+.option-container .scan-button {
+  flex-shrink: 0;
 }
 .no-matches {
   text-align: center;
@@ -103,17 +115,25 @@ a {
   letter-spacing: 0.03em;
 }
 
-/* mobile-only control bar: overview | mode | filters, space-between */
+/* mobile-only control bar: overview | mode | filters, space-between.
+   The three controls total ~440px at their natural widths, which is wider
+   than a phone viewport, so the row wraps instead of letting "Filters" trail
+   off the right edge. Children keep their intrinsic width (flex-shrink: 0) —
+   squeezing a control looks worse than moving it to a second line. */
 .mobile-control-bar {
   display: none;
   align-items: center;
   justify-content: space-between;
-  gap: 12px;
-  padding: 10px 20px;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  padding: 10px 16px;
   position: sticky;
   top: 0;
   z-index: 30;
   background: var(--color-bg);
+}
+.mobile-control-bar > * {
+  flex-shrink: 0;
 }
 
 .layout-grid {
@@ -137,8 +157,12 @@ a {
   top: var(--titlebar-h);
 }
 
-/* [BREAKPOINT: 1024px] — must match the value in Filter.css and InfoSideBar.css */
-@media (max-width: 1024px) {
+/* [BREAKPOINT: 1024px] — must match the value in Filter.css and InfoSideBar.css.
+   The upper bound is 1023.98px, not 1024px: those files pair this with a
+   `min-width: 1024px` block, and at exactly 1024px both would match. The
+   later min-width rule wins for the sidebar toggles, so the control bar would
+   render empty with no way to open either sidebar. */
+@media (max-width: 1023.98px) {
   .mobile-control-bar {
     display: flex;
   }
@@ -154,6 +178,32 @@ a {
 
   .filter-sidebar-slot {
     position: static;
+  }
+}
+
+/* Small phones: tighten the control bar so overview | mode | filters still
+   share one line down to ~360px. Under that flex-wrap takes over and Filters
+   drops to a second row rather than clipping. */
+@media (max-width: 480px) {
+  .mobile-control-bar {
+    padding: 8px 12px;
+    gap: 8px;
+  }
+
+  .mobile-control-bar .info-sidebar-toggle,
+  .mobile-control-bar .filter-sidebar-toggle {
+    font-size: 12px;
+    padding: 7px 9px;
+    gap: 6px;
+  }
+
+  .mobile-control-bar .mode-switch {
+    padding: 2px;
+  }
+
+  .mobile-control-bar .mode-switch-button {
+    font-size: 11px;
+    padding: 5px 8px;
   }
 }
 

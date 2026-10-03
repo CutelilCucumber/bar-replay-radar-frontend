@@ -266,7 +266,6 @@ export default function App() {
                   onChange={(e) => setLookupId(e.target.value)}
                   onKeyDown={(e) => e.key === "Enter" && runLookup()}
                   className="field-filter"
-                  style={{ width: 280 }}
                 />
                 <button
                   onClick={() => runLookup()}

@@ -9,6 +9,21 @@
   gap: 14px;
   margin-top: 6px;
 }
+/* Two charts per row on desktop; stacked on a phone, where two side-by-side
+   Recharts plots end up ~130px wide and unreadable. minmax(0, 1fr) keeps each
+   chart's ResponsiveContainer from being pushed wider than its track. */
+.chart-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+@media (max-width: 620px) {
+  .chart-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
 .chart-container {
   height: 190px;
 }

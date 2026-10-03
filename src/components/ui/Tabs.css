@@ -1,5 +1,10 @@
+/* Wraps rather than scrolls: the tab row is primary navigation, and a
+   horizontally scrolling strip hides the last tab (Medals) behind an
+   invisible scroll edge on a phone. With flex-wrap every tab stays
+   reachable with no affordance to discover. */
 .tabs-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 4px;
   margin-bottom: 14px;
   border-bottom: 1px solid var(--color-line);
@@ -18,6 +23,11 @@
   font-family: "Space Grotesk", sans-serif;
   color: var(--color-muted);
   transition: background 120ms, color 120ms;
+
+  /* Never let a tab's label be compressed to fit — wrapping is the overflow
+     strategy here, so shrinking would only produce truncated labels. */
+  flex: 0 0 auto;
+  min-width: 0;
 }
 .tab-button:hover {
   background: var(--color-panel);

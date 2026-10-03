@@ -99,10 +99,7 @@ export function MatchDetail({
 
       {activeTab === "details" && (
         <>
-          <div
-            className="chart-grid"
-            style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 8 }}
-          >
+          <div className="chart-grid">
             {CHARTS.map((chart) => (
               <DiffChart
                 key={chart.key}
